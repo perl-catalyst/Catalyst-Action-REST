@@ -1,7 +1,7 @@
-??? - Release ???
-  Remove ancient and deprecated Data::Denter prompt from Makefile.PL (hdp)
-  Remove Data::Dump, which was entirely unused (hdp)
-  Stop tests from dying with Catalyst 5.80 (hdp)
+Wed Mar 25 22:33:38 PDT 2009 (hdp) - Release 0.68
+  Remove prompt for ancient and deprecated Data::Denter from Makefile.PL
+  Remove Data::Dump, which was entirely unused
+  Stop tests from dying with Catalyst 5.80
 
 Wed Mar 25 21:59:59 PDT 2009 (hdp) - Release 0.67
   (no changes from 0.67_01)
