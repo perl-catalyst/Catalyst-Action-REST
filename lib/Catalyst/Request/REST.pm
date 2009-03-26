@@ -17,6 +17,8 @@ use HTTP::Headers::Util qw(split_header_words);
 
 sub _insert_self_into {
   my ($class, $app_class ) = @_;
+  # the fallback to $app_class is for the (rare and deprecated) case when
+  # people are defining actions in MyApp.pm instead of in a controller.
   my $app = Catalyst::Utils::class2appclass( $app_class ) || $app_class;
 
   my $req_class = $app->request_class;
