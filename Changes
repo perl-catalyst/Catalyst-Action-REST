@@ -1,4 +1,7 @@
-Wed Mar 25 09:36:00 PDT 2009 (hdp - Release 0.67_01
+Wed Mar 25 21:59:59 PDT 2009 (hdp) - Release 0.67
+  (no changes from 0.67_01)
+
+Wed Mar 25 09:36:00 PDT 2009 (hdp) - Release 0.67_01
   Fix RT#43840, improper app-level config handling
   Fix RT#42859, 'wrong' Catalyst dependency
   Fix RT#42025, stepping on custom request classes
