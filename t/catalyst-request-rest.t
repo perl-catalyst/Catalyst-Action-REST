@@ -168,15 +168,13 @@ use HTTP::Headers;
 }
 
 {
-  # XXX calling ->setup twice breaks Catalyst 5.80; find a different way to
-  # reset the components/actions
   my $test = 'Test::Catalyst::Action::REST';
   use_ok $test;
   is($test->request_class, 'Catalyst::Request::REST',
     'Request::REST took over for Request');
 
   $test->request_class('Some::Other::Class');
-  eval { $test->setup };
+  eval { $test->setup_finished(0); $test->setup };
   like $@, qr/$test has a custom request class Some::Other::Class/;
 
   {
@@ -184,7 +182,7 @@ use HTTP::Headers;
     use base 'Catalyst::Request::REST';
   }
   $test->request_class('My::Request');
-  eval { $test->setup };
+  eval { $test->setup_finished(0); $test->setup };
   is $@, '', 'no error from Request::REST subclass';
 }
 
