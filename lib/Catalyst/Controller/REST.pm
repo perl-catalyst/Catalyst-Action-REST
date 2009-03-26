@@ -1,6 +1,6 @@
 package Catalyst::Controller::REST;
 
-our $VERSION = '0.68';
+our $VERSION = '0.69';
 
 =head1 NAME
 
