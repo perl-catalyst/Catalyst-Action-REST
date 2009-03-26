@@ -55,6 +55,9 @@ sub _load_content_plugins {
         $c->log->info("Using deprecated configuration for Catalyst::Action::REST!");
         $c->log->info("Please see perldoc Catalyst::Action::REST for the update guide");
         $config = $controller->{'serialize'};
+        # if they're using the deprecated config, they may be expecting a
+        # default mapping too.
+        $config->{map} ||= $controller->{map};
     } else {
         $config = $controller;
     }
