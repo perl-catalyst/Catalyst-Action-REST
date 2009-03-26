@@ -20,10 +20,6 @@ feature 'JSON (application/json) support',
     'JSON'     => '2.12';
     'JSON::XS' => '2.2222';
 
-feature 'Data::Denter (text/x-data-denter) support',
-    -default => 0,
-    'Data::Denter' => undef;
-
 feature 'Data::Taxi (text/x-data-taxi) support',
     -default => 0,
     'Data::Taxi' => undef;
