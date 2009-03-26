@@ -168,6 +168,8 @@ use HTTP::Headers;
 }
 
 {
+  # XXX calling ->setup twice breaks Catalyst 5.80; find a different way to
+  # reset the components/actions
   my $test = 'Test::Catalyst::Action::REST';
   use_ok $test;
   is($test->request_class, 'Catalyst::Request::REST',
