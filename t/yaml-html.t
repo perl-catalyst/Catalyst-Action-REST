@@ -3,7 +3,6 @@ use warnings;
 use Test::More tests => 4;
 use YAML::Syck;
 use FindBin;
-use Data::Dump qw(dump);
 
 use lib ( "$FindBin::Bin/lib", "$FindBin::Bin/../lib" );
 use Test::Rest;

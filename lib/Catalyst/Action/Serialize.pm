@@ -11,7 +11,6 @@ use warnings;
 
 use base 'Catalyst::Action::SerializeBase';
 use Module::Pluggable::Object;
-use Data::Dump qw(dump);
 
 sub execute {
     my $self = shift;

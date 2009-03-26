@@ -2,7 +2,6 @@ use strict;
 use warnings;
 use Test::More tests => 3; 
 use FindBin;
-use Data::Dump qw(dump);
 
 use lib ("$FindBin::Bin/lib", "$FindBin::Bin/../lib", "$FindBin::Bin/broken");
 use Test::Rest;

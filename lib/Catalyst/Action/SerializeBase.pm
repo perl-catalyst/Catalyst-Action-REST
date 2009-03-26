@@ -11,7 +11,6 @@ use warnings;
 
 use base 'Catalyst::Action';
 use Module::Pluggable::Object;
-use Data::Dump qw(dump);
 use Catalyst::Request::REST;
 use Catalyst::Utils ();
 

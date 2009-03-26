@@ -103,7 +103,6 @@ use strict;
 use warnings;
 use Test::More tests => 18;
 use FindBin;
-use Data::Dump qw(dump);
 
 use lib ( "$FindBin::Bin/lib", "$FindBin::Bin/../lib" );
 use Test::Rest;
