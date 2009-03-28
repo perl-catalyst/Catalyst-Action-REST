@@ -36,7 +36,7 @@ EOH
 }
 
 SKIP: {
-    eval 'require JSON 2.12;';
+    eval 'use JSON 2.12;';
     skip "can't test application/json without JSON support", 3 if $@;
     my $json = JSON->new;
     my $at = Test::Rest->new('content_type' => 'text/doesnt-exist');

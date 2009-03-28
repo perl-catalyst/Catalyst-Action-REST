@@ -6,8 +6,8 @@ use FindBin;
 use lib ("$FindBin::Bin/lib", "$FindBin::Bin/../lib");
 use Test::Rest;
 
-eval 'require JSON';
-plan skip_all => 'Install JSON to run this test' if ($@);
+eval 'use JSON 2.12';
+plan skip_all => 'Install JSON 2.12 or later to run this test' if ($@);
 
 plan tests => 9;
 
