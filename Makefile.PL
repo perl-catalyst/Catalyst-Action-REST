@@ -42,5 +42,7 @@ feature 'XML::Simple (text/xml) support',
 auto_include;
 auto_install;
 
+repository('http://github.com/hdp/catalyst-action-rest');
+
 WriteAll;
 
