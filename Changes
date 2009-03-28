@@ -1,3 +1,6 @@
+Sat Mar 28 09:16:09 PDT 2009 (hdp) - Release 0.71
+  Fix RT#44641, missing documented 'end' action
+
 Fri Mar 27 23:21:17 PDT 2009 (hdp) - Release 0.70
   Tests that use JSON were either not checking for the version or checking in a
   way that was a syntax error.
