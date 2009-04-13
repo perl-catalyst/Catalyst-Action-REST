@@ -10,6 +10,8 @@ use strict;
 use warnings;
 
 use base 'Catalyst::Action';
+use Moose::Util qw(does_role);
+use Catalyst::ControllerRole::SerializeConfig;
 use Module::Pluggable::Object;
 use Catalyst::Request::REST;
 use Catalyst::Utils ();
@@ -47,19 +49,12 @@ sub _load_content_plugins {
     my $sarg;
     my $map;
 
-    my $config;
+    Catalyst::ControllerRole::SerializeConfig->meta->apply($controller)
+      unless does_role($controller, 'Catalyst::ControllerRole::SerializeConfig');
+
+    my $config = $controller->serialize_config;
     
-    if ( exists $controller->{'serialize'} ) {
-        $c->log->info("Using deprecated configuration for Catalyst::Action::REST!");
-        $c->log->info("Please see perldoc Catalyst::Action::REST for the update guide");
-        $config = $controller->{'serialize'};
-        # if they're using the deprecated config, they may be expecting a
-        # default mapping too.
-        $config->{map} ||= $controller->{map};
-    } else {
-        $config = $controller;
-    }
-    $map = $config->{'map'};
+    $map = $config->{map};
 
     # pick preferred content type
     my @accepted_types; # priority order, best first
