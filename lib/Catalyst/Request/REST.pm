@@ -11,8 +11,8 @@ use strict;
 use warnings;
 
 use Moose;
-extends qw/Catalyst::Request Class::Accessor::Fast/;
-with 'Catalyst::RequestRole::REST';
+extends qw/Catalyst::Request/;
+with qw/Catalyst::RequestRole::REST Catalyst::RequestRole::Deserialize/;
 
 use Catalyst::Utils;
 
@@ -35,15 +35,6 @@ sub _insert_self_into {
 =head1 NAME
 
 Catalyst::Request::REST - A REST-y subclass of Catalyst::Request
-
-=head1 METHODS
-
-If the request went through the Deserializer action, this method will
-returned the deserialized data structure.
-
-=cut
-
-__PACKAGE__->mk_accessors(qw(data));
 
 =head1 AUTHOR
 
