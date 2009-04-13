@@ -1,45 +1,14 @@
-#
-# Catlyst::Action::Serialize::XML::Simple.pm
-# Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
-# Created on: 10/12/2006 03:00:32 PM PDT
-#
-# $Id$
-
 package Catalyst::Action::Serialize::XML::Simple;
+use Moose;
+extends 'Catalyst::Action';
+with 'Catalyst::ActionRole::Serialize';
+use XML::Simple;
+use namespace::clean -except => 'meta';
 
-use strict;
-use warnings;
-
-use base 'Catalyst::Action';
-
-sub execute {
-    my $self = shift;
-    my ( $controller, $c ) = @_;
-
-    eval {
-        require XML::Simple
-    };
-    if ($@) {
-        $c->log->debug("Could not load XML::Serializer, refusing to serialize: $@")
-            if $c->debug;
-        return 0;
-    }
-    my $xs = XML::Simple->new(ForceArray => 0,);
-
-    my $stash_key = (
-            $controller->{'serialize'} ?
-                $controller->{'serialize'}->{'stash_key'} :
-                $controller->{'stash_key'} 
-        ) || 'rest';
-    my $output;
-    eval {
-        $output = $xs->XMLout({ data => $c->stash->{$stash_key} });
-    };
-    if ($@) {
-        return $@;
-    }
-    $c->response->output( $output );
-    return 1;
+sub serialize {
+  my ($self, $data, $c) = @_;
+  my $x = XML::Simple->new(ForceArray => 0);
+  return $x->XMLout({ data => $data });
 }
 
 1;

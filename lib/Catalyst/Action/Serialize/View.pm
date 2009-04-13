@@ -1,25 +1,18 @@
 package Catalyst::Action::Serialize::View;
-use strict;
-use warnings;
+use Moose;
+extends 'Catalyst::Action';
+with 'Catalyst::ActionRole::Serialize';
+use namespace::clean -except => 'meta';
 
-use base 'Catalyst::Action';
+sub serialize {
+  my ($self, $data, $c, $view) = @_;
 
-sub execute {
-    my $self = shift;
-    my ( $controller, $c, $view ) = @_;
+  unless ($c->view($view)) {
+      $c->log->error("Could not load $view, refusing to serialize");
+      return 0;
+  }
 
-    my $stash_key = (
-            $controller->{'serialize'} ?
-                $controller->{'serialize'}->{'stash_key'} :
-                $controller->{'stash_key'} 
-        ) || 'rest';
-
-    if ( !$c->view($view) ) {
-        $c->log->error("Could not load $view, refusing to serialize");
-        return 0;
-    }
-
-    return $c->view($view)->process($c);
+  return $c->view($view)->process($c);
 }
 
 1;
