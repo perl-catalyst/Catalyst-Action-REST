@@ -1,51 +1,16 @@
-#
-# Catlyst::Action::Deserialize::XML::Simple.pm
-# Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
-# Created on: 10/12/2006 03:00:32 PM PDT
-#
-# $Id$
-
 package Catalyst::Action::Deserialize::XML::Simple;
+use Moose;
+extends 'Catalyst::Action';
+with 'Catalyst::ActionRole::Deserialize';
+use XML::Simple;
+use namespace::clean -except => 'meta';
 
-use strict;
-use warnings;
-
-use base 'Catalyst::Action';
-
-sub execute {
-    my $self = shift;
-    my ( $controller, $c, $test ) = @_;
-
-    eval {
-        require XML::Simple;
-    };
-    if ($@) {
-        $c->log->debug("Could not load XML::Simple, refusing to deserialize: $@")
-            if $c->debug;
-        return 0;
-    }
-
-    my $body = $c->request->body;
-    if ($body) {
-        my $xs = XML::Simple->new('ForceArray' => 0,);
-        my $rdata;
-        eval {
-            $rdata = $xs->XMLin( "$body" );
-        };
-        if ($@) {
-            return $@;
-        }
-        if (exists($rdata->{'data'})) {
-            $c->request->data($rdata->{'data'});
-        } else {
-            $c->request->data($rdata);
-        }
-    } else {
-        $c->log->debug(
-            'I would have deserialized, but there was nothing in the body!')
-                if $c->debug;
-    }
-    return 1;
+sub deserialize {
+  my ($self, $content) = @_;
+  my $x = XML::Simple->new(ForceArray => 0);
+  my $data = $x->XMLin($content);
+  $data = $data->{data} if exists $data->{data};
+  return $data;
 }
 
 1;
