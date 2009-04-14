@@ -1,12 +1,9 @@
 package Catalyst::Action::Deserialize::View;
+use Moose;
+extends 'Catalyst::Action';
+with 'Catalyst::ActionRole::Deserialize';
+use namespace::clean -except => 'meta';
 
-use strict;
-use warnings;
-
-use base 'Catalyst::Action';
-
-sub execute {
-    return 1;
-}
+sub deserialize { undef };
 
 1;
