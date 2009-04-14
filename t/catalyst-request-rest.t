@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 28;
+use Test::More tests => 26;
 use FindBin;
 use lib ( "$FindBin::Bin/../lib", "$FindBin::Bin/../t/lib" );
 
@@ -170,20 +170,8 @@ use HTTP::Headers;
 {
   my $test = 'Test::Catalyst::Action::REST';
   use_ok $test;
-  is($test->request_class, 'Catalyst::Request::REST',
-    'Request::REST took over for Request');
-
-  $test->request_class('Some::Other::Class');
-  eval { $test->setup_finished(0); $test->setup };
-  like $@, qr/$test has a custom request class Some::Other::Class/;
-
-  {
-    package My::Request;
-    use base 'Catalyst::Request::REST';
-  }
-  $test->request_class('My::Request');
-  eval { $test->setup_finished(0); $test->setup };
-  is $@, '', 'no error from Request::REST subclass';
+  is($test->request_class, 'Catalyst::Request',
+    'Request::REST did not take over for Request');
 }
 
 package MockContext;

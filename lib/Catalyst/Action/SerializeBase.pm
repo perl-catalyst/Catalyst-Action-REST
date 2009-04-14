@@ -13,21 +13,17 @@ use base 'Catalyst::Action';
 use Moose::Util qw(does_role);
 use Catalyst::ControllerRole::SerializeConfig;
 use Module::Pluggable::Object;
-use Catalyst::Request::REST;
+use Catalyst::RequestRole::REST;
 use Catalyst::Utils ();
-
-sub new {
-  my $class  = shift;
-  my $config = shift;
-  Catalyst::Request::REST->_insert_self_into( $config->{class} );
-  return $class->SUPER::new($config, @_);
-}
 
 __PACKAGE__->mk_accessors(qw(_serialize_plugins _loaded_plugins));
 
 sub _load_content_plugins {
     my $self = shift;
     my ( $search_path, $controller, $c ) = @_;
+
+    Catalyst::RequestRole::REST->meta->apply($c->request)
+      unless does_role($c->request, 'Catalyst::RequestRole::REST');
 
     unless ( defined( $self->_loaded_plugins ) ) {
         $self->_loaded_plugins( {} );
