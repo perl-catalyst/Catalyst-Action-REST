@@ -14,6 +14,7 @@ use Moose::Util qw(does_role);
 use Catalyst::ControllerRole::SerializeConfig;
 use Module::Pluggable::Object;
 use Catalyst::RequestRole::REST;
+use Catalyst::ResponseRole::REST;
 use Catalyst::Utils ();
 
 __PACKAGE__->mk_accessors(qw(_serialize_plugins _loaded_plugins));
@@ -24,6 +25,9 @@ sub _load_content_plugins {
 
     Catalyst::RequestRole::REST->meta->apply($c->request)
       unless does_role($c->request, 'Catalyst::RequestRole::REST');
+
+    Catalyst::ResponseRole::REST->meta->apply($c->response)
+      unless does_role($c->response, 'Catalyst::ResponseRole::REST');
 
     unless ( defined( $self->_loaded_plugins ) ) {
         $self->_loaded_plugins( {} );
@@ -70,8 +74,10 @@ sub _load_content_plugins {
     # pick the best match that we have a serializer mapping for
     my ($content_type) = grep { $map->{$_} } @accepted_types;
 
-    return $self->_unsupported_media_type($c, $content_type)
-        if not $content_type;
+    unless ($content_type) {
+        $c->response->unsupported_media_type;
+        return;
+    }
 
     # carp about old text/x-json
     if ($content_type eq 'text/x-json') {
@@ -96,10 +102,12 @@ sub _load_content_plugins {
         $sclass .= $mc;
         #}
         if ( !grep( /^$sclass$/, @{ $self->_serialize_plugins } ) ) {
-            return $self->_unsupported_media_type($c, $content_type);
+            $c->response->unsupported_media_type($content_type);
+            return;
         }
     } else {
-        return $self->_unsupported_media_type($c, $content_type);
+        $c->response->unsupported_media_type($content_type);
+        return;
     }
     unless ( exists( $self->_loaded_plugins->{$sclass} ) ) {
         my $load_class = $sclass;
@@ -109,7 +117,8 @@ sub _load_content_plugins {
         if ($@) {
             $c->log->error(
                 "Error loading $sclass for " . $content_type . ": $!" );
-            return $self->_unsupported_media_type($c, $content_type);
+            $c->response->unsupported_media_type($content_type);
+            return;
         } else {
             $self->_loaded_plugins->{$sclass} = 1;
         }
@@ -125,29 +134,6 @@ sub _load_content_plugins {
     }
 
     return $sclass, $sarg, $content_type;
-}
-
-sub _unsupported_media_type {
-    my ( $self, $c, $content_type ) = @_;
-    $c->res->content_type('text/plain');
-    $c->res->status(415);
-    if (defined($content_type) && $content_type ne "") {
-        $c->res->body(
-            "Content-Type " . $content_type . " is not supported.\r\n" );
-    } else {
-        $c->res->body(
-            "Cannot find a Content-Type supported by your client.\r\n" );
-    }
-    return undef;
-}
-
-sub _serialize_bad_request {
-    my ( $self, $c, $content_type, $error ) = @_;
-    $c->res->content_type('text/plain');
-    $c->res->status(400);
-    $c->res->body(
-        "Content-Type " . $content_type . " had a problem with your request.\r\n***ERROR***\r\n$error" );
-    return undef;
 }
 
 1;
