@@ -1,7 +1,7 @@
 package Catalyst::Action::Serialize::XML::Simple;
 use Moose;
 extends 'Catalyst::Action';
-with 'Catalyst::ActionRole::Serialize';
+with 'Catalyst::ActionRole::SerializeFormat';
 use XML::Simple;
 use namespace::clean -except => 'meta';
 

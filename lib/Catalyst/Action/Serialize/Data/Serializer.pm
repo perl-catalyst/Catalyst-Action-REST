@@ -1,7 +1,7 @@
 package Catalyst::Action::Serialize::Data::Serializer;
 use Moose;
 extends 'Catalyst::Action';
-with 'Catalyst::ActionRole::Serialize';
+with 'Catalyst::ActionRole::SerializeFormat';
 use Data::Serializer;
 use namespace::clean -except => 'meta';
 

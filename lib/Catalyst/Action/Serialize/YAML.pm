@@ -1,7 +1,7 @@
 package Catalyst::Action::Serialize::YAML;
 use Moose;
 extends 'Catalyst::Action';
-with 'Catalyst::ActionRole::Serialize';
+with 'Catalyst::ActionRole::SerializeFormat';
 use YAML::Syck;
 use namespace::clean -except => 'meta';
 

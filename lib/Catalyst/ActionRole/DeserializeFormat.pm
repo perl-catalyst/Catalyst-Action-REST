@@ -1,4 +1,4 @@
-package Catalyst::ActionRole::Deserialize;
+package Catalyst::ActionRole::DeserializeFormat;
 use Moose::Role;
 use Moose::Util qw(does_role);
 use Catalyst::RequestRole::Deserialize;

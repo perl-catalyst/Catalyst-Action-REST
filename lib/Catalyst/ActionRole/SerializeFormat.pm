@@ -1,4 +1,4 @@
-package Catalyst::ActionRole::Serialize;
+package Catalyst::ActionRole::SerializeFormat;
 use Moose::Role;
 use Catalyst::ControllerRole::SerializeConfig;
 use Moose::Util qw(does_role);
@@ -6,10 +6,14 @@ use namespace::clean -except => 'meta';
 requires 'serialize';
 
 around execute => sub {
-  # the original Serialize::* actions never executed their body, so this is
-  # ignored.
   my $next = shift;
   my ($self, $controller, $c, $arg) = @_;
+
+  # XXX is ignoring the return value here correct? the original serialize
+  # actions never even called their body.
+  $self->$next($controller, $c, $arg)
+    if blessed $self;
+
   Catalyst::ControllerRole::SerializeConfig->meta->apply($controller)
     unless does_role($controller, 'Catalyst::ControllerRole::SerializeConfig');
       

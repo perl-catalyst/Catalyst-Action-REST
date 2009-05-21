@@ -1,7 +1,7 @@
 package Catalyst::Action::Deserialize::JSON;
 use Moose;
 extends 'Catalyst::Action';
-with 'Catalyst::ActionRole::Deserialize';
+with 'Catalyst::ActionRole::DeserializeFormat';
 use JSON qw(decode_json);
 use namespace::clean -except => 'meta';
 
