@@ -284,22 +284,22 @@ IMPLEMENTATION DETAILS
         The "begin" method uses Catalyst::Action::Deserialize. The "end"
         method uses Catalyst::Action::Serialize. If you want to override
         either behavior, simply implement your own "begin" and "end" actions
-        and use NEXT:
+        and use MRO::Compat:
 
           my Foo::Controller::Monkey;
           use base qw(Catalyst::Controller::REST);
 
           sub begin :Private {
             my ($self, $c) = @_;
-            ... do things before Deserializing ...
-            $self->NEXT::begin($c); 
+            ... do things before Deserializing ...            
+            $self->maybe::next::method($c);
             ... do things after Deserializing ...
           } 
 
           sub end :Private {
             my ($self, $c) = @_;
-            ... do things before Serializing ...
-            $self->NEXT::end($c); 
+            ... do things before Serializing ...            
+            $self->maybe::next::method($c);
             ... do things after Serializing ...
           }
 

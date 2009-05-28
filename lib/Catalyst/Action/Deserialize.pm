@@ -11,6 +11,7 @@ use warnings;
 
 use base 'Catalyst::Action::SerializeBase';
 use Module::Pluggable::Object;
+use MRO::Compat;
 
 __PACKAGE__->mk_accessors(qw(plugins));
 
@@ -38,7 +39,7 @@ sub execute {
         }
     }
 
-    $self->NEXT::execute(@_);
+    $self->maybe::next::method(@_);
 
     return 1;
 }
