@@ -18,7 +18,7 @@ use Catalyst::Controller::REST;
 
 BEGIN { require 5.008001; }
 
-our $VERSION = '0.72';
+our $VERSION = '0.73';
 
 sub new {
   my $class  = shift;
