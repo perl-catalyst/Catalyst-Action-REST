@@ -174,19 +174,16 @@ L<Catalyst::Action::Serialize>, L<Catalyst::Action::Deserialize>
 
 =item Q: I'm getting a "415 Unsupported Media Type" error. What gives?!
 
-A:  Most likely, you haven't set Content-type equal to "application/json", or one of the 
-accepted return formats.  You can do this by setting it in your query string thusly:
-?content-type=application%2Fjson (where %2F == / uri escaped). 
+A:  Most likely, you haven't set Content-type equal to "application/json", or
+one of the accepted return formats.  You can do this by setting it in your query
+accepted return formats.  You can do this by setting it in your query string
+thusly: C<< ?content-type=application%2Fjson (where %2F == / uri escaped). >>
 
-**NOTE** Apache will refuse %2F unless configured otherise.
-Make sure AllowEncodedSlashes On is in your httpd.conf file in order for this to run smoothly.
+B<NOTE> Apache will refuse %2F unless configured otherise.
+Make sure C<< AllowEncodedSlashes On >> is in your httpd.conf file in orde
+for this to run smoothly.
 
-=cut
-
-=cut
-
-
-
+=back
 
 =head1 MAINTAINER
 
