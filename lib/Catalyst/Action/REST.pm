@@ -187,7 +187,7 @@ for this to run smoothly.
 
 =head1 MAINTAINER
 
-J. Shirley <jshirley@gmail.com>
+Hans Dieter Pearcey
 
 =head1 CONTRIBUTORS
 
@@ -199,11 +199,15 @@ John Goulah
 
 Daisuke Maki <daisuke@endeworks.jp>
 
+J. Shirley <jshirley@gmail.com>
+
+Tomas Doran (t0m) <bobtfish@bobtfish.net>
+
 =head1 AUTHOR
 
 Adam Jacob <adam@stalecoffee.org>, with lots of help from mst and jrockway
 
-Marchex, Inc. paid me while I developed this module.  (http://www.marchex.com)
+Marchex, Inc. paid me while I developed this module. (L<http://www.marchex.com>)
 
 =head1 LICENSE
 
