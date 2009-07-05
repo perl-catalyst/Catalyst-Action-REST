@@ -1,6 +1,6 @@
 package Catalyst::Controller::REST;
 
-our $VERSION = '0.71';
+our $VERSION = '0.73';
 
 =head1 NAME
 
@@ -442,22 +442,22 @@ L<Catalyst::Action::Serialize>.
 The C<begin> method uses L<Catalyst::Action::Deserialize>.  The C<end>
 method uses L<Catalyst::Action::Serialize>.  If you want to override
 either behavior, simply implement your own C<begin> and C<end> actions
-and use NEXT:
+and use MRO::Compat:
 
   my Foo::Controller::Monkey;
   use base qw(Catalyst::Controller::REST);
 
   sub begin :Private {
     my ($self, $c) = @_;
-    ... do things before Deserializing ...
-    $self->NEXT::begin($c); 
+    ... do things before Deserializing ...    
+    $self->maybe::next::method($c);    
     ... do things after Deserializing ...
   } 
 
   sub end :Private {
     my ($self, $c) = @_;
-    ... do things before Serializing ...
-    $self->NEXT::end($c); 
+    ... do things before Serializing ...    
+    $self->maybe::next::method($c);
     ... do things after Serializing ...
   }
 

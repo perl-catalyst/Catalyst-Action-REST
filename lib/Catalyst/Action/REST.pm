@@ -20,7 +20,7 @@ use namespace::clean -except => 'meta';
 
 BEGIN { require 5.008001; }
 
-our $VERSION = '0.71';
+our $VERSION = '0.73';
 
 =head1 NAME
 
@@ -89,58 +89,60 @@ sub dispatch {
 
     my $controller = $c->component( $self->class );
     my $method     = $self->name . "_" . uc( $c->request->method );
-    if ( $controller->can($method) ) {
-        $c->execute( $self->class, $self, @{ $c->req->args } );
-        return $controller->$method( $c, @{ $c->req->args } );
-    } else {
-        if ( $c->request->method eq "OPTIONS" ) {
-            return $self->_return_options($c);
-        } else {
-            my $handle_ni = $self->name . "_not_implemented";
-            if ( $controller->can($handle_ni) ) {
-                return $controller->$handle_ni( $c, @{ $c->req->args } );
-            } else {
-                return $self->_return_not_implemented($c);
-            }
-        }
+
+    if (my $code = $controller->can($method)) {
+        $c->execute( $self->class, $self, @{ $c->req->args } ) if $code;
+        local $self->{reverse} = $self->{reverse} . "_" . uc( $c->request->method );
+        local $self->{code} = $code;
+
+        return $c->execute( $self->class, $self, @{ $c->req->args } );
     }
+    if ($c->request->method eq "OPTIONS") {
+        local $self->{reverse} = $self->{reverse} . "_" . uc( $c->request->method );
+        local $self->{code} = sub { $self->can('_return_options')->($self->name, @_) };
+        return $c->execute( $self->class, $self, @{ $c->req->args } );
+    }
+    my $not_implemented_method = $self->name . "_not_implemented";
+    local $self->{code} = $controller->can($not_implemented_method)
+        || sub { $self->can('_return_not_implemented')->($self->name, @_); };
+
+    local $self->{reverse} = $not_implemented_method;
+
+    $c->execute( $self->class, $self, @{ $c->req->args } );
 }
 
-sub _return_options {
-    my ( $self, $c ) = @_;
-
-    my @allowed = $self->_get_allowed_methods($c);
-    $c->response->content_type('text/plain');
-    $c->response->status(200);
-    $c->response->header( 'Allow' => \@allowed );
-}
-
-sub _get_allowed_methods {
-    my ( $self, $c ) = @_;
-
-    my $controller = $self->class;
-    my $methods    = Class::Inspector->methods($controller);
+my $_get_allowed_methods = sub {
+    my ( $controller, $c, $name ) = @_;
+    my $class = ref($controller) ? ref($controller) : $controller;
+    my $methods    = Class::Inspector->methods($class);
     my @allowed;
     foreach my $method ( @{$methods} ) {
-        my $name = $self->name;
         if ( $method =~ /^$name\_(.+)$/ ) {
             push( @allowed, $1 );
         }
     }
     return @allowed;
+};
+
+sub _return_options {
+    my ( $method_name, $controller, $c) = @_;
+    my @allowed = $controller->$_get_allowed_methods($c, $method_name);
+    $c->response->content_type('text/plain');
+    $c->response->status(200);
+    $c->response->header( 'Allow' => \@allowed );
 }
 
 sub _return_not_implemented {
-    my ( $self, $c ) = @_;
+    my ( $method_name, $controller, $c ) = @_;
 
-    my @allowed = $self->_get_allowed_methods($c);
+    my @allowed = $controller->$_get_allowed_methods($c, $method_name);
     $c->response->content_type('text/plain');
     $c->response->status(405);
     $c->response->header( 'Allow' => \@allowed );
     $c->response->body( "Method "
           . $c->request->method
           . " not implemented for "
-          . $c->uri_for( $self->reverse ) );
+          . $c->uri_for( $method_name ) );
 }
 
 1;
