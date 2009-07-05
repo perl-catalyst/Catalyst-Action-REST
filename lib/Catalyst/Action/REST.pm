@@ -32,11 +32,11 @@ Catalyst::Action::REST - Automated REST Method Dispatching
       ... do setup for HTTP method specific handlers ...
     }
 
-    sub foo_GET { 
+    sub foo_GET {
       ... do something for GET requests ...
     }
 
-    sub foo_PUT { 
+    sub foo_PUT {
       ... do somethign for PUT requests ...
     }
 
@@ -44,13 +44,13 @@ Catalyst::Action::REST - Automated REST Method Dispatching
 
 This Action handles doing automatic method dispatching for REST requests.  It
 takes a normal Catalyst action, and changes the dispatch to append an
-underscore and method name. 
+underscore and method name.
 
 For example, in the synopsis above, calling GET on "/foo" would result in
 the foo_GET method being dispatched.
 
-If a method is requested that is not implemented, this action will 
-return a status 405 (Method Not Found).  It will populate the "Allow" header 
+If a method is requested that is not implemented, this action will
+return a status 405 (Method Not Found).  It will populate the "Allow" header
 with the list of implemented request methods.  You can override this behavior
 by implementing a custom 405 handler like so:
 
@@ -88,31 +88,41 @@ sub dispatch {
         unless does_role($c->request, 'Catalyst::RequestRole::REST');
 
     my $controller = $c->component( $self->class );
-    my $method     = $self->name . "_" . uc( $c->request->method );
+    my $rest_method = $self->name . "_" . uc( $c->request->method );
 
-    if (my $code = $controller->can($method)) {
-        $c->execute( $self->class, $self, @{ $c->req->args } ) if $code;
-        local $self->{reverse} = $self->{reverse} . "_" . uc( $c->request->method );
-        local $self->{code} = $code;
+    my ($code, $name);
 
-        return $c->execute( $self->class, $self, @{ $c->req->args } );
+    # Common case, for foo_GET etc
+    if ($code = $controller->can($rest_method)) {
+        # Exceute normal action
+        $c->execute( $self->class, $self, @{ $c->req->args } );
+        $name = $rest_method;
     }
-    if ($c->request->method eq "OPTIONS") {
-        local $self->{reverse} = $self->{reverse} . "_" . uc( $c->request->method );
-        local $self->{code} = sub { $self->can('_return_options')->($self->name, @_) };
-        return $c->execute( $self->class, $self, @{ $c->req->args } );
-    }
-    my $not_implemented_method = $self->name . "_not_implemented";
-    local $self->{code} = $controller->can($not_implemented_method)
-        || sub { $self->can('_return_not_implemented')->($self->name, @_); };
 
-    local $self->{reverse} = $not_implemented_method;
+    # Generic handling for foo_OPTIONS
+    if (!$code && $c->request->method eq "OPTIONS") {
+        $name = $rest_method;
+        $code = sub { $self->_return_options($self->name, @_) };
+    }
+
+    # Otherwise, not implemented.
+    if (!$code) {
+        $name = $self->name . "_not_implemented";
+        $code = $controller->can($name) # User method
+            # Generic not implemented
+            || sub { $self->_return_not_implemented($self->name, @_) };
+    }
+
+    # localise stuff so we can dispatch the action 'as normal, but get
+    # different stats shown, and different code run.
+    local $self->{code} = $code;
+    local $self->{reverse} = $name;
 
     $c->execute( $self->class, $self, @{ $c->req->args } );
 }
 
-my $_get_allowed_methods = sub {
-    my ( $controller, $c, $name ) = @_;
+sub _get_allowed_methods {
+    my ( $self, $controller, $c, $name ) = @_;
     my $class = ref($controller) ? ref($controller) : $controller;
     my $methods    = Class::Inspector->methods($class);
     my @allowed;
@@ -125,17 +135,17 @@ my $_get_allowed_methods = sub {
 };
 
 sub _return_options {
-    my ( $method_name, $controller, $c) = @_;
-    my @allowed = $controller->$_get_allowed_methods($c, $method_name);
+    my ( $self, $method_name, $controller, $c) = @_;
+    my @allowed = $self->_get_allowed_methods($controller, $c, $method_name);
     $c->response->content_type('text/plain');
     $c->response->status(200);
     $c->response->header( 'Allow' => \@allowed );
 }
 
 sub _return_not_implemented {
-    my ( $method_name, $controller, $c ) = @_;
+    my ( $self, $method_name, $controller, $c ) = @_;
 
-    my @allowed = $controller->$_get_allowed_methods($c, $method_name);
+    my @allowed = $self->_get_allowed_methods($controller, $c, $method_name);
     $c->response->content_type('text/plain');
     $c->response->status(405);
     $c->response->header( 'Allow' => \@allowed );
@@ -162,23 +172,20 @@ L<Catalyst::Action::Serialize>, L<Catalyst::Action::Deserialize>
 
 =item Q: I'm getting a "415 Unsupported Media Type" error. What gives?!
 
-A:  Most likely, you haven't set Content-type equal to "application/json", or one of the 
-accepted return formats.  You can do this by setting it in your query string thusly:
-?content-type=application%2Fjson (where %2F == / uri escaped). 
+A:  Most likely, you haven't set Content-type equal to "application/json", or
+one of the accepted return formats.  You can do this by setting it in your query
+accepted return formats.  You can do this by setting it in your query string
+thusly: C<< ?content-type=application%2Fjson (where %2F == / uri escaped). >>
 
-**NOTE** Apache will refuse %2F unless configured otherise.
-Make sure AllowEncodedSlashes On is in your httpd.conf file in order for this to run smoothly.
+B<NOTE> Apache will refuse %2F unless configured otherise.
+Make sure C<< AllowEncodedSlashes On >> is in your httpd.conf file in orde
+for this to run smoothly.
 
-=cut
-
-=cut
-
-
-
+=back
 
 =head1 MAINTAINER
 
-J. Shirley <jshirley@gmail.com>
+Hans Dieter Pearcey
 
 =head1 CONTRIBUTORS
 
@@ -190,11 +197,15 @@ John Goulah
 
 Daisuke Maki <daisuke@endeworks.jp>
 
+J. Shirley <jshirley@gmail.com>
+
+Tomas Doran (t0m) <bobtfish@bobtfish.net>
+
 =head1 AUTHOR
 
 Adam Jacob <adam@stalecoffee.org>, with lots of help from mst and jrockway
 
-Marchex, Inc. paid me while I developed this module.  (http://www.marchex.com)
+Marchex, Inc. paid me while I developed this module. (L<http://www.marchex.com>)
 
 =head1 LICENSE
 
