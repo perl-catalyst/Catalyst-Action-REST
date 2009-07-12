@@ -2,9 +2,11 @@
 
   Add display of additional REST actions in the stats, and also fix a warning
   in Catalyst 5.80 when you forward to another action from inside an
-  action_FOO method (as it was confusing the stats) (t0m).
+  action_FOO method (as it was confusing the stats). (t0m)
 
   POD fixes
+
+  Catalyst::Action::REST no longer @ISA Catalyst or Catalyst::Controller. (t0m)
 
 Sat Jun 27 20:20:09 EDT 2009 (hdp) - Release 0.73
   Packaging fixes
