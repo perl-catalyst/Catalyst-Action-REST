@@ -23,7 +23,7 @@ sub new {
   my $class  = shift;
   my $config = shift;
   Catalyst::Request::REST->_insert_self_into( $config->{class} );
-  return $class->SUPER::new($config, @_);
+  return $class->next::method($config, @_);
 }
 
 =head1 NAME
