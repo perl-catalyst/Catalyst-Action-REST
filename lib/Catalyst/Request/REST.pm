@@ -9,6 +9,7 @@ package Catalyst::Request::REST;
 
 use strict;
 use warnings;
+use Scalar::Util qw/blessed/;
 
 use base qw/Catalyst::Request Class::Accessor::Fast/;
 
@@ -19,7 +20,8 @@ sub _insert_self_into {
   my ($class, $app_class ) = @_;
   # the fallback to $app_class is for the (rare and deprecated) case when
   # people are defining actions in MyApp.pm instead of in a controller.
-  my $app = Catalyst::Utils::class2appclass( $app_class ) || $app_class;
+  my $app = (blessed($app_class) && $app_class->can('_application'))
+        ? $app_class->_application : Catalyst::Utils::class2appclass( $app_class ) || $app_class;
 
   my $req_class = $app->request_class;
   return if $req_class->isa($class);
@@ -64,7 +66,7 @@ returned the deserialized data structure.
 
 __PACKAGE__->mk_accessors(qw(data accept_only));
 
-=over 4 
+=over 4
 
 =item accepted_content_types
 
