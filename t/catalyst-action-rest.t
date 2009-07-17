@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 18;
+use Test::More tests => 19;
 use FindBin;
 
 use lib ( "$FindBin::Bin/lib", "$FindBin::Bin/../lib" );
@@ -52,5 +52,8 @@ is(
     "Not Implemented Handler",
     "not_implemented handler had proper response"
 );
+
+my $anon_res = request( $t->get( url => '/anon/test' ) );
+is $anon_res->code, 200, 'Anonymous Controller class works';
 
 1;
