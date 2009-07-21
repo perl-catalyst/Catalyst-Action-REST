@@ -37,11 +37,11 @@ Catalyst::Action::REST - Automated REST Method Dispatching
       ... do setup for HTTP method specific handlers ...
     }
 
-    sub foo_GET { 
+    sub foo_GET {
       ... do something for GET requests ...
     }
 
-    sub foo_PUT { 
+    sub foo_PUT {
       ... do somethign for PUT requests ...
     }
 
@@ -49,13 +49,13 @@ Catalyst::Action::REST - Automated REST Method Dispatching
 
 This Action handles doing automatic method dispatching for REST requests.  It
 takes a normal Catalyst action, and changes the dispatch to append an
-underscore and method name. 
+underscore and method name.
 
 For example, in the synopsis above, calling GET on "/foo" would result in
 the foo_GET method being dispatched.
 
-If a method is requested that is not implemented, this action will 
-return a status 405 (Method Not Found).  It will populate the "Allow" header 
+If a method is requested that is not implemented, this action will
+return a status 405 (Method Not Found).  It will populate the "Allow" header
 with the list of implemented request methods.  You can override this behavior
 by implementing a custom 405 handler like so:
 
@@ -91,7 +91,9 @@ sub dispatch {
 
     my $controller = $c->component( $self->class );
     my $method     = $self->name . "_" . uc( $c->request->method );
-    if ( $controller->can($method) ) {
+    if ( my $action = $controller->action_for($method) ) {
+        return $c->forward( $action,  $c->req->args );
+    } elsif ( $controller->can($method) ) {
         $c->execute( $self->class, $self, @{ $c->req->args } );
         return $controller->$method( $c, @{ $c->req->args } );
     } else {
@@ -162,9 +164,9 @@ L<Catalyst::Action::Serialize>, L<Catalyst::Action::Deserialize>
 
 =item Q: I'm getting a "415 Unsupported Media Type" error. What gives?!
 
-A:  Most likely, you haven't set Content-type equal to "application/json", or one of the 
+A:  Most likely, you haven't set Content-type equal to "application/json", or one of the
 accepted return formats.  You can do this by setting it in your query string thusly:
-?content-type=application%2Fjson (where %2F == / uri escaped). 
+?content-type=application%2Fjson (where %2F == / uri escaped).
 
 **NOTE** Apache will refuse %2F unless configured otherise.
 Make sure AllowEncodedSlashes On is in your httpd.conf file in order for this to run smoothly.
