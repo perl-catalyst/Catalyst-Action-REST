@@ -184,10 +184,6 @@ for this to run smoothly.
 
 =back
 
-=head1 MAINTAINER
-
-Hans Dieter Pearcey
-
 =head1 CONTRIBUTORS
 
 Christopher Laco
@@ -199,6 +195,8 @@ John Goulah
 Daisuke Maki <daisuke@endeworks.jp>
 
 J. Shirley <jshirley@gmail.com>
+
+Hans Dieter Pearcey
 
 Tomas Doran (t0m) <bobtfish@bobtfish.net>
 
