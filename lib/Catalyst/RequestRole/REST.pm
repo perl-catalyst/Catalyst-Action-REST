@@ -7,9 +7,9 @@ use HTTP::Headers::Util qw(split_header_words);
 use namespace::clean -except => 'meta';
 
 has accept_only => (
-  is      => 'ro',
+  is      => 'rw',
   isa     => 'Bool',
-  writer  => '_set_accept_only',
+#  writer  => '_set_accept_only', FIXME fails for me if I use this
   default => 0,
 );
 
@@ -44,7 +44,7 @@ sub _build_accepted_content_types {
   #
   # This is taken from chansen's Apache2::UploadProgress.
   if ( $self->header('Accept') ) {
-    $self->_set_accept_only(1) unless keys %types;
+    $self->accept_only(1) unless keys %types; # FIXME fails if _set_accept_only
 
     my $accept_header = $self->header('Accept');
     my $counter       = 0;

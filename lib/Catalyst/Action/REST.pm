@@ -3,24 +3,20 @@
 # Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
 # Created on: 10/12/2006 03:00:32 PM PDT
 #
-# $Id$
 
 package Catalyst::Action::REST;
-
-use strict;
-use warnings;
-
-use base 'Catalyst::Action';
+use Moose;
 use Class::Inspector;
 use Moose::Util qw(does_role);
-use Catalyst;
 use Catalyst::RequestRole::REST;
 use Catalyst::Controller::REST;
 use namespace::clean -except => 'meta';
 
+extends 'Catalyst::Action';
+
 BEGIN { require 5.008001; }
 
-our $VERSION = '0.73';
+our $VERSION = '0.74';
 
 =head1 NAME
 
@@ -183,10 +179,6 @@ for this to run smoothly.
 
 =back
 
-=head1 MAINTAINER
-
-Hans Dieter Pearcey
-
 =head1 CONTRIBUTORS
 
 Christopher Laco
@@ -198,6 +190,8 @@ John Goulah
 Daisuke Maki <daisuke@endeworks.jp>
 
 J. Shirley <jshirley@gmail.com>
+
+Hans Dieter Pearcey
 
 Tomas Doran (t0m) <bobtfish@bobtfish.net>
 
