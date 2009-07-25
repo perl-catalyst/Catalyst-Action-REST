@@ -1,10 +1,10 @@
 package Catalyst::Controller::REST;
 
-our $VERSION = '0.73';
+our $VERSION = '0.74';
 
 =head1 NAME
 
-Catalyst::Controller::REST - A RESTful controller 
+Catalyst::Controller::REST - A RESTful controller
 
 =head1 SYNOPSIS
 
@@ -17,11 +17,11 @@ Catalyst::Controller::REST - A RESTful controller
     # Answer GET requests to "thing"
     sub thing_GET {
        my ( $self, $c ) = @_;
-     
+
        # Return a 200 OK, with the data in entity
-       # serialized in the body 
+       # serialized in the body
        $self->status_ok(
-            $c, 
+            $c,
             entity => {
                 some => 'data',
                 foo  => 'is real bar-y',
@@ -30,7 +30,7 @@ Catalyst::Controller::REST - A RESTful controller
     }
 
     # Answer PUT requests to "thing"
-    sub thing_PUT { 
+    sub thing_PUT {
       .. some action ..
     }
 
@@ -38,23 +38,23 @@ Catalyst::Controller::REST - A RESTful controller
 
 Catalyst::Controller::REST implements a mechanism for building
 RESTful services in Catalyst.  It does this by extending the
-normal Catalyst dispatch mechanism to allow for different 
-subroutines to be called based on the HTTP Method requested, 
+normal Catalyst dispatch mechanism to allow for different
+subroutines to be called based on the HTTP Method requested,
 while also transparently handling all the serialization/deserialization for
 you.
 
 This is probably best served by an example.  In the above
 controller, we have declared a Local Catalyst action on
-"sub thing", and have used the ActionClass('REST').  
+"sub thing", and have used the ActionClass('REST').
 
 Below, we have declared "thing_GET" and "thing_PUT".  Any
-GET requests to thing will be dispatched to "thing_GET", 
-while any PUT requests will be dispatched to "thing_PUT".  
+GET requests to thing will be dispatched to "thing_GET",
+while any PUT requests will be dispatched to "thing_PUT".
 
 Any unimplemented HTTP methods will be met with a "405 Method Not Allowed"
 response, automatically containing the proper list of available methods.  You
 can override this behavior through implementing a custom
-C<thing_not_implemented> method.  
+C<thing_not_implemented> method.
 
 If you do not provide an OPTIONS handler, we will respond to any OPTIONS
 requests with a "200 OK", populating the Allowed header automatically.
@@ -69,18 +69,18 @@ contents of $c->request->body based on the requests content-type header.
 A list of understood serialization formats is below.
 
 If we do not have (or cannot run) a serializer for a given content-type, a 415
-"Unsupported Media Type" error is generated. 
+"Unsupported Media Type" error is generated.
 
 To make your Controller RESTful, simply have it
 
-  use base 'Catalyst::Controller::REST'; 
+  use base 'Catalyst::Controller::REST';
 
 =head1 SERIALIZATION
 
 Catalyst::Controller::REST will automatically serialize your
 responses, and deserialize any POST, PUT or OPTIONS requests. It evaluates
 which serializer to use by mapping a content-type to a Serialization module.
-We select the content-type based on: 
+We select the content-type based on:
 
 =over 2
 
@@ -95,7 +95,7 @@ If this is a GET request, you can supply a content-type query parameter.
 =item B<Evaluating the Accept Header>
 
 Finally, if the client provided an Accept header, we will evaluate
-it and use the best-ranked choice.  
+it and use the best-ranked choice.
 
 =back
 
@@ -103,11 +103,11 @@ it and use the best-ranked choice.
 
 A given serialization mechanism is only available if you have the underlying
 modules installed.  For example, you can't use XML::Simple if it's not already
-installed.  
+installed.
 
 In addition, each serializer has it's quirks in terms of what sorts of data
 structures it will properly handle.  L<Catalyst::Controller::REST> makes
-no attempt to save you from yourself in this regard. :) 
+no attempt to save you from yourself in this regard. :)
 
 =over 2
 
@@ -122,7 +122,7 @@ to hyperlinks.  Only useable for Serialization.
 
 =item C<application/json> => C<JSON>
 
-Uses L<JSON> to generate JSON output.  It is strongly advised to also have 
+Uses L<JSON> to generate JSON output.  It is strongly advised to also have
 L<JSON::XS> installed.  The C<text/x-json> content type is supported but is
 deprecated and you will receive warnings in your log.
 
@@ -164,13 +164,13 @@ you serialize be a HASHREF, we transform outgoing data to be in the form of:
 
 =item L<View>
 
-Uses a regular Catalyst view.  For example, if you wanted to have your 
+Uses a regular Catalyst view.  For example, if you wanted to have your
 C<text/html> and C<text/xml> views rendered by TT:
 
 	'text/html' => [ 'View', 'TT' ],
 	'text/xml'  => [ 'View', 'XML' ],
-	
-Will do the trick nicely. 
+
+Will do the trick nicely.
 
 =back
 
@@ -201,7 +201,7 @@ Using them will ensure that you are responding with the proper codes,
 headers, and entities.
 
 These helpers try and conform to the HTTP 1.1 Specification.  You can
-refer to it at: L<http://www.w3.org/Protocols/rfc2616/rfc2616.txt>.  
+refer to it at: L<http://www.w3.org/Protocols/rfc2616/rfc2616.txt>.
 These routines are all implemented as regular subroutines, and as
 such require you pass the current context ($c) as the first argument.
 
@@ -245,7 +245,7 @@ Returns a "200 OK" response.  Takes an "entity" to serialize.
 Example:
 
   $self->status_ok(
-    $c, 
+    $c,
     entity => {
         radiohead => "Is a good band!",
     }
@@ -271,7 +271,7 @@ and a "location" where the created object can be found.
 Example:
 
   $self->status_created(
-    $c, 
+    $c,
     location => $c->req->uri->as_string,
     entity => {
         radiohead => "Is a good band!",
@@ -313,7 +313,7 @@ Returns a "202 ACCEPTED" response.  Takes an "entity" to serialize.
 Example:
 
   $self->status_accepted(
-    $c, 
+    $c,
     entity => {
         status => "queued",
     }
@@ -340,7 +340,7 @@ response.
 Example:
 
   $self->status_bad_request(
-    $c, 
+    $c,
     message => "Cannot do what you have asked!",
   );
 
@@ -366,7 +366,7 @@ response.
 Example:
 
   $self->status_not_found(
-    $c, 
+    $c,
     message => "Cannot find what you were looking for!",
   );
 
@@ -423,9 +423,9 @@ This class provides a default configuration for Serialization.  It is currently:
             'text/x-data-dumper' => [ 'Data::Serializer', 'Data::Dumper' ],
             'text/x-data-denter' => [ 'Data::Serializer', 'Data::Denter' ],
             'text/x-data-taxi'   => [ 'Data::Serializer', 'Data::Taxi'   ],
-            'application/x-storable'    => [ 'Data::Serializer', 'Storable'     
+            'application/x-storable'    => [ 'Data::Serializer', 'Storable'
 ],
-            'application/x-freezethaw'  => [ 'Data::Serializer', 'FreezeThaw'   
+            'application/x-freezethaw'  => [ 'Data::Serializer', 'FreezeThaw'
 ],
             'text/x-config-general' => [ 'Data::Serializer', 'Config::General' ]
 ,
@@ -442,7 +442,7 @@ L<Catalyst::Action::Serialize>.
 The C<begin> method uses L<Catalyst::Action::Deserialize>.  The C<end>
 method uses L<Catalyst::Action::Serialize>.  If you want to override
 either behavior, simply implement your own C<begin> and C<end> actions
-and use NEXT:
+and use MRO::Compat:
 
   my Foo::Controller::Monkey;
   use base qw(Catalyst::Controller::REST);
@@ -450,14 +450,14 @@ and use NEXT:
   sub begin :Private {
     my ($self, $c) = @_;
     ... do things before Deserializing ...
-    $self->NEXT::begin($c); 
+    $self->maybe::next::method($c);
     ... do things after Deserializing ...
-  } 
+  }
 
   sub end :Private {
     my ($self, $c) = @_;
     ... do things before Serializing ...
-    $self->NEXT::end($c); 
+    $self->maybe::next::method($c);
     ... do things after Serializing ...
   }
 

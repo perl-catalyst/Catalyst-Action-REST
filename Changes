@@ -1,3 +1,19 @@
+Wed Jul 22 23:49:16 BST 2009 (t0m) - Release 0.74
+
+  Switch from NEXT to MRO::Compat (agladdish).
+
+  Add display of additional REST actions in the stats, and also fix a warning
+  in Catalyst 5.80 when you forward to another action from inside an
+  action_FOO method (as it was confusing the stats).
+
+  POD fixes
+
+  Catalyst::Action::REST no longer @ISA Catalyst or Catalyst::Controller.
+
+  Change constructor to call next::method instead of SUPER::
+
+  Change method used to find the application class to be more correct
+
 Sat Jun 27 20:20:09 EDT 2009 (hdp) - Release 0.73
   Packaging fixes
 

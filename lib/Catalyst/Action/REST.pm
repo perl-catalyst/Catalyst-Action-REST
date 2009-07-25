@@ -12,19 +12,18 @@ use warnings;
 
 use base 'Catalyst::Action';
 use Class::Inspector;
-use Catalyst;
 use Catalyst::Request::REST;
 use Catalyst::Controller::REST;
 
 BEGIN { require 5.008001; }
 
-our $VERSION = '0.73';
+our $VERSION = '0.74';
 
 sub new {
   my $class  = shift;
   my $config = shift;
   Catalyst::Request::REST->_insert_self_into( $config->{class} );
-  return $class->SUPER::new($config, @_);
+  return $class->next::method($config, @_);
 }
 
 =head1 NAME
@@ -90,61 +89,73 @@ sub dispatch {
     my $c    = shift;
 
     my $controller = $c->component( $self->class );
-    my $method     = $self->name . "_" . uc( $c->request->method );
-    if ( my $action = $controller->action_for($method) ) {
+    my $rest_method = $self->name . "_" . uc( $c->request->method );
+
+    my ($code, $name);
+
+    # Common case, for foo_GET etc
+    if ( my $action = $controller->action_for($rest_method) ) {
         return $c->forward( $action,  $c->req->args );
-    } elsif ( $controller->can($method) ) {
+     } elsif ($code = $controller->can($rest_method)) {
+        # Exceute normal action
         $c->execute( $self->class, $self, @{ $c->req->args } );
-        return $controller->$method( $c, @{ $c->req->args } );
-    } else {
-        if ( $c->request->method eq "OPTIONS" ) {
-            return $self->_return_options($c);
-        } else {
-            my $handle_ni = $self->name . "_not_implemented";
-            if ( $controller->can($handle_ni) ) {
-                return $controller->$handle_ni( $c, @{ $c->req->args } );
-            } else {
-                return $self->_return_not_implemented($c);
-            }
-        }
+        $name = $rest_method;
     }
-}
 
-sub _return_options {
-    my ( $self, $c ) = @_;
+    # Generic handling for foo_OPTIONS
+    if (!$code && $c->request->method eq "OPTIONS") {
+        $name = $rest_method;
+        $code = sub { $self->_return_options($self->name, @_) };
+    }
 
-    my @allowed = $self->_get_allowed_methods($c);
-    $c->response->content_type('text/plain');
-    $c->response->status(200);
-    $c->response->header( 'Allow' => \@allowed );
+    # Otherwise, not implemented.
+    if (!$code) {
+        $name = $self->name . "_not_implemented";
+        $code = $controller->can($name) # User method
+            # Generic not implemented
+            || sub { $self->_return_not_implemented($self->name, @_) };
+    }
+
+    # localise stuff so we can dispatch the action 'as normal, but get
+    # different stats shown, and different code run.
+    local $self->{code} = $code;
+    local $self->{reverse} = $name;
+
+    $c->execute( $self->class, $self, @{ $c->req->args } );
 }
 
 sub _get_allowed_methods {
-    my ( $self, $c ) = @_;
-
-    my $controller = $self->class;
-    my $methods    = Class::Inspector->methods($controller);
+    my ( $self, $controller, $c, $name ) = @_;
+    my $class = ref($controller) ? ref($controller) : $controller;
+    my $methods    = Class::Inspector->methods($class);
     my @allowed;
     foreach my $method ( @{$methods} ) {
-        my $name = $self->name;
         if ( $method =~ /^$name\_(.+)$/ ) {
             push( @allowed, $1 );
         }
     }
     return @allowed;
+};
+
+sub _return_options {
+    my ( $self, $method_name, $controller, $c) = @_;
+    my @allowed = $self->_get_allowed_methods($controller, $c, $method_name);
+    $c->response->content_type('text/plain');
+    $c->response->status(200);
+    $c->response->header( 'Allow' => \@allowed );
 }
 
 sub _return_not_implemented {
-    my ( $self, $c ) = @_;
+    my ( $self, $method_name, $controller, $c ) = @_;
 
-    my @allowed = $self->_get_allowed_methods($c);
+    my @allowed = $self->_get_allowed_methods($controller, $c, $method_name);
     $c->response->content_type('text/plain');
     $c->response->status(405);
     $c->response->header( 'Allow' => \@allowed );
     $c->response->body( "Method "
           . $c->request->method
           . " not implemented for "
-          . $c->uri_for( $self->reverse ) );
+          . $c->uri_for( $method_name ) );
 }
 
 1;
@@ -164,6 +175,7 @@ L<Catalyst::Action::Serialize>, L<Catalyst::Action::Deserialize>
 
 =item Q: I'm getting a "415 Unsupported Media Type" error. What gives?!
 
+<<<<<<< HEAD:lib/Catalyst/Action/REST.pm
 A:  Most likely, you haven't set Content-type equal to "application/json", or one of the
 accepted return formats.  You can do this by setting it in your query string thusly:
 ?content-type=application%2Fjson (where %2F == / uri escaped).
@@ -175,12 +187,18 @@ Make sure AllowEncodedSlashes On is in your httpd.conf file in order for this to
 
 =cut
 
+=======
+A:  Most likely, you haven't set Content-type equal to "application/json", or
+one of the accepted return formats.  You can do this by setting it in your query
+accepted return formats.  You can do this by setting it in your query string
+thusly: C<< ?content-type=application%2Fjson (where %2F == / uri escaped). >>
+>>>>>>> f04ed654a172628f642bdefe8483c1e6becf9ad1:lib/Catalyst/Action/REST.pm
 
+B<NOTE> Apache will refuse %2F unless configured otherise.
+Make sure C<< AllowEncodedSlashes On >> is in your httpd.conf file in orde
+for this to run smoothly.
 
-
-=head1 MAINTAINER
-
-J. Shirley <jshirley@gmail.com>
+=back
 
 =head1 CONTRIBUTORS
 
@@ -192,11 +210,17 @@ John Goulah
 
 Daisuke Maki <daisuke@endeworks.jp>
 
+J. Shirley <jshirley@gmail.com>
+
+Hans Dieter Pearcey
+
+Tomas Doran (t0m) <bobtfish@bobtfish.net>
+
 =head1 AUTHOR
 
 Adam Jacob <adam@stalecoffee.org>, with lots of help from mst and jrockway
 
-Marchex, Inc. paid me while I developed this module.  (http://www.marchex.com)
+Marchex, Inc. paid me while I developed this module. (L<http://www.marchex.com>)
 
 =head1 LICENSE
 

@@ -11,12 +11,13 @@ use warnings;
 
 use base 'Catalyst::Action::SerializeBase';
 use Module::Pluggable::Object;
+use MRO::Compat;
 
 sub execute {
     my $self = shift;
     my ( $controller, $c ) = @_;
 
-    $self->NEXT::execute(@_);
+    $self->maybe::next::method(@_);
 
     return 1 if $c->req->method eq 'HEAD';
     return 1 if length( $c->response->body );

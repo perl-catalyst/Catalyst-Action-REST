@@ -13,6 +13,7 @@ requires('LWP::UserAgent'            => '2.033');
 requires('Data::Serializer'          => '0.36');
 requires('Class::Inspector'          => '1.13');
 requires('URI::Find'                 => undef);
+requires('MRO::Compat'               => '0.10');
 
 feature 'JSON (application/json) support',
     -default   => 0,
@@ -42,7 +43,7 @@ feature 'XML::Simple (text/xml) support',
 auto_include;
 auto_install;
 
-repository('http://github.com/hdp/catalyst-action-rest');
+repository 'http://github.com/bobtfish/catalyst-action-rest';
 
 WriteAll;
 
