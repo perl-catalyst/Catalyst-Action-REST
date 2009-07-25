@@ -31,11 +31,11 @@ __PACKAGE__->config(
 
 sub monkey_put : Local : ActionClass('Deserialize') {
     my ( $self, $c ) = @_;
-	if ( ref($c->req->data) eq "HASH" ) {
-		$c->res->output( $c->req->data->{'sushi'} );
-	} else {
-		$c->res->output(1);
-	}
+    if ( ref($c->req->data) eq "HASH" ) {
+        $c->res->output( $c->req->data->{'sushi'} );
+    } else {
+        $c->res->output(1);
+    }
 }
 
 sub monkey_get : Local : ActionClass('Serialize') {
@@ -44,4 +44,3 @@ sub monkey_get : Local : ActionClass('Serialize') {
 }
 
 1;
-

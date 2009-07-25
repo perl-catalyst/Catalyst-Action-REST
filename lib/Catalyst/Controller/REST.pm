@@ -167,8 +167,8 @@ you serialize be a HASHREF, we transform outgoing data to be in the form of:
 Uses a regular Catalyst view.  For example, if you wanted to have your
 C<text/html> and C<text/xml> views rendered by TT:
 
-	'text/html' => [ 'View', 'TT' ],
-	'text/xml'  => [ 'View', 'XML' ],
+  'text/html' => [ 'View', 'TT' ],
+  'text/xml'  => [ 'View', 'XML' ],
 
 Will do the trick nicely.
 
@@ -179,7 +179,7 @@ response if an attempt to use an unsupported content-type is made.  You
 can ensure that something is always returned by setting the C<default>
 config option:
 
-   __PACKAGE__->config->{'default'} = 'text/x-yaml';
+  __PACKAGE__->config->{'default'} = 'text/x-yaml';
 
 Would make it always fall back to the serializer plugin defined for text/x-yaml.
 
