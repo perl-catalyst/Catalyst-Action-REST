@@ -94,8 +94,9 @@ sub dispatch {
     my ($code, $name);
 
     # Common case, for foo_GET etc
-    if ( my $action = $controller->action_for($rest_method) ) {
-        return $c->forward( $action,  $c->req->args );
+    if ( $code = $controller->action_for($rest_method) ) {
+        $c->execute( $self->class, $self, @{ $c->req->args } );
+        return $c->forward( $code,  $c->req->args );
      } elsif ($code = $controller->can($rest_method)) {
         # Exceute normal action
         $c->execute( $self->class, $self, @{ $c->req->args } );
