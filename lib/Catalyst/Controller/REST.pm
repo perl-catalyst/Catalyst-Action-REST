@@ -1,6 +1,9 @@
 package Catalyst::Controller::REST;
+use strict;
+use warnings;
 
-our $VERSION = '0.74';
+our $VERSION = '0.75';
+$VERSION = eval $VERSION;
 
 =head1 NAME
 
@@ -209,8 +212,6 @@ such require you pass the current context ($c) as the first argument.
 
 =cut
 
-use strict;
-use warnings;
 use base 'Catalyst::Controller';
 use Params::Validate qw(SCALAR OBJECT);
 
