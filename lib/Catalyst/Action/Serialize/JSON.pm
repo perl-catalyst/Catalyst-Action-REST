@@ -35,7 +35,7 @@ sub execute {
 
 sub encode {
     my $self = shift;
-    encode_json( @_ );
+    encode_json( shift );
 }
 
 1;
