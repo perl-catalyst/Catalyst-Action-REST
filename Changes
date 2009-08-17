@@ -1,4 +1,6 @@
-Mon Aug 17 13:46:41 BST 2009 (t0m) - Release 0.75
+Mon Aug 17 14:07:41 BST 2009 (t0m) - Release 0.75
+
+  Fix optional test failures in catalyst-action-serialize-accept.t
 
   Added a serializer for JSON::XS
 
