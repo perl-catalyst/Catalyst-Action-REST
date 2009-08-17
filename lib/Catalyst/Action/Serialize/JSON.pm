@@ -24,7 +24,7 @@ sub execute {
         ) || 'rest';
     my $output;
     eval {
-        $output = $self->encode( $c->stash->{$stash_key} );
+        $output = $self->serialize( $c->stash->{$stash_key} );
     };
     if ($@) {
         return $@;
@@ -33,7 +33,7 @@ sub execute {
     return 1;
 }
 
-sub encode {
+sub serialize {
     my $self = shift;
     encode_json( shift );
 }
