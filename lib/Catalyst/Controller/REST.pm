@@ -2,7 +2,7 @@ package Catalyst::Controller::REST;
 use strict;
 use warnings;
 
-our $VERSION = '0.75';
+our $VERSION = '0.76';
 $VERSION = eval $VERSION;
 
 =head1 NAME

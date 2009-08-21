@@ -1,3 +1,8 @@
+Fri Aug 21 21:20:52 BST 2009 (t0m) - Release 0.76
+
+  Added two new status response helpers (202 no content and 410 gone),
+  and tests - Franck Cuny
+
 Mon Aug 17 14:07:41 BST 2009 (t0m) - Release 0.75
 
   Fix optional test failures in catalyst-action-serialize-accept.t
