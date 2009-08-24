@@ -1,3 +1,5 @@
+  Fix test if CATALYST_DEBUG environment variable is set
+
 Fri Aug 21 21:20:52 BST 2009 (t0m) - Release 0.76
 
   Added two new status response helpers (202 no content and 410 gone),
