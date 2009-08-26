@@ -20,7 +20,7 @@ sub test_GET : Private ActionClass('+Test::Action::Class') {
     $c->forward('ok');
 }
 
-sub test_POST :ActionClass('+Test::Action::Class') {
+sub test_POST : Action ActionClass('+Test::Action::Class') {
     my ( $self, $c ) = @_;
 
     $c->stash->{'entity'} .= " POST";
