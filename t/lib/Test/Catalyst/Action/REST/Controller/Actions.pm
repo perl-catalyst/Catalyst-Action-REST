@@ -13,7 +13,7 @@ sub test : Local : ActionClass('REST') {
     $c->stash->{'entity'} = 'something';
 }
 
-sub test_GET :ActionClass('+Test::Action::Class') {
+sub test_GET : Private ActionClass('+Test::Action::Class') {
     my ( $self, $c ) = @_;
 
     $c->stash->{'entity'} .= " GET";
