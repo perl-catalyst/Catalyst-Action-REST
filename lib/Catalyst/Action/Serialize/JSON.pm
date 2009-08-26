@@ -24,13 +24,18 @@ sub execute {
         ) || 'rest';
     my $output;
     eval {
-        $output = encode_json( $c->stash->{$stash_key} );
+        $output = $self->serialize( $c->stash->{$stash_key} );
     };
     if ($@) {
         return $@;
     }
     $c->response->output( $output );
     return 1;
+}
+
+sub serialize {
+    my $self = shift;
+    encode_json( shift );
 }
 
 1;
