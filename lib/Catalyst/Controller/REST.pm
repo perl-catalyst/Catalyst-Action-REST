@@ -1,6 +1,9 @@
 package Catalyst::Controller::REST;
+use strict;
+use warnings;
 
-our $VERSION = '0.74';
+our $VERSION = '0.76';
+$VERSION = eval $VERSION;
 
 =head1 NAME
 
@@ -209,8 +212,6 @@ such require you pass the current context ($c) as the first argument.
 
 =cut
 
-use strict;
-use warnings;
 use base 'Catalyst::Controller';
 use Params::Validate qw(SCALAR OBJECT);
 
@@ -331,6 +332,20 @@ sub status_accepted {
     return 1;
 }
 
+=item status_no_content
+
+Returns a "204 NO CONTENT" response.
+
+=cut
+
+sub status_no_content {
+    my $self = shift;
+    my $c    = shift;
+    $c->response->status(204);
+    $self->_set_entity( $c, undef );
+    return 1.;
+}
+
 =item status_bad_request
 
 Returns a "400 BAD REQUEST" response.  Takes a "message" argument
@@ -379,6 +394,31 @@ sub status_not_found {
 
     $c->response->status(404);
     $c->log->debug( "Status Not Found: " . $p{'message'} ) if $c->debug;
+    $self->_set_entity( $c, { error => $p{'message'} } );
+    return 1;
+}
+
+=item gone
+
+Returns a "41O GONE" response.  Takes a "message" argument as a scalar,
+which will become the value of "error" in the serialized response.
+
+Example:
+
+  $self->status_gone(
+    $c,
+    message => "The document have been deleted by foo",
+  );
+
+=cut
+
+sub status_gone {
+    my $self = shift;
+    my $c    = shift;
+    my %p    = Params::Validate::validate( @_, { message => { type => SCALAR }, }, );
+
+    $c->response->status(410);
+    $c->log->debug( "Status Gone " . $p{'message'} ) if $c->debug;
     $self->_set_entity( $c, { error => $p{'message'} } );
     return 1;
 }

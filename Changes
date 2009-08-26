@@ -1,3 +1,16 @@
+  Fix test if CATALYST_DEBUG environment variable is set
+
+Fri Aug 21 21:20:52 BST 2009 (t0m) - Release 0.76
+
+  Added two new status response helpers (202 no content and 410 gone),
+  and tests - Franck Cuny
+
+Mon Aug 17 14:07:41 BST 2009 (t0m) - Release 0.75
+
+  Fix optional test failures in catalyst-action-serialize-accept.t
+
+  Added a serializer for JSON::XS
+
   Made test independent of YAML::Syck bugs (dandv)
 
 Wed Jul 22 23:49:16 BST 2009 (t0m) - Release 0.74

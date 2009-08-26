@@ -16,7 +16,8 @@ extends 'Catalyst::Action';
 
 BEGIN { require 5.008001; }
 
-our $VERSION = '0.74';
+our $VERSION = '0.76';
+$VERSION = eval $VERSION;
 
 =head1 NAME
 
