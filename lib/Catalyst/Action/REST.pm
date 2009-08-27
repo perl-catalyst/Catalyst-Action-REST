@@ -42,7 +42,7 @@ Catalyst::Action::REST - Automated REST Method Dispatching
     }
 
     # alternatively use an Action
-    sub foo_PUT : Private {
+    sub foo_PUT : Action {
       ... do something for PUT requests ...
     }
 
