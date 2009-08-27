@@ -168,6 +168,8 @@ use HTTP::Headers;
 }
 
 {
+  local %ENV=%ENV;
+  $ENV{CATALYST_DEBUG} = 0;
   my $test = 'Test::Catalyst::Action::REST';
   use_ok $test;
   is($test->request_class, 'Catalyst::Request::REST',
