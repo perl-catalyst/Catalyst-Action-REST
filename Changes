@@ -1,3 +1,7 @@
+Mon 28 Sep 15:01:03 BST 2009 - Release 0.78
+
+  Require Moose for the tests (RT#50066).
+
 Thu 27 Aug 02:21:09 BST 2009 - Release 0.77
 
   Allow dispatching to Catalyst Actions, for use with ActionClasses
