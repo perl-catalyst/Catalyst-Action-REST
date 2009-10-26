@@ -32,7 +32,9 @@ __PACKAGE__->config(
 sub monkey_put : Local : ActionClass('Deserialize') {
     my ( $self, $c ) = @_;
     if ( ref($c->req->data) eq "HASH" ) {
-        $c->res->output( $c->req->data->{'sushi'} );
+        my $out = $c->req->data->{'sushi'} . $c->req->data->{'chicken'}||'';
+        utf8::encode($out);
+        $c->res->output( $out );
     } else {
         $c->res->output(1);
     }
