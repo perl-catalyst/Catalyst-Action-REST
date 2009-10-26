@@ -18,8 +18,5 @@ __PACKAGE__->config(
 
 __PACKAGE__->setup;
 
-__PACKAGE__->setup_component("Test::Serialize::Controller::REST");
-__PACKAGE__->setup_component("Test::Serialize::View::Simple");
-
 1;
 
