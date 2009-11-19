@@ -1,5 +1,8 @@
 Mon 28 Sep 15:01:03 BST 2009 - Release 0.78
 
+  Cope with invalid (missing required q parameter) header like:
+  application/json; charset="utf-8"
+
   Require Moose for the tests (RT#50066).
 
 Thu 27 Aug 02:21:09 BST 2009 - Release 0.77

@@ -128,6 +128,13 @@ sub accepted_content_types {
             my ( $type, $qvalue ) = @{$pair}[ 0, 3 ];
             next if $types{$type};
 
+            # cope with invalid (missing required q parameter) header like:
+            # application/json; charset="utf-8"
+            # http://tools.ietf.org/html/rfc2616#section-14.1
+            unless ( defined $pair->[2] && lc $pair->[2] eq 'q' ) {
+                $qvalue = undef;
+            }
+
             unless ( defined $qvalue ) {
                 $qvalue = 1 - ( ++$counter / 1000 );
             }
