@@ -15,13 +15,7 @@ sub execute {
                 $controller->{'serialize'}->{'stash_key'} :
                 $controller->{'stash_key'} 
         ) || 'rest';
-    my $output;
-    eval {
-        $output = $self->serialize( $c->stash->{$stash_key} );
-    };
-    if ($@) {
-        return $@;
-    }
+    my $output = $self->serialize( $c->stash->{$stash_key} );
     $c->response->output( $output );
     return 1;
 }
