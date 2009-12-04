@@ -16,7 +16,7 @@ sub execute {
 
     if ( !$c->view($view) ) {
         $c->log->error("Could not load $view, refusing to serialize");
-        return 0;
+        return;
     }
 
     return $c->view($view)->process($c, $stash_key);
