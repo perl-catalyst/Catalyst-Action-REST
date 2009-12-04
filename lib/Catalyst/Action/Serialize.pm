@@ -34,15 +34,17 @@ sub execute {
         "Serializing with $sclass" . ( $sarg ? " [$sarg]" : '' ) ) if $c->debug;
 
     my $rc;
-    if ( defined($sarg) ) {
-        $rc = $sclass->execute( $controller, $c, $sarg );
-    } else {
-        $rc = $sclass->execute( $controller, $c );
-    }
-    if ( $rc eq 0 ) {
+    eval {
+        if ( defined($sarg) ) {
+            $rc = $sclass->execute( $controller, $c, $sarg );
+        } else {
+            $rc = $sclass->execute( $controller, $c );
+        }
+    };
+    if ($@) {
+        return $self->_serialize_bad_request( $c, $content_type, $@ );
+    } elsif (!$rc) {
         return $self->_unsupported_media_type( $c, $content_type );
-    } elsif ( $rc ne 1 ) {
-        return $self->_serialize_bad_request( $c, $content_type, $rc );
     }
 
     return 1;
