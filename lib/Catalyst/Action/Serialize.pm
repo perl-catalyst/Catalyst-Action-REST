@@ -32,7 +32,7 @@ sub execute {
             $c->log->info("Could not find a serializer for $content_type");
         } else {
             $c->log->info(
-                "Could not find a serializer for an empty content type");
+                "Could not find a serializer for an empty content-type");
         }
         return 1;
     }
@@ -148,4 +148,3 @@ Marchex, Inc. paid me while I developed this module.  (http://www.marchex.com)
 You may distribute this code under the same terms as Perl itself.
 
 =cut
-

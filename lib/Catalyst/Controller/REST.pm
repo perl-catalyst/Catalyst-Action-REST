@@ -83,6 +83,12 @@ Or if you use pre-Moose Catalyst versions,
   use parent 'Catalyst::Controller::REST';
 
 
+=head1 CONFIGURATION
+
+See L<Catalyst::Action::Serialize/CONFIGURATION>. Note that the C<serialize>
+key has been deprecated.
+
+
 =head1 SERIALIZATION
 
 Catalyst::Controller::REST will automatically serialize your

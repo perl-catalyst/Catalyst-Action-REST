@@ -50,8 +50,8 @@ sub _load_content_plugins {
     my $config;
     
     if ( exists $controller->{'serialize'} ) {
-        $c->log->info("Using deprecated configuration for Catalyst::Action::REST!");
-        $c->log->info("Please see perldoc Catalyst::Action::REST for the update guide");
+        $c->log->info("Catalyst::Action::REST - deprecated use of 'serialize' for configuration.");
+        $c->log->info("Please see 'CONFIGURATION' in Catalyst::Controller::REST.");
         $config = $controller->{'serialize'};
         # if they're using the deprecated config, they may be expecting a
         # default mapping too.
@@ -188,4 +188,3 @@ Marchex, Inc. paid me while I developed this module.  (http://www.marchex.com)
 You may distribute this code under the same terms as Perl itself.
 
 =cut
-
