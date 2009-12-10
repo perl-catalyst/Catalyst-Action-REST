@@ -174,12 +174,38 @@ you serialize be a HASHREF, we transform outgoing data to be in the form of:
 =item * L<View>
 
 Uses a regular Catalyst view.  For example, if you wanted to have your
-C<text/html> and C<text/xml> views rendered by TT:
+C<text/html> and C<text/xml> views rendered by TT, set:
 
-  'text/html' => [ 'View', 'TT' ],
-  'text/xml'  => [ 'View', 'XML' ],
+  __PACKAGE__->config(
+      map => {
+          'text/html' => [ 'View', 'TT' ],
+          'text/xml'  => [ 'View', 'XML' ],
+      }
+  );    
 
-Will do the trick nicely.
+Your views should have a C<process> method like this:
+
+  sub process {
+      my ( $self, $c, $stash_key ) = @_;
+      
+      my $output;
+      eval {
+          $output = $self->serialize( $c->stash->{$stash_key} );
+      };
+      return $@ if $@;
+      
+      $c->response->body( $output );
+      return 1;  # important
+  }
+  
+  sub serialize {
+      my ( $self, $data ) = @_;
+  
+      my $serialized = ... process $data here ...
+      
+      return $serialized;
+  }
+  
 
 =back
 

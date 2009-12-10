@@ -19,7 +19,7 @@ sub execute {
         return 0;
     }
 
-    return $c->view($view)->process($c);
+    return $c->view($view)->process($c, $stash_key);
 }
 
 1;
