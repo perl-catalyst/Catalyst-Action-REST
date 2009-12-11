@@ -1,3 +1,8 @@
+  Convert all classes to Moose
+
+  Change Catalyst::Request::REST to be a mostly empty class, with
+  all the functionality in Catalyst::TraitFor::Request::REST
+
 Fri 11 Dec 01:08:00 GMT 2009 - Release 0.79
 
   Cope with invalid (missing required q parameter) header like:
