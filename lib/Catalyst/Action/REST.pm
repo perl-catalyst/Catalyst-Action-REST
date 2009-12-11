@@ -17,7 +17,7 @@ use Catalyst::Controller::REST;
 
 BEGIN { require 5.008001; }
 
-our $VERSION = '0.78';
+our $VERSION = '0.79';
 $VERSION = eval $VERSION;
 
 sub new {

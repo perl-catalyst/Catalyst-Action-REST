@@ -1,6 +1,12 @@
+Fri 11 Dec 01:08:00 GMT 2009 - Release 0.79
 
   Cope with invalid (missing required q parameter) header like:
   application/json; charset="utf-8"
+
+  Fix documentation to not mention deprecated things and generally be
+  in better style.
+
+  Make author information consistant and only in one module.
 
 Mon 28 Sep 15:01:03 BST 2009 - Release 0.78
 
