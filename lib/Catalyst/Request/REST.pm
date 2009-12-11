@@ -7,6 +7,9 @@ use namespace::autoclean;
 extends 'Catalyst::Request';
 with 'Catalyst::TraitFor::Request::REST';
 
+# Please don't take this as a recommended way to do things.
+# The code below is grotty, badly factored and mostly here for back
+# compat..
 sub _insert_self_into {
   my ($class, $app_class ) = @_;
   # the fallback to $app_class is for the (rare and deprecated) case when
