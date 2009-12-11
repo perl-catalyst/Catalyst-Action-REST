@@ -16,11 +16,19 @@ sub _insert_self_into {
 
   my $req_class = $app->request_class;
   return if $req_class->isa($class);
+  my $req_class_meta = Moose->init_meta( for_class => $req_class );
+  return if $req_class_meta->does_role('Catalyst::TraitFor::Request::REST');
   if ($req_class eq 'Catalyst::Request') {
     $app->request_class($class);
-  } else {
-    die "$app has a custom request class $req_class, "
-      . "which is not a $class; see Catalyst::Request::REST";
+  }
+  else {
+      my $meta = Moose::Meta::Class->create_anon_class(
+          superclasses => [$req_class],
+          roles => ['Catalyst::TraitFor::Request::REST'],
+          cache => 1
+      );
+      $meta->add_method(meta => sub { $meta });
+      $app->request_class($meta->name);
   }
 }
 

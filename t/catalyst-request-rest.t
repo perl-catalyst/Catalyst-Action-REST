@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 28;
+use Test::More;
 use FindBin;
 use lib ( "$FindBin::Bin/../lib", "$FindBin::Bin/../t/lib" );
 
@@ -175,9 +175,18 @@ use HTTP::Headers;
   is($test->request_class, 'Catalyst::Request::REST',
     'Request::REST took over for Request');
 
-  $test->request_class('Some::Other::Class');
+  my $meta = Moose::Meta::Class->create_anon_class(
+      superclasses => ['Catalyst::Request'],
+  );
+  $meta->add_method('__random_method' => sub { 42 });
+
+  $test->request_class($meta->name);
+  # FIXME - setup_finished(0) is evil!
   eval { $test->setup_finished(0); $test->setup };
-  like $@, qr/$test has a custom request class Some::Other::Class/;
+  ok !$@, 'Can setup again';
+  isnt $test->request_class, $meta->name, 'Different request class';
+  ok $test->request_class->can('__random_method'), 'Is right class';
+  ok $test->request_class->can('data'), 'Also smells like REST subclass';
 
   {
     package My::Request;
@@ -187,6 +196,8 @@ use HTTP::Headers;
   eval { $test->setup_finished(0); $test->setup };
   is $@, '', 'no error from Request::REST subclass';
 }
+
+done_testing;
 
 package MockContext;
 
