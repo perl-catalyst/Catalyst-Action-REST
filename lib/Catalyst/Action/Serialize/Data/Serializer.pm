@@ -1,9 +1,9 @@
 package Catalyst::Action::Serialize::Data::Serializer;
 
-use strict;
-use warnings;
+use Moose;
+use namespace::autoclean;
 
-use base 'Catalyst::Action';
+extends 'Catalyst::Action';
 use Data::Serializer;
 
 sub execute {

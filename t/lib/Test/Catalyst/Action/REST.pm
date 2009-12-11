@@ -1,7 +1,7 @@
 package Test::Catalyst::Action::REST;
 
-use strict;
-use warnings;
+use Moose;
+use namespace::autoclean;
 
 use Catalyst::Runtime '5.70';
 

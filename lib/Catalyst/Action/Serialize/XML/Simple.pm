@@ -1,9 +1,9 @@
 package Catalyst::Action::Serialize::XML::Simple;
 
-use strict;
-use warnings;
+use Moose;
+use namespace::autoclean;
 
-use base 'Catalyst::Action';
+extends 'Catalyst::Action';
 
 sub execute {
     my $self = shift;

@@ -1,9 +1,9 @@
 package Catalyst::Action::Deserialize::View;
 
-use strict;
-use warnings;
+use Moose;
+use namespace::autoclean;
 
-use base 'Catalyst::Action';
+extends 'Catalyst::Action';
 
 sub execute {
     return 1;

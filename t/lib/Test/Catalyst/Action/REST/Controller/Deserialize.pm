@@ -1,6 +1,8 @@
 package Test::Catalyst::Action::REST::Controller::Deserialize;
+use Moose;
+use namespace::autoclean;
 
-use base 'Catalyst::Controller';
+BEGIN { extends 'Catalyst::Controller' }
 
 __PACKAGE__->config(
     'stash_key' => 'rest',

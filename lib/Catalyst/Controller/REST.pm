@@ -1,6 +1,6 @@
 package Catalyst::Controller::REST;
-use strict;
-use warnings;
+use Moose;
+use namespace::autoclean;
 
 our $VERSION = '0.79';
 $VERSION = eval $VERSION;
@@ -255,7 +255,7 @@ such require you pass the current context ($c) as the first argument.
 
 =cut
 
-use base 'Catalyst::Controller';
+BEGIN { extends 'Catalyst::Controller' }
 use Params::Validate qw(SCALAR OBJECT);
 
 __PACKAGE__->mk_accessors(qw(serialize));

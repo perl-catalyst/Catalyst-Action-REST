@@ -1,8 +1,8 @@
 package Test::Catalyst::Action::REST::Controller::Root;
-use strict;
-use warnings;
+use Moose;
+use namespace::autoclean;
 
-use base qw/Catalyst::Controller::REST/;
+BEGIN { extends qw/Catalyst::Controller::REST/ }
 
 __PACKAGE__->config( namespace => '' );
 

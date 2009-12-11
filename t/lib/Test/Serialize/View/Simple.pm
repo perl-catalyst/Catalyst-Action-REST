@@ -1,6 +1,8 @@
 package Test::Serialize::View::Simple;
+use Moose;
+use namespace::autoclean;
 
-use base qw/Catalyst::View/;
+extends qw/Catalyst::View/;
 
 sub process {
     my ($self, $c) = @_;

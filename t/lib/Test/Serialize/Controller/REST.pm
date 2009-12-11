@@ -1,9 +1,9 @@
 package Test::Serialize::Controller::REST;
 
-use warnings;
-use strict;
+use namespace::autoclean;
+use Moose;
 
-use base qw/Catalyst::Controller::REST/;
+BEGIN { extends qw/Catalyst::Controller::REST/ };
 
 __PACKAGE__->config(
     'namespace' => '',

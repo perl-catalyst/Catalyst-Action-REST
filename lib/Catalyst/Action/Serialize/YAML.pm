@@ -1,9 +1,9 @@
 package Catalyst::Action::Serialize::YAML;
 
-use strict;
-use warnings;
+use Moose;
+use namespace::autoclean;
 
-use base 'Catalyst::Action';
+extends 'Catalyst::Action';
 use YAML::Syck;
 
 sub execute {

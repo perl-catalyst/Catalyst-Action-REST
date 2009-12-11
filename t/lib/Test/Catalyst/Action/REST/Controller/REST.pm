@@ -1,9 +1,9 @@
 package Test::Catalyst::Action::REST::Controller::REST;
 
-use strict;
-use warnings;
+use Moose;
+use namespace::autoclean;
 
-use base 'Catalyst::Controller::REST';
+BEGIN { extends 'Catalyst::Controller::REST' }
 
 sub test : Local {
     my ( $self, $c ) = @_;

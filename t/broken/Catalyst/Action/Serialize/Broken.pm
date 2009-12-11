@@ -1,7 +1,7 @@
 package Catalyst::Action::Serializer::Broken;
 
-use strict;
-use warnings;
+use Moose;
+use namespace::autoclean;
 
 use Bilbo::Baggins;
 

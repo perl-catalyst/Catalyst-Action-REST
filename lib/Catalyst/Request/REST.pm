@@ -1,10 +1,10 @@
 package Catalyst::Request::REST;
 
-use strict;
-use warnings;
+use Moose;
+use namespace::autoclean;
 use Scalar::Util qw/blessed/;
 
-use base qw/Catalyst::Request Class::Accessor::Fast/;
+extends qw/Catalyst::Request Class::Accessor::Fast/;
 
 use Catalyst::Utils;
 use HTTP::Headers::Util qw(split_header_words);

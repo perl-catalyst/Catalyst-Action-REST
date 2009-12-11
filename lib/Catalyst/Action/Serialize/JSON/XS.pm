@@ -1,9 +1,9 @@
 package Catalyst::Action::Serialize::JSON::XS;
 
-use strict;
-use warnings;
+use Moose;
+use namespace::autoclean;
 
-use base 'Catalyst::Action::Serialize::JSON';
+extends 'Catalyst::Action::Serialize::JSON';
 use JSON::XS qw(encode_json);
 
 sub serialize {

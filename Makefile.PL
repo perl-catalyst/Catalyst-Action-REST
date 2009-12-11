@@ -15,7 +15,8 @@ requires('Class::Inspector'          => '1.13');
 requires('URI::Find'                 => undef);
 requires('MRO::Compat'               => '0.10');
 
-test_requires 'Moose';
+requires 'Moose';
+requires 'namespace::autoclean';
 
 feature 'JSON (application/json) support',
     -default   => 0,

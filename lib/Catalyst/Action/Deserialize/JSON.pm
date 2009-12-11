@@ -1,9 +1,9 @@
 package Catalyst::Action::Deserialize::JSON;
 
-use strict;
-use warnings;
+use Moose;
+use namespace::autoclean;
 
-use base 'Catalyst::Action';
+extends 'Catalyst::Action';
 use JSON qw( decode_json );
 
 sub execute {

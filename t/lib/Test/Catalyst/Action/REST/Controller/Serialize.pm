@@ -1,8 +1,9 @@
 package Test::Catalyst::Action::REST::Controller::Serialize;
 
-use strict;
-use warnings;
-use base 'Catalyst::Controller';
+use Moose;
+use namespace::autoclean;
+
+BEGIN { extends 'Catalyst::Controller' }
 
 __PACKAGE__->config(
     'default'   => 'text/x-yaml',

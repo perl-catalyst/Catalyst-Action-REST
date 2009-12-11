@@ -1,9 +1,9 @@
 package Catalyst::Action::REST;
 
-use strict;
-use warnings;
+use Moose;
+use namespace::autoclean;
 
-use base 'Catalyst::Action';
+extends 'Catalyst::Action';
 use Class::Inspector;
 use Catalyst::Request::REST;
 use Catalyst::Controller::REST;
