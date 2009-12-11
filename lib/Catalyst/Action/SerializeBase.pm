@@ -177,11 +177,9 @@ code for L<Catalyst::Action::Serialize> and L<Catalyst::Action::Deserialize>.
 L<Catalyst::Action::Serialize>, L<Catalyst::Action::Deserialize>,
 L<Catalyst::Controller::REST>,
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Adam Jacob <adam@stalecoffee.org>, with lots of help from mst and jrockway.
-
-Marchex, Inc. paid me while I developed this module.  (http://www.marchex.com)
+See L<Catalyst::Action::REST> for authors.
 
 =head1 LICENSE
 

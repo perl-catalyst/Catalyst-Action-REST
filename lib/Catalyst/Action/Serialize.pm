@@ -137,11 +137,9 @@ a sensible set of defaults for doing a REST controller.
 
 L<Catalyst::Action::Deserialize>, L<Catalyst::Action::REST>
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Adam Jacob <adam@stalecoffee.org>, with lots of help from mst and jrockway
-
-Marchex, Inc. paid me while I developed this module.  (http://www.marchex.com)
+See L<Catalyst::Action::REST> for authors.
 
 =head1 LICENSE
 

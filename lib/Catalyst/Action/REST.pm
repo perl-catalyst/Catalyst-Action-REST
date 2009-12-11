@@ -191,6 +191,12 @@ for this to run smoothly.
 
 =back
 
+=head1 AUTHOR
+
+Adam Jacob <adam@stalecoffee.org>, with lots of help from mst and jrockway
+
+Marchex, Inc. paid me while I developed this module. (L<http://www.marchex.com>)
+
 =head1 CONTRIBUTORS
 
 Arthur Axel "fREW" Schmidt <frioux@gmail.com>
@@ -209,11 +215,9 @@ Hans Dieter Pearcey
 
 Tomas Doran (t0m) <bobtfish@bobtfish.net>
 
-=head1 AUTHOR
+=head1 COPYRIGHT
 
-Adam Jacob <adam@stalecoffee.org>, with lots of help from mst and jrockway
-
-Marchex, Inc. paid me while I developed this module. (L<http://www.marchex.com>)
+Copyright the above named AUTHOR and CONTRIBUTORS
 
 =head1 LICENSE
 

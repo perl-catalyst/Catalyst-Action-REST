@@ -12,8 +12,10 @@ Catalyst::Controller::REST - A RESTful controller
 =head1 SYNOPSIS
 
     package Foo::Controller::Bar;
-
-    use base 'Catalyst::Controller::REST';
+    use Moose;
+    use namespace::autoclean;
+    
+    BEGIN { extends 'Catalyst::Controller::REST' }
 
     sub thing : Local : ActionClass('REST') { }
 
@@ -76,18 +78,12 @@ If we do not have (or cannot run) a serializer for a given content-type, a 415
 
 To make your Controller RESTful, simply have it
 
-  BEGIN {extends 'Catalyst::Controller::REST'; }
-
-Or if you use pre-Moose Catalyst versions,
-
-  use parent 'Catalyst::Controller::REST';
-
+  BEGIN { extends 'Catalyst::Controller::REST' }
 
 =head1 CONFIGURATION
 
 See L<Catalyst::Action::Serialize/CONFIGURATION>. Note that the C<serialize>
 key has been deprecated.
-
 
 =head1 SERIALIZATION
 
@@ -96,7 +92,7 @@ responses, and deserialize any POST, PUT or OPTIONS requests. It evaluates
 which serializer to use by mapping a content-type to a Serialization module.
 We select the content-type based on:
 
-=over 2
+=over
 
 =item B<The Content-Type Header>
 
@@ -112,7 +108,6 @@ Finally, if the client provided an Accept header, we will evaluate
 it and use the best-ranked choice.
 
 =back
-
 
 =head1 AVAILABLE SERIALIZERS
 
@@ -187,31 +182,30 @@ C<text/html> and C<text/xml> views rendered by TT, set:
           'text/html' => [ 'View', 'TT' ],
           'text/xml'  => [ 'View', 'XML' ],
       }
-  );    
+  );
 
 Your views should have a C<process> method like this:
 
   sub process {
       my ( $self, $c, $stash_key ) = @_;
-      
+
       my $output;
       eval {
           $output = $self->serialize( $c->stash->{$stash_key} );
       };
       return $@ if $@;
-      
+
       $c->response->body( $output );
       return 1;  # important
   }
   
   sub serialize {
       my ( $self, $data ) = @_;
-  
+
       my $serialized = ... process $data here ...
-      
+
       return $serialized;
   }
-  
 
 =back
 
@@ -220,7 +214,7 @@ C<415 Unsupported Media Type> response if an attempt to use an unsupported
 content-type is made.  You can ensure that something is always returned by
 setting the C<default> config option:
 
-  __PACKAGE__->config->{'default'} = 'text/x-yaml';
+  __PACKAGE__->config(default => 'text/x-yaml');
 
 would make it always fall back to the serializer plugin defined for
 C<text/x-yaml>.
@@ -247,7 +241,7 @@ refer to it at: L<http://www.w3.org/Protocols/rfc2616/rfc2616.txt>.
 These routines are all implemented as regular subroutines, and as
 such require you pass the current context ($c) as the first argument.
 
-=over 4
+=over
 
 =cut
 
@@ -556,15 +550,9 @@ Wikipedia! http://en.wikipedia.org/wiki/Representational_State_Transfer
 
 The REST Wiki: http://rest.blueoxen.net/cgi-bin/wiki.pl?FrontPage
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Adam Jacob <adam@stalecoffee.org>, with lots of help from mst and jrockway
-
-Marchex, Inc. paid me while I developed this module.  (http://www.marchex.com)
-
-=head1 MAINTAINER
-
-J. Shirley <jshirley@cpan.org>
+See L<Catalyst::Action::REST> for authors.
 
 =head1 LICENSE
 
