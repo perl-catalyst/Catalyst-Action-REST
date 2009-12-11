@@ -165,13 +165,9 @@ Note that this does not do any wildcard expansion of types.
 
 =back
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Adam Jacob <adam@stalecoffee.org>, with lots of help from mst and jrockway
-
-=head1 MAINTAINER
-
-J. Shirley <jshirley@cpan.org>
+See L<Catalyst::Action::REST> for authors.
 
 =head1 LICENSE
 
