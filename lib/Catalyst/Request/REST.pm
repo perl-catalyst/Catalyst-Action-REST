@@ -1,13 +1,14 @@
 package Catalyst::Request::REST;
-
 use Moose;
-use namespace::autoclean;
-use Scalar::Util qw/blessed/;
-
-extends qw/Catalyst::Request Class::Accessor::Fast/;
 
 use Catalyst::Utils;
 use HTTP::Headers::Util qw(split_header_words);
+
+use namespace::autoclean;
+
+extends 'Catalyst::Request';
+
+has [qw/ data accept_only /] => ( is => 'rw' );
 
 sub _insert_self_into {
   my ($class, $app_class ) = @_;
@@ -25,8 +26,6 @@ sub _insert_self_into {
       . "which is not a $class; see Catalyst::Request::REST";
   }
 }
-
-__PACKAGE__->mk_accessors(qw(data accept_only));
 
 sub accepted_content_types {
     my $self = shift;
@@ -84,6 +83,9 @@ sub accepts {
 
     return grep { $_ eq $type } @{ $self->accepted_content_types };
 }
+
+__PACKAGE__->meta->make_immutable;
+__END__
 
 =head1 NAME
 
@@ -170,5 +172,3 @@ See L<Catalyst::Action::REST> for authors.
 You may distribute this code under the same terms as Perl itself.
 
 =cut
-
-1;
