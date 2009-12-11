@@ -36,8 +36,16 @@ Catalyst::Controller::REST - A RESTful controller
 
     # Answer PUT requests to "thing"
     sub thing_PUT {
-      ... some action ...
-    }
+        $radiohead = $req->data->{radiohead};
+        
+        $self->status_created(
+            $c,
+            location => $c->req->uri->as_string,
+            entity => {
+                radiohead => $radiohead,
+            }
+        );
+    }     
 
 =head1 DESCRIPTION
 
@@ -69,9 +77,11 @@ The serialization format will be selected based on the content-type
 of the incoming request.  It is probably easier to use the L<STATUS HELPERS>,
 which are described below.
 
-The HTTP POST, PUT, and OPTIONS methods will all automatically deserialize the
-contents of $c->request->body based on the requests content-type header.
-A list of understood serialization formats is below.
+"The HTTP POST, PUT, and OPTIONS methods will all automatically
+L<deserialize|Catalyst::Action::Deserialize> the contents of
+C<< $c->request->body >> into the C<< $c->request->data >> hashref", based on 
+the request's C<Content-type> header. A list of understood serialization
+formats is L<below|/AVAILABLE SERIALIZERS>.
 
 If we do not have (or cannot run) a serializer for a given content-type, a 415
 "Unsupported Media Type" error is generated.
@@ -512,8 +522,11 @@ method uses L<Catalyst::Action::Serialize>.  If you want to override
 either behavior, simply implement your own C<begin> and C<end> actions
 and use MRO::Compat:
 
-  my Foo::Controller::Monkey;
-  use base qw(Catalyst::Controller::REST);
+  package Foo::Controller::Monkey;
+  use Moose;
+  use namespace::autoclean;
+  
+  BEGIN { extends 'Catalyst::Controller::REST' }
 
   sub begin :Private {
     my ($self, $c) = @_;

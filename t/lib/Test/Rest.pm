@@ -1,10 +1,3 @@
-#
-# Rest.pm
-# Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
-# Created on: 10/16/2006 11:11:25 AM PDT
-#
-# $Id: $
-
 package Test::Rest;
 
 use strict;

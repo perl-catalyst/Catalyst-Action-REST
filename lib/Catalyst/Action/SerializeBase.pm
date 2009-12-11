@@ -1,9 +1,3 @@
-#
-# Catlyst::Action::SerializeBase.pm
-# Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
-#
-# $Id$
-
 package Catalyst::Action::SerializeBase;
 
 use strict;

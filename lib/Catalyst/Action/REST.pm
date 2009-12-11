@@ -1,10 +1,3 @@
-#
-# REST.pm
-# Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
-# Created on: 10/12/2006 03:00:32 PM PDT
-#
-# $Id$
-
 package Catalyst::Action::REST;
 
 use strict;
@@ -185,8 +178,8 @@ one of the accepted return formats.  You can do this by setting it in your query
 accepted return formats.  You can do this by setting it in your query string
 thusly: C<< ?content-type=application%2Fjson (where %2F == / uri escaped). >>
 
-B<NOTE> Apache will refuse %2F unless configured otherise.
-Make sure C<< AllowEncodedSlashes On >> is in your httpd.conf file in orde
+B<NOTE> Apache will refuse %2F unless configured otherwise.
+Make sure C<AllowEncodedSlashes On> is in your httpd.conf file in order
 for this to run smoothly.
 
 =back

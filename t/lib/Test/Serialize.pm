@@ -1,4 +1,3 @@
-
 package Test::Serialize;
 
 use FindBin;

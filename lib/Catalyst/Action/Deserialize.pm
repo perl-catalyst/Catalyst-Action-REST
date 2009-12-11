@@ -1,9 +1,3 @@
-#
-# Catlyst::Action::Deserialize
-# Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
-#
-# $Id$
-
 package Catalyst::Action::Deserialize;
 
 use strict;

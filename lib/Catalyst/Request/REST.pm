@@ -1,7 +1,3 @@
-#
-# REST.pm
-# Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
-# Created on: 10/13/2006 03:54:33 PM PDT
 package Catalyst::Request::REST;
 
 use strict;

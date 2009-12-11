@@ -1,10 +1,3 @@
-#
-# Catlyst::Action::Serialize::YAML::HTML.pm
-# Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
-# Created on: 10/12/2006 03:00:32 PM PDT
-#
-# $Id$
-
 package Catalyst::Action::Serialize::YAML::HTML;
 
 use strict;

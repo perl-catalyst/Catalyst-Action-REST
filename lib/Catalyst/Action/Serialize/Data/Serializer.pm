@@ -1,9 +1,3 @@
-#
-# Catalyst::Action::Serialize::Data::Serializer
-# Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
-#
-# $Id$
-
 package Catalyst::Action::Serialize::Data::Serializer;
 
 use strict;
