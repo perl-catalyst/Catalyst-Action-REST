@@ -25,6 +25,7 @@ __PACKAGE__->config(
         'text/x-php-serialization' =>
              [ 'Data::Serializer', 'PHP::Serialization' ],
         'text/view'   => [ 'View', 'Simple' ],
+        'text/explodingview' => [ 'View', 'Awful' ],
         'text/broken' => 'Broken',
     },
 );
