@@ -125,14 +125,8 @@ sub dispatch {
 sub _get_allowed_methods {
     my ( $self, $controller, $c, $name ) = @_;
     my $class = ref($controller) ? ref($controller) : $controller;
-    my $methods    = Class::Inspector->methods($class);
-    my @allowed;
-    foreach my $method ( @{$methods} ) {
-        if ( $method =~ /^$name\_(.+)$/ ) {
-            push( @allowed, $1 );
-        }
-    }
-    return @allowed;
+    my $methods = Class::Inspector->methods($class);
+    return map { /^$name\_(.+)$/ } @$methods;
 };
 
 sub _return_options {
