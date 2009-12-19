@@ -5,6 +5,9 @@
 
   Simplify _get_allowed_methods method (aristotle)
 
+  Rework serializer return so that serializers throw an exception in
+  the case of issues serializing the data (hobbs).
+
 Fri 11 Dec 01:08:00 GMT 2009 - Release 0.79
 
   Cope with invalid (missing required q parameter) header like:
