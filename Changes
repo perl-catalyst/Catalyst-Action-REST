@@ -1,3 +1,5 @@
+Sat 19 Dec 14:54:00 GMT 2009 - Release 0.80
+
   Convert all classes to Moose
 
   Change Catalyst::Request::REST to be a mostly empty class, with

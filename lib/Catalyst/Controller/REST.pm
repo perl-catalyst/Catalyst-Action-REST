@@ -2,7 +2,7 @@ package Catalyst::Controller::REST;
 use Moose;
 use namespace::autoclean;
 
-our $VERSION = '0.79';
+our $VERSION = '0.80';
 $VERSION = eval $VERSION;
 
 =head1 NAME
