@@ -23,16 +23,10 @@ sub execute {
     };
     if ($@) {
         $c->log->info("Could not load $serializer, refusing to serialize: $@");
-        return 0;
+        return;
     }
     my $dso = Data::Serializer->new( serializer => $serializer );
-    my $data;
-    eval {
-       $data = $dso->raw_serialize($c->stash->{$stash_key});
-    };
-    if ($@) {
-        return $@;
-    } 
+    my $data = $dso->raw_serialize($c->stash->{$stash_key});
     $c->response->output( $data );
     return 1;
 }

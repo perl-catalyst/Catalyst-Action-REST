@@ -16,10 +16,18 @@ sub execute {
 
     if ( !$c->view($view) ) {
         $c->log->error("Could not load $view, refusing to serialize");
-        return 0;
+        return;
     }
 
-    return $c->view($view)->process($c, $stash_key);
+    if ($c->view($view)->process($c, $stash_key)) {
+      return 1;
+    } else {
+      # This is stupid. Please improve it.
+      my $error = join("\n", @{ $c->error }) || "Error in $view";
+      $error .= "\n";
+      $c->clear_errors;
+      die $error;
+    }
 }
 
 1;
