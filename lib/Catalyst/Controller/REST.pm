@@ -146,6 +146,10 @@ Uses L<JSON> to generate JSON output.  It is strongly advised to also have
 L<JSON::XS> installed.  The C<text/x-json> content type is supported but is
 deprecated and you will receive warnings in your log.
 
+=item * C<text/javascript> => C<JSONP>
+
+If a callback=? parameter is passed, this returns javascript in the form of: $callback($serializedJSON);
+
 =item * C<text/x-data-dumper> => C<Data::Serializer>
 
 Uses the L<Data::Serializer> module to generate L<Data::Dumper> output.
@@ -268,6 +272,9 @@ __PACKAGE__->config(
         'text/x-yaml'        => 'YAML',
         'application/json'   => 'JSON',
         'text/x-json'        => 'JSON',
+        'application/x-javascript'  => 'JSONP',
+        'application/javascript'    => 'JSONP',
+        'text/javascript'    => 'JSONP',
         'text/x-data-dumper' => [ 'Data::Serializer', 'Data::Dumper' ],
         'text/x-data-denter' => [ 'Data::Serializer', 'Data::Denter' ],
         'text/x-data-taxi'   => [ 'Data::Serializer', 'Data::Taxi'   ],
@@ -502,6 +509,9 @@ This class provides a default configuration for Serialization.  It is currently:
          'text/x-yaml'        => 'YAML',
          'application/json'   => 'JSON',
          'text/x-json'        => 'JSON',
+         'application/x-javascript' => 'JSONP',
+         'application/javascript'   => 'JSONP',
+         'text/javascript'    => 'JSONP',
          'text/x-data-dumper' => [ 'Data::Serializer', 'Data::Dumper' ],
          'text/x-data-denter' => [ 'Data::Serializer', 'Data::Denter' ],
          'text/x-data-taxi'   => [ 'Data::Serializer', 'Data::Taxi'   ],
