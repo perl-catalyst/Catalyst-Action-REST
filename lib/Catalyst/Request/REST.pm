@@ -52,67 +52,19 @@ Catalyst::Request::REST - A REST-y subclass of Catalyst::Request
 
 =head1 DESCRIPTION
 
-This is a subclass of C<Catalyst::Request> that adds a few methods to
-the request object to faciliate writing REST-y code. Currently, these
-methods are all related to the content types accepted by the client.
+This is a subclass of C<Catalyst::Request> that applies the
+L<Catalyst::TraitFor::Request::REST> which adds a few methods to
+the request object to faciliate writing REST-y code.
 
-Note that if you have a custom request class in your application, and it does
-not inherit from C<Catalyst::Request::REST>, your application will fail with an
-error indicating a conflict the first time it tries to use
-C<Catalyst::Request::REST>'s functionality.  To fix this error, make sure your
-custom request class inherits from C<Catalyst::Request::REST>.
+This class is only here for backwards compatibility with applications
+already subclassing this class.
 
-=head1 METHODS
+L<Catalyst::Action::REST> and L<Catalyst::Controller::REST> will arrange
+for the request trait to be applied if needed.
 
-=over
+=head1 SEE ALSO
 
-=item data
-
-If the request went through the Deserializer action, this method will
-return the deserialized data structure.
-
-=item accepted_content_types
-
-Returns an array reference of content types accepted by the
-client.
-
-The list of types is created by looking at the following sources:
-
-=over 8
-
-=item * Content-type header
-
-If this exists, this will always be the first type in the list.
-
-=item * content-type parameter
-
-If the request is a GET request and there is a "content-type"
-parameter in the query string, this will come before any types in the
-Accept header.
-
-=item * Accept header
-
-This will be parsed and the types found will be ordered by the
-relative quality specified for each type.
-
-=back
-
-If a type appears in more than one of these places, it is ordered based on
-where it is first found.
-
-=item preferred_content_type
-
-This returns the first content type found. It is shorthand for:
-
-  $request->accepted_content_types->[0]
-
-=item accepts($type)
-
-Given a content type, this returns true if the type is accepted.
-
-Note that this does not do any wildcard expansion of types.
-
-=back
+L<Catalyst::TraitFor::Request::REST>.
 
 =head1 AUTHORS
 
