@@ -65,7 +65,7 @@ if ($Module::Install::AUTHOR) {
         and die $!;
 }
 
-repository 'http://github.com/bobtfish/catalyst-action-rest';
+repository 'git://git.shadowcat.co.uk/catagits/Catalyst-Action-REST.git';
 
 WriteAll;
 
