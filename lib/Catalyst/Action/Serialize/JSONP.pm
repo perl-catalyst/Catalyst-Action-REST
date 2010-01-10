@@ -1,4 +1,8 @@
 package Catalyst::Action::Serialize::JSONP;
+use strict;
+use warnings;
+use MRO::Compat;
+
 use base 'Catalyst::Action::Serialize::JSON';
 
 sub execute {
