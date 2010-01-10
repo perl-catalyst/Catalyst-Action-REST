@@ -1,335 +1,100 @@
 NAME
-    Catalyst::Controller::REST - A RESTful controller
-
-VERSION
-    0.75
+    Catalyst::Action::REST - Automated REST Method Dispatching
 
 SYNOPSIS
-        package Foo::Controller::Bar;
-
-        use base 'Catalyst::Controller::REST';
-
-        sub thing : Local : ActionClass('REST') { }
-
-        # Answer GET requests to "thing"
-        sub thing_GET {
-           my ( $self, $c ) = @_;
-     
-           # Return a 200 OK, with the data in entity
-           # serialized in the body 
-           $self->status_ok(
-                $c, 
-                entity => {
-                    some => 'data',
-                    foo  => 'is real bar-y',
-                },
-           );
+        sub foo :Local :ActionClass('REST') {
+          ... do setup for HTTP method specific handlers ...
         }
 
-        # Answer PUT requests to "thing"
-        sub thing_PUT { 
-          .. some action ..
+        sub foo_GET {
+          ... do something for GET requests ...
+        }
+
+        # alternatively use an Action
+        sub foo_PUT : Action {
+          ... do something for PUT requests ...
         }
 
 DESCRIPTION
-    Catalyst::Controller::REST implements a mechanism for building RESTful
-    services in Catalyst. It does this by extending the normal Catalyst
-    dispatch mechanism to allow for different subroutines to be called based
-    on the HTTP Method requested, while also transparently handling all the
-    serialization/deserialization for you.
+    This Action handles doing automatic method dispatching for REST
+    requests. It takes a normal Catalyst action, and changes the dispatch to
+    append an underscore and method name. First it will try dispatching to
+    an action with the generated name, and failing that it will try to
+    dispatch to a regular method.
 
-    This is probably best served by an example. In the above controller, we
-    have declared a Local Catalyst action on "sub thing", and have used the
-    ActionClass('REST').
+    For example, in the synopsis above, calling GET on "/foo" would result
+    in the foo_GET method being dispatched.
 
-    Below, we have declared "thing_GET" and "thing_PUT". Any GET requests to
-    thing will be dispatched to "thing_GET", while any PUT requests will be
-    dispatched to "thing_PUT".
+    If a method is requested that is not implemented, this action will
+    return a status 405 (Method Not Found). It will populate the "Allow"
+    header with the list of implemented request methods. You can override
+    this behavior by implementing a custom 405 handler like so:
 
-    Any unimplemented HTTP methods will be met with a "405 Method Not
-    Allowed" response, automatically containing the proper list of available
-    methods. You can override this behavior through implementing a custom
-    "thing_not_implemented" method.
+       sub foo_not_implemented {
+          ... handle not implemented methods ...
+       }
 
-    If you do not provide an OPTIONS handler, we will respond to any OPTIONS
-    requests with a "200 OK", populating the Allowed header automatically.
+    If you do not provide an _OPTIONS subroutine, we will automatically
+    respond with a 200 OK. The "Allow" header will be populated with the
+    list of implemented request methods.
 
-    Any data included in "$c->stash->{'rest'}" will be serialized for you.
-    The serialization format will be selected based on the content-type of
-    the incoming request. It is probably easier to use the "STATUS HELPERS",
-    which are described below.
+    It is likely that you really want to look at Catalyst::Controller::REST,
+    which brings this class together with automatic Serialization of
+    requests and responses.
 
-    The HTTP POST, PUT, and OPTIONS methods will all automatically
-    deserialize the contents of $c->request->body based on the requests
-    content-type header. A list of understood serialization formats is
-    below.
+    When you use this module, the request class will be changed to
+    Catalyst::Request::REST.
 
-    If we do not have (or cannot run) a serializer for a given content-type,
-    a 415 "Unsupported Media Type" error is generated.
-
-    To make your Controller RESTful, simply have it
-
-      use base 'Catalyst::Controller::REST'; 
-
-SERIALIZATION
-    Catalyst::Controller::REST will automatically serialize your responses,
-    and deserialize any POST, PUT or OPTIONS requests. It evaluates which
-    serializer to use by mapping a content-type to a Serialization module.
-    We select the content-type based on:
-
-    The Content-Type Header
-      If the incoming HTTP Request had a Content-Type header set, we will
-      use it.
-
-    The content-type Query Parameter
-      If this is a GET request, you can supply a content-type query
-      parameter.
-
-    Evaluating the Accept Header
-      Finally, if the client provided an Accept header, we will evaluate it
-      and use the best-ranked choice.
-
-AVAILABLE SERIALIZERS
-    A given serialization mechanism is only available if you have the
-    underlying modules installed. For example, you can't use XML::Simple if
-    it's not already installed.
-
-    In addition, each serializer has it's quirks in terms of what sorts of
-    data structures it will properly handle. Catalyst::Controller::REST
-    makes no attempt to svae you from yourself in this regard. :)
-
-    "text/x-yaml" => "YAML::Syck"
-      Returns YAML generated by YAML::Syck.
-
-    "text/html" => "YAML::HTML"
-      This uses YAML::Syck and URI::Find to generate YAML with all URLs
-      turned to hyperlinks. Only useable for Serialization.
-
-    "text/x-json" => "JSON::Syck"
-      Uses JSON::Syck to generate JSON output
-
-    "text/x-data-dumper" => "Data::Serializer"
-      Uses the Data::Serializer module to generate Data::Dumper output.
-
-    "text/x-data-denter" => "Data::Serializer"
-      Uses the Data::Serializer module to generate Data::Denter output.
-
-    "text/x-data-taxi" => "Data::Serializer"
-      Uses the Data::Serializer module to generate Data::Taxi output.
-
-    "application/x-storable" => "Data::Serializer"
-      Uses the Data::Serializer module to generate Storable output.
-
-    "application/x-freezethaw" => "Data::Serializer"
-      Uses the Data::Serializer module to generate FreezeThaw output.
-
-    "text/x-config-general" => "Data::Serializer"
-      Uses the Data::Serializer module to generate Config::General output.
-
-    "text/x-php-serialization" => "Data::Serializer"
-      Uses the Data::Serializer module to generate PHP::Serialization
-      output.
-
-    "text/xml" => "XML::Simple"
-      Uses XML::Simple to generate XML output. This is probably not suitable
-      for any real heavy XML work. Due to XML::Simples requirement that the
-      data you serialize be a HASHREF, we transform outgoing data to be in
-      the form of:
-
-        { data => $yourdata }
-
-    View
-      Uses a regular Catalyst view. For example, if you wanted to have your
-      "text/html" and "text/xml" views rendered by TT:
-
-              'text/html' => [ 'View', 'TT' ],
-              'text/xml'  => [ 'View', 'XML' ],
-        
-      Will do the trick nicely.
-
-    By default, Catalyst::Controller::REST will return a "415 Unsupported
-    Media Type" response if an attempt to use an unsupported content-type is
-    made. You can ensure that something is always returned by setting the
-    "default" config option:
-
-       __PACKAGE__->config->{'serialize'}->{'default'} = 'text/x-yaml';
-
-    Would make it always fall back to the serializer plugin defined for
-    text/x-yaml.
-
-    Implementing new Serialization formats is easy! Contributions are most
-    welcome! See Catalyst::Action::Serialize and
-    Catalyst::Action::Deserialize for more information.
-
-CUSTOM SERIALIZERS
-    If you would like to implement a custom serializer, you should create
-    two new modules in the Catalyst::Action::Serialize and
-    Catalyst::Action::Deserialize namespace. Then assign your new class to
-    the content-type's you want, and you're done.
-
-STATUS HELPERS
-    Since so much of REST is in using HTTP, we provide these Status Helpers.
-    Using them will ensure that you are responding with the proper codes,
-    headers, and entities.
-
-    These helpers try and conform to the HTTP 1.1 Specification. You can
-    refer to it at: <http://www.w3.org/Protocols/rfc2616/rfc2616.txt>. These
-    routines are all implemented as regular subroutines, and as such require
-    you pass the current context ($c) as the first argument.
-
-    status_ok
-        Returns a "200 OK" response. Takes an "entity" to serialize.
-
-        Example:
-
-          $self->status_ok(
-            $c, 
-            entity => {
-                radiohead => "Is a good band!",
-            }
-          );
-
-    status_created
-        Returns a "201 CREATED" response. Takes an "entity" to serialize,
-        and a "location" where the created object can be found.
-
-        Example:
-
-          $self->status_created(
-            $c, 
-            location => $c->req->uri->as_string,
-            entity => {
-                radiohead => "Is a good band!",
-            }
-          );
-
-        In the above example, we use the requested URI as our location. This
-        is probably what you want for most PUT requests.
-
-    status_accepted
-        Returns a "202 ACCEPTED" response. Takes an "entity" to serialize.
-
-        Example:
-
-          $self->status_accepted(
-            $c, 
-            entity => {
-                status => "queued",
-            }
-          );
-
-    status_bad_request
-        Returns a "400 BAD REQUEST" response. Takes a "message" argument as
-        a scalar, which will become the value of "error" in the serialized
-        response.
-
-        Example:
-
-          $self->status_bad_request(
-            $c, 
-            message => "Cannot do what you have asked!",
-          );
-
-    status_not_found
-        Returns a "404 NOT FOUND" response. Takes a "message" argument as a
-        scalar, which will become the value of "error" in the serialized
-        response.
-
-        Example:
-
-          $self->status_not_found(
-            $c, 
-            message => "Cannot find what you were looking for!",
-          );
-
-MANUAL RESPONSES
-    If you want to construct your responses yourself, all you need to do is
-    put the object you want serialized in $c->stash->{'rest'}.
-
-IMPLEMENTATION DETAILS
-    This Controller ties together Catalyst::Action::REST,
-    Catalyst::Action::Serialize and Catalyst::Action::Deserialize. It should
-    be suitable for most applications. You should be aware that it:
-
-    Configures the Serialization Actions
-        This class provides a default configuration for Serialization. It is
-        currently:
-
-          __PACKAGE__->config(
-              serialize => {
-                 'stash_key' => 'rest',
-                 'map'       => {
-                    'text/html'          => 'YAML::HTML',
-                    'text/xml'           => 'XML::Simple',
-                    'text/x-yaml'        => 'YAML',
-                    'text/x-json'        => 'JSON',
-                    'text/x-data-dumper' => [ 'Data::Serializer', 'Data::Dumper' ],
-                    'text/x-data-denter' => [ 'Data::Serializer', 'Data::Denter' ],
-                    'text/x-data-taxi'   => [ 'Data::Serializer', 'Data::Taxi'   ],
-                    'application/x-storable'    => [ 'Data::Serializer', 'Storable'     
-        ],
-                    'application/x-freezethaw'  => [ 'Data::Serializer', 'FreezeThaw'   
-        ],
-                    'text/x-config-general' => [ 'Data::Serializer', 'Config::General' ]
-        ,
-                    'text/x-php-serialization' => [ 'Data::Serializer', 'PHP::Serialization' ],
-                  },
-              }
-          );
-
-        You can read the full set of options for this configuration block in
-        Catalyst::Action::Serialize.
-
-    Sets a "begin" and "end" method for you
-        The "begin" method uses Catalyst::Action::Deserialize. The "end"
-        method uses Catalyst::Action::Serialize. If you want to override
-        either behavior, simply implement your own "begin" and "end" actions
-        and use MRO::Compat:
-
-          my Foo::Controller::Monkey;
-          use base qw(Catalyst::Controller::REST);
-
-          sub begin :Private {
-            my ($self, $c) = @_;
-            ... do things before Deserializing ...            
-            $self->maybe::next::method($c);
-            ... do things after Deserializing ...
-          } 
-
-          sub end :Private {
-            my ($self, $c) = @_;
-            ... do things before Serializing ...            
-            $self->maybe::next::method($c);
-            ... do things after Serializing ...
-          }
-
-A MILD WARNING
-        I have code in production using Catalyst::Controller::REST. That
-        said, it is still under development, and it's possible that things
-        may change between releases. I promise to not break things
-        unneccesarily. :)
+METHODS
+    dispatch
+        This method overrides the default dispatch mechanism to the
+        re-dispatching mechanism described above.
 
 SEE ALSO
-        Catalyst::Action::REST, Catalyst::Action::Serialize,
-        Catalyst::Action::Deserialize
+    You likely want to look at Catalyst::Controller::REST, which implements
+    a sensible set of defaults for a controller doing REST.
 
-        For help with REST in general:
+    Catalyst::Action::Serialize, Catalyst::Action::Deserialize
 
-        The HTTP 1.1 Spec is required reading.
-        http://www.w3.org/Protocols/rfc2616/rfc2616.txt
+TROUBLESHOOTING
+    Q: I'm getting a "415 Unsupported Media Type" error. What gives?!
+        A: Most likely, you haven't set Content-type equal to
+        "application/json", or one of the accepted return formats. You can
+        do this by setting it in your query accepted return formats. You can
+        do this by setting it in your query string thusly:
+        "?content-type=application%2Fjson (where %2F == / uri escaped)."
 
-        Wikipedia!
-        http://en.wikipedia.org/wiki/Representational_State_Transfer
-
-        The REST Wiki: http://rest.blueoxen.net/cgi-bin/wiki.pl?FrontPage
+        NOTE Apache will refuse %2F unless configured otherwise. Make sure
+        "AllowEncodedSlashes On" is in your httpd.conf file in order for
+        this to run smoothly.
 
 AUTHOR
-        Adam Jacob <adam@stalecoffee.org>, with lots of help from mst and
-        jrockway
+    Adam Jacob <adam@stalecoffee.org>, with lots of help from mst and
+    jrockway
 
-        Marchex, Inc. paid me while I developed this module.
-        (http://www.marchex.com)
+    Marchex, Inc. paid me while I developed this module.
+    (<http://www.marchex.com>)
+
+CONTRIBUTORS
+    Arthur Axel "fREW" Schmidt <frioux@gmail.com>
+
+    Christopher Laco
+
+    Luke Saunders
+
+    John Goulah
+
+    Daisuke Maki <daisuke@endeworks.jp>
+
+    J. Shirley <jshirley@gmail.com>
+
+    Hans Dieter Pearcey
+
+    Tomas Doran (t0m) <bobtfish@bobtfish.net>
+
+COPYRIGHT
+    Copyright the above named AUTHOR and CONTRIBUTORS
 
 LICENSE
-        You may distribute this code under the same terms as Perl itself.
+    You may distribute this code under the same terms as Perl itself.
 

@@ -1,4 +1,7 @@
+use strict;
+use warnings;
 use inc::Module::Install;
+use Module::Install::AuthorRequires;
 
 perl_version '5.8.1';
 
@@ -25,28 +28,42 @@ feature 'JSON (application/json) support',
     'JSON'     => '2.12';
     'JSON::XS' => '2.2222';
 
+author_requires 'JSON'     => '2.12';
+author_requires 'JSON::XS' => '2.2222';
+
 feature 'Data::Taxi (text/x-data-taxi) support',
     -default => 0,
     'Data::Taxi' => undef;
 
+author_requires 'Data::Taxi';
+
 feature 'Config::General (text/x-config-general) support',
     -default => 0,
     'Config::General' => undef;
+author_requires 'Config::General';
 
 feature 'PHP::Serialization (text/x-php-serialization) support',
     -default => 0,
     'PHP::Serialization' => undef;
+author_requires 'PHP::Serialization';
 
 feature 'FreezeThaw (application/x-freezethaw) support',
     -default => 0,
     'FreezeThaw' => undef;
+author_requires 'FreezeThaw';
 
 feature 'XML::Simple (text/xml) support',
     -default => 0,
     'XML::Simple' => undef;
+author_requires 'XML::Simple';
 
 auto_include;
 auto_install;
+
+if ($Module::Install::AUTHOR) {
+    system("pod2text lib/Catalyst/Action/REST.pm > README")
+        and die $!;
+}
 
 repository 'http://github.com/bobtfish/catalyst-action-rest';
 
