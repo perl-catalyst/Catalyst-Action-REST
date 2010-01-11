@@ -15,7 +15,7 @@ after 'execute' => sub {
 
   my $callback_value = $c->req->param($callback_key);
   if ($callback_value) {
-    if ($callback_value =~ /^\w+/) {
+    if ($callback_value =~ /^\w+$/) {
       $c->res->content_type('text/javascript');
       $c->res->output($callback_value.'('.$c->res->output().');');
     } else { 
