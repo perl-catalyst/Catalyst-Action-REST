@@ -1,11 +1,9 @@
 package Catalyst::Action::Serialize::JSONP;
-use strict;
-use warnings;
-use MRO::Compat;
+use Moose;
+use namespace::autoclean;
+BEGIN {extends 'Catalyst::Action::Serialize::JSON'};
 
-use base 'Catalyst::Action::Serialize::JSON';
-
-sub execute {
+after 'execute' => sub { 
   my $self = shift;
   my ($controller, $c) = @_;
 
@@ -15,20 +13,15 @@ sub execute {
       $controller->{'callback_key'} 
     ) || 'callback';
 
-  if ($c->req->param($callback_key)) {
-    $self->{_jsonp_callback} = $c->req->param($callback_key);
-    $c->res->content_type('text/javascript');
+  my $callback_value = $c->req->param($callback_key);
+  if ($callback_value) {
+    if ($callback_value =~ /^\w+/) {
+      $c->res->content_type('text/javascript');
+      $c->res->output($callback_value.'('.$c->res->output().');');
+    } else { 
+      warn 'Callback: '.$callback_value.' will not generate valid Javascript. Falling back to JSON output';
+    }
   }
-  $self->next::method($controller, $c);
-}
-
-sub serialize {
-  my $self = shift;
-  my $json = $self->next::method(@_);
-  if ($self->{_jsonp_callback}) {
-    $json = $self->{_jsonp_callback}.'('.$json.');';
-  }
-  return $json;
-}
+};
 
 1;
