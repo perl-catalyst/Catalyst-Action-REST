@@ -1,7 +1,8 @@
 package Catalyst::Action::Serialize::JSONP;
 use Moose;
 use namespace::autoclean;
-BEGIN {extends 'Catalyst::Action::Serialize::JSON'};
+
+extends 'Catalyst::Action::Serialize::JSON';
 
 after 'execute' => sub { 
   my $self = shift;
