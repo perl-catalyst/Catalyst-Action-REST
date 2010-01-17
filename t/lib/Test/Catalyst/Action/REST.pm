@@ -7,6 +7,7 @@ use Catalyst::Runtime '5.70';
 
 use Catalyst;
 use FindBin;
+use Test::Catalyst::Log;
 
 __PACKAGE__->config(
     name => 'Test::Catalyst::Action::REST',
@@ -16,5 +17,6 @@ __PACKAGE__->config(
     },
 );
 __PACKAGE__->setup;
+__PACKAGE__->log( Test::Catalyst::Log->new );
 
 1;
