@@ -5,10 +5,24 @@ use namespace::autoclean;
 
 has [qw/ data accept_only /] => ( is => 'rw' );
 
-sub accepted_content_types {
-    my $self = shift;
+has accepted_content_types => (
+    is       => 'ro',
+    isa      => 'ArrayRef',
+    lazy     => 1,
+    builder  => '_build_accepted_content_types',
+    init_arg => undef,
+);
 
-    return $self->{content_types} if $self->{content_types};
+has preferred_content_type => (
+    is       => 'ro',
+    isa      => 'Str',
+    lazy     => 1,
+    builder  => '_build_preferred_content_type',
+    init_arg => undef,
+);
+
+sub _build_accepted_content_types {
+    my $self = shift;
 
     my %types;
 
@@ -49,11 +63,10 @@ sub accepted_content_types {
         }
     }
 
-    return $self->{content_types} =
-        [ sort { $types{$b} <=> $types{$a} } keys %types ];
+    [ sort { $types{$b} <=> $types{$a} } keys %types ];
 }
 
-sub preferred_content_type { $_[0]->accepted_content_types->[0] }
+sub _build_preferred_content_type { $_[0]->accepted_content_types->[0] }
 
 sub accepts {
     my $self = shift;

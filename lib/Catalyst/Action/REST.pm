@@ -67,8 +67,8 @@ It is likely that you really want to look at L<Catalyst::Controller::REST>,
 which brings this class together with automatic Serialization of requests
 and responses.
 
-When you use this module, the request class will be changed to
-L<Catalyst::Request::REST>.
+When you use this module, it adds the L<Catalyst::TraitFor::Request::REST>
+role to your request class.
 
 =head1 METHODS
 
@@ -156,8 +156,13 @@ sub _return_not_implemented {
 
 =head1 SEE ALSO
 
-You likely want to look at L<Catalyst::Controller::REST>, which implements
-a sensible set of defaults for a controller doing REST.
+You likely want to look at L<Catalyst::Controller::REST>, which implements a
+sensible set of defaults for a controller doing REST.
+
+This class automatically adds the L<Catalyst::TraitFor::Request::REST> role to
+your request class.  If you're writing a webapp which provides RESTful
+responses and still needs to accomodate web browsers, you may prefer to use
+L<Catalyst::TraitFor::Request::REST::ForBrowsers> instead.
 
 L<Catalyst::Action::Serialize>, L<Catalyst::Action::Deserialize>
 
