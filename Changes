@@ -1,3 +1,18 @@
+0.82
+
+  Integrated Catalyst::Request::REST::ForBrowsers as
+  Catalyst::TraitFor::Request::ForBrowsers. (Dave Rolsky)
+
+  Clarified docs so that they encourage the use of the request traits, rather
+  than using Catalyst::Request::REST. (Dave Rolsky)
+
+  When Catalyst::Action::REST or Controller::REST automatically add the trait,
+  your request class will no longer end up getting set to
+  Catalyst::Request::REST. Instead, creates an anon class with the appropriate
+  role. (Dave Rolsky)
+
+  Shut up log output from the tests. (Dave Rolsky)
+
 Thu 14 Jan 20:56:00 GMT 2010 - Release 0.81
 
   Add a JSONP serialization type.
