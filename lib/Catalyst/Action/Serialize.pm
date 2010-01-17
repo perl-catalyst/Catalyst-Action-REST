@@ -7,6 +7,9 @@ extends 'Catalyst::Action::SerializeBase';
 use Module::Pluggable::Object;
 use MRO::Compat;
 
+our $VERSION = '0.81';
+$VERSION = eval $VERSION;
+
 sub execute {
     my $self = shift;
     my ( $controller, $c ) = @_;

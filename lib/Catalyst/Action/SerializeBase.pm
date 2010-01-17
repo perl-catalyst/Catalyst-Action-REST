@@ -8,6 +8,9 @@ use Module::Pluggable::Object;
 use Catalyst::Request::REST;
 use Catalyst::Utils ();
 
+our $VERSION = '0.81';
+$VERSION = eval $VERSION;
+
 sub new {
   my $class  = shift;
   my $config = shift;

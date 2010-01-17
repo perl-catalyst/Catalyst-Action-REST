@@ -4,6 +4,9 @@ use namespace::autoclean;
 
 extends 'Catalyst::Action::Serialize::JSON';
 
+our $VERSION = '0.81';
+$VERSION = eval $VERSION;
+
 after 'execute' => sub {
   my $self = shift;
   my ($controller, $c) = @_;
