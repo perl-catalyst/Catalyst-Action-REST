@@ -2,6 +2,7 @@ use strict;
 use warnings;
 use inc::Module::Install;
 use Module::Install::AuthorRequires;
+use Module::Install::AuthorTests;
 
 perl_version '5.8.1';
 
@@ -22,6 +23,12 @@ requires('MRO::Compat'               => '0.10');
 
 requires 'namespace::autoclean';
 test_requires 'Test::More' => '0.88';
+
+author_requires 'Test::Pod' => 1.14;
+author_requires 'Module::Info';
+author_requires 'File::Find::Rule';
+
+author_tests 'xt/';
 
 feature 'JSON (application/json) support',
     -default   => 0,
