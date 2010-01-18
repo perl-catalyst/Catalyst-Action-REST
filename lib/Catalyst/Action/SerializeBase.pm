@@ -160,9 +160,7 @@ sub _serialize_bad_request {
 
 =head1 NAME
 
-B<Catalyst::Action::SerializeBase>
-
-Base class for Catalyst::Action::Serialize and Catlayst::Action::Deserialize.
+Catalyst::Action::SerializeBase - Base class for Catalyst::Action::Serialize and Catlayst::Action::Deserialize.
 
 =head1 DESCRIPTION
 

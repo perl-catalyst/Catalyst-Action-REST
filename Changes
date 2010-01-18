@@ -17,6 +17,8 @@
   install Catalyst::Request::REST::ForBrowsers, they get the version in this
   distro. (Dave Rolsky)
 
+  Fix doc nits (RT#53780)
+
 Thu 14 Jan 20:56:00 GMT 2010 - Release 0.81
 
   Add a JSONP serialization type.
