@@ -17,6 +17,9 @@
   install Catalyst::Request::REST::ForBrowsers, they get the version in this
   distro. (Dave Rolsky)
 
+  Change Catalyst::Action::Serialize, Catalyst::Action::Deserialize and
+  Catalyst::Action::SerializeBase to be more Moose like.
+
   Fix doc nits (RT#53780)
 
 Thu 14 Jan 20:56:00 GMT 2010 - Release 0.81

@@ -11,14 +11,13 @@ use Catalyst::Utils ();
 our $VERSION = '0.81';
 $VERSION = eval $VERSION;
 
-sub new {
-  my $class  = shift;
-  my $config = shift;
-  Catalyst::Request::REST->_insert_self_into( $config->{class} );
-  return $class->SUPER::new($config, @_);
-}
+after BUILDARGS => sub {
+    my $class  = shift;
+    my $config = shift;
+    Catalyst::Request::REST->_insert_self_into( $config->{class} );
+};
 
-__PACKAGE__->mk_accessors(qw(_serialize_plugins _loaded_plugins));
+has [qw(_serialize_plugins _loaded_plugins)] => ( is => 'rw' );
 
 sub _load_content_plugins {
     my $self = shift;
@@ -156,7 +155,7 @@ sub _serialize_bad_request {
     return undef;
 }
 
-1;
+__PACKAGE__->meta->make_immutable;
 
 =head1 NAME
 

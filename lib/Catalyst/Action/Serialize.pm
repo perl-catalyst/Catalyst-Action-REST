@@ -53,7 +53,7 @@ sub execute {
     return 1;
 }
 
-1;
+__PACKAGE__->meta->make_immutable;
 
 =head1 NAME
 
