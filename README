@@ -42,8 +42,8 @@ DESCRIPTION
     which brings this class together with automatic Serialization of
     requests and responses.
 
-    When you use this module, the request class will be changed to
-    Catalyst::Request::REST.
+    When you use this module, it adds the Catalyst::TraitFor::Request::REST
+    role to your request class.
 
 METHODS
     dispatch
@@ -53,6 +53,11 @@ METHODS
 SEE ALSO
     You likely want to look at Catalyst::Controller::REST, which implements
     a sensible set of defaults for a controller doing REST.
+
+    This class automatically adds the Catalyst::TraitFor::Request::REST role
+    to your request class. If you're writing a webapp which provides RESTful
+    responses and still needs to accomodate web browsers, you may prefer to
+    use Catalyst::TraitFor::Request::REST::ForBrowsers instead.
 
     Catalyst::Action::Serialize, Catalyst::Action::Deserialize
 
