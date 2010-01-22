@@ -4,10 +4,20 @@ use Moose;
 use namespace::autoclean;
 
 extends 'Catalyst::Action';
-use JSON qw(encode_json);
+use JSON ();
 
 our $VERSION = '0.81';
 $VERSION = eval $VERSION;
+
+has encoder => (
+   is => 'ro',
+   lazy_build => 1,
+);
+
+sub _build_encoder {
+   my $self = shift;
+   return JSON->new->utf8->convert_blessed;
+}
 
 sub execute {
     my $self = shift;
@@ -16,7 +26,7 @@ sub execute {
     my $stash_key = (
             $controller->{'serialize'} ?
                 $controller->{'serialize'}->{'stash_key'} :
-                $controller->{'stash_key'} 
+                $controller->{'stash_key'}
         ) || 'rest';
     my $output = $self->serialize( $c->stash->{$stash_key} );
     $c->response->output( $output );
@@ -25,7 +35,8 @@ sub execute {
 
 sub serialize {
     my $self = shift;
-    encode_json( shift );
+    my $data = shift;
+    $self->encoder->encode( $data );
 }
 
 1;

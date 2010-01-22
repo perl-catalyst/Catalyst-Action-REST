@@ -4,14 +4,14 @@ use Moose;
 use namespace::autoclean;
 
 extends 'Catalyst::Action::Serialize::JSON';
-use JSON::XS qw(encode_json);
+use JSON::XS ();
 
 our $VERSION = '0.81';
 $VERSION = eval $VERSION;
 
-sub serialize {
-    my $self = shift;
-    encode_json( shift );
+sub _build_encoder {
+   my $self = shift;
+   return JSON::XS->new->convert_blessed;
 }
 
 1;
