@@ -1,3 +1,6 @@
+  Fix JSON and JSON::XS to encode_blessed (fREW)
+  Fix Catalyst::Action::Serialize to use objects instead of classes (fREW)
+
 0.82
 
   Integrated Catalyst::Request::REST::ForBrowsers as
@@ -144,93 +147,93 @@ Thu Jan  3 17:23:58 PST 2008 (adam) - Release 0.60
   Prepped for release.
 
 Thu Jan  3 19:42:16 EST 2008
-	Fixed RT#30498 - REST controller references Catalyst without
-	  loading it first.
-	Fixed RT#32042 - Import of Params::Validate :all plays badly
-	  with subclasses that have their own validate()
-	Fixed RT#30456 - Debug messages print even with debugging disabled
+   Fixed RT#30498 - REST controller references Catalyst without
+     loading it first.
+   Fixed RT#32042 - Import of Params::Validate :all plays badly
+     with subclasses that have their own validate()
+   Fixed RT#30456 - Debug messages print even with debugging disabled
 
 Thu Jan  3 08:54:09 PST 2008
-	Fixed an issue where YAML::Syck versions 0.92 require $c->request->body to
-	  be stringified
+   Fixed an issue where YAML::Syck versions 0.92 require $c->request->body to
+     be stringified
 
 Fri Dec 21 15:23:46 EDT 2007
-	Updated the configuration specifiers to operate more in line with the way
-	Catalyst expects.  Most notably component based configuration through
-	"Controller::RestClass" now works.  "serialize" at the top level simply
-	is suggested defaults that all REST classes inherit.
+   Updated the configuration specifiers to operate more in line with the way
+   Catalyst expects.  Most notably component based configuration through
+   "Controller::RestClass" now works.  "serialize" at the top level simply
+   is suggested defaults that all REST classes inherit.
 
 Wed Jul 04 11:17:20 EDT 2007
-	Fixed 'default' serializer to set a valid Content-Type: header.  Fixes
-	RT ticket 27949.  Note that behavior has changed -- the default
-	serializer must now be specified as a content-type, not as a plugin
-	name. (dmo@roaringpenguin.com)
+   Fixed 'default' serializer to set a valid Content-Type: header.  Fixes
+   RT ticket 27949.  Note that behavior has changed -- the default
+   serializer must now be specified as a content-type, not as a plugin
+   name. (dmo@roaringpenguin.com)
 
 Thu May 24 14:01:06 PDT 2007 (adam) - Release 0.41
-	Moved a bogus $self->class to $c->component($self->class)
+   Moved a bogus $self->class to $c->component($self->class)
 
 Fri Mar  9 14:13:29 PST 2007 (adam) - Release 0.40
-	Refactored the Content-Type negotiation to live in Catalyst::Request::REST.  (drolsky)
-  	Added some useful debugging. (drolsky)
-	Added a View serializer/deserializer, which simply calls the correct
-	Catalyst view.  ('text/html' => [ 'View', 'TT' ]) (claco, adam)
+   Refactored the Content-Type negotiation to live in Catalyst::Request::REST.  (drolsky)
+   Added some useful debugging. (drolsky)
+   Added a View serializer/deserializer, which simply calls the correct
+   Catalyst view.  ('text/html' => [ 'View', 'TT' ]) (claco, adam)
 
 Wed Dec  6 00:45:02 PST 2006 (adam) - Release 0.31
-	Fixed a bug where we would report a blank content-type negotiation.
-	Added Data::Dump as a dependency.
+   Fixed a bug where we would report a blank content-type negotiation.
+   Added Data::Dump as a dependency.
 
 Tue Dec  5 13:02:08 PST 2006 (adam)
-	Made the YAML::HTML view automatically append content-type=text/html on
-	  the resulting URLs.
+   Made the YAML::HTML view automatically append content-type=text/html on
+     the resulting URLs.
 
 Sun Dec  3 12:24:16 PST 2006 (adam) - Release 0.30
-	Updated the Makefile to support optional installation of the different
-	  Serialization formats.
-	Renamed some of the test cases, since the execution order doesn't
-	  matter.
-	Fixed things so that not having a Serialization module returns 415.
-	Fixed things so that failure to Deserialize sends the proper status.
-	Refactored the Plugin loading to Catalyst::Action::SerializeBase.
-	Updated the Documentation.
-	Added a whole raft of serializers. (JSON, all the Data::Serializer
-	  supported ones, and XML::Simple)
-	Added test cases.
+   Updated the Makefile to support optional installation of the different
+     Serialization formats.
+   Renamed some of the test cases, since the execution order doesn't
+     matter.
+   Fixed things so that not having a Serialization module returns 415.
+   Fixed things so that failure to Deserialize sends the proper status.
+   Refactored the Plugin loading to Catalyst::Action::SerializeBase.
+   Updated the Documentation.
+   Added a whole raft of serializers. (JSON, all the Data::Serializer
+     supported ones, and XML::Simple)
+   Added test cases.
 
 Thu Nov 30 23:51:04 PST 2006 (adam)
-	Refactored the Catalyst::Action::REST dispatch, so that the default
-	  method is called before any _METHOD handlers.  In addition, moved
-	  the 405 Not Implemented handler to be foo_not_implemented, instead
-	  of the default sub.  (daisuke++ pointed out the inconsistency and
-	  provided a patch, and I added the foo_not_implemented support)
+   Refactored the Catalyst::Action::REST dispatch, so that the default
+     method is called before any _METHOD handlers.  In addition, moved
+     the 405 Not Implemented handler to be foo_not_implemented, instead
+     of the default sub.  (daisuke++ pointed out the inconsistency and
+     provided a patch, and I added the foo_not_implemented support)
 
-	Added in automated OPTIONS handler, which constructs the allow
-	  header for you, just like the 405 handler.  Can be overridden
-	  with a normal _METHOD sub.
+   Added in automated OPTIONS handler, which constructs the allow
+     header for you, just like the 405 handler.  Can be overridden
+     with a normal _METHOD sub.
 
-	Refactored Test::Rest, so that it uses closures to create the
-	  very similar $test->method() subs.
+   Refactored Test::Rest, so that it uses closures to create the
+     very similar $test->method() subs.
 
-	Added tests for Catalyst::Action::REST.
+   Added tests for Catalyst::Action::REST.
 
 Thu Nov 30 17:14:51 PST 2006 (adam) - Release 0.2
-	Added documentation patch from Daisuke Maki (daisuke@endeworks.jp)
-	Added dependency patch from Daisuke Maki (daisuke@endeworks.jp)
+   Added documentation patch from Daisuke Maki (daisuke@endeworks.jp)
+   Added dependency patch from Daisuke Maki (daisuke@endeworks.jp)
 
 Sun Nov 19 16:24:20 PST 2006 (adam) - Release 0.1
-	Added status_accepted (Code 202)
-	Added a first pass at documentation.
+   Added status_accepted (Code 202)
+   Added a first pass at documentation.
 
 Mon Oct 16 14:48:54 PDT 2006 (adam)
-	Added in Test Suite
-	Created Catalyst::Action::Serialize and Catalyst::Action::Deserialize
-	Added Data::Serializer actions
-	Added status_created helper method
+   Added in Test Suite
+   Created Catalyst::Action::Serialize and Catalyst::Action::Deserialize
+   Added Data::Serializer actions
+   Added status_created helper method
 
 Wed Oct 18 17:29:07 PDT 2006 (adam)
-	Added more status_ helpers
+   Added more status_ helpers
 
 Thu Oct 19 16:04:33 PDT 2006 (adam)
-	Converted error helpers to return an object instead of plain-text.  It's
-	  a more consistent model than a text/plain error message.
-	Added logging to 4xx status handlers
+   Converted error helpers to return an object instead of plain-text.  It's
+     a more consistent model than a text/plain error message.
+   Added logging to 4xx status handlers
 
