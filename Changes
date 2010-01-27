@@ -1,6 +1,3 @@
-  Fix JSON and JSON::XS to encode_blessed (fREW)
-  Fix Catalyst::Action::Serialize to use objects instead of classes (fREW)
-
 0.82
 
   Integrated Catalyst::Request::REST::ForBrowsers as
@@ -22,6 +19,10 @@
 
   Change Catalyst::Action::Serialize, Catalyst::Action::Deserialize and
   Catalyst::Action::SerializeBase to be more Moose like.
+
+  Fix JSON and JSON::XS to encode_blessed (fREW)
+
+  Fix Catalyst::Action::Serialize to use objects instead of classes (fREW)
 
   Fix doc nits (RT#53780)
 
