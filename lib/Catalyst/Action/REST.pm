@@ -185,13 +185,13 @@ for this to run smoothly.
 
 =head1 AUTHOR
 
-Adam Jacob <adam@stalecoffee.org>, with lots of help from mst and jrockway
+Adam Jacob E<lt>adam@stalecoffee.orgE<gt>, with lots of help from mst and jrockway
 
 Marchex, Inc. paid me while I developed this module. (L<http://www.marchex.com>)
 
 =head1 CONTRIBUTORS
 
-Arthur Axel "fREW" Schmidt <frioux@gmail.com>
+Arthur Axel "fREW" Schmidt E<lt>frioux@gmail.comE<gt>
 
 Christopher Laco
 
@@ -199,15 +199,15 @@ Luke Saunders
 
 John Goulah
 
-Daisuke Maki <daisuke@endeworks.jp>
+Daisuke Maki E<lt>daisuke@endeworks.jpE<gt>
 
-J. Shirley <jshirley@gmail.com>
+J. Shirley E<lt>jshirley@gmail.comE<gt>
 
 Hans Dieter Pearcey
 
-Tomas Doran (t0m) <bobtfish@bobtfish.net>
+Tomas Doran (t0m) E<lt>bobtfish@bobtfish.netE<gt>
 
-Dave Rolsky <autarch@urth.org>
+Dave Rolsky E<lt>autarch@urth.orgE<gt>
 
 =head1 COPYRIGHT
 
