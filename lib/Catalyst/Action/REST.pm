@@ -207,6 +207,8 @@ Hans Dieter Pearcey
 
 Tomas Doran (t0m) <bobtfish@bobtfish.net>
 
+Dave Rolsky <autarch@urth.org>
+
 =head1 COPYRIGHT
 
 Copyright the above named AUTHOR and CONTRIBUTORS
