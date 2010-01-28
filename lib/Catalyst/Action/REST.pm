@@ -161,7 +161,7 @@ sensible set of defaults for a controller doing REST.
 
 This class automatically adds the L<Catalyst::TraitFor::Request::REST> role to
 your request class.  If you're writing a webapp which provides RESTful
-responses and still needs to accomodate web browsers, you may prefer to use
+responses and still needs to accommodate web browsers, you may prefer to use
 L<Catalyst::TraitFor::Request::REST::ForBrowsers> instead.
 
 L<Catalyst::Action::Serialize>, L<Catalyst::Action::Deserialize>

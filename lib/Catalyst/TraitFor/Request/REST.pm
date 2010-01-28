@@ -96,7 +96,7 @@ Catalyst::TraitFor::Request::REST - A role to apply to Catalyst::Request giving 
 =head1 DESCRIPTION
 
 This is a L<Moose::Role> applied to L<Catalyst::Request> that adds a few
-methods to the request object to faciliate writing REST-y code.
+methods to the request object to facilitate writing REST-y code.
 Currently, these methods are all related to the content types accepted by
 the client.
 

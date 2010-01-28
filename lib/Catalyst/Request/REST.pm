@@ -52,7 +52,7 @@ Catalyst::Request::REST - A REST-y subclass of Catalyst::Request
 
 This is a subclass of C<Catalyst::Request> that applies the
 L<Catalyst::TraitFor::Request::REST> role to your request class. That trait
-adds a few methods to the request object to faciliate writing REST-y code.
+adds a few methods to the request object to facilitate writing REST-y code.
 
 This class is only here for backwards compatibility with applications already
 subclassing this class. New code should use
