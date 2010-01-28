@@ -191,23 +191,23 @@ Marchex, Inc. paid me while I developed this module. (L<http://www.marchex.com>)
 
 =head1 CONTRIBUTORS
 
-Arthur Axel "fREW" Schmidt E<lt>frioux@gmail.comE<gt>
-
-Christopher Laco
-
-Luke Saunders
+Tomas Doran (t0m) E<lt>bobtfish@bobtfish.netE<gt>
 
 John Goulah
 
-Daisuke Maki E<lt>daisuke@endeworks.jpE<gt>
+Christopher Laco
 
-J. Shirley E<lt>jshirley@gmail.comE<gt>
+Daisuke Maki E<lt>daisuke@endeworks.jpE<gt>
 
 Hans Dieter Pearcey
 
-Tomas Doran (t0m) E<lt>bobtfish@bobtfish.netE<gt>
-
 Dave Rolsky E<lt>autarch@urth.orgE<gt>
+
+Luke Saunders
+
+Arthur Axel "fREW" Schmidt E<lt>frioux@gmail.comE<gt>
+
+J. Shirley E<lt>jshirley@gmail.comE<gt>
 
 =head1 COPYRIGHT
 
