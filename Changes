@@ -20,11 +20,11 @@
   Change Catalyst::Action::Serialize, Catalyst::Action::Deserialize and
   Catalyst::Action::SerializeBase to be more Moose like.
 
-  Fix JSON and JSON::XS to encode_blessed (fREW)
+  Fix JSON and JSON::XS to encode_blessed. (fREW)
 
-  Fix Catalyst::Action::Serialize to use objects instead of classes (fREW)
+  Fix Catalyst::Action::Serialize to use objects instead of classes. (fREW)
 
-  Fix doc nits (RT#53780)
+  Fix doc nits. (RT#53780)
 
 Thu 14 Jan 20:56:00 GMT 2010 - Release 0.81
 
