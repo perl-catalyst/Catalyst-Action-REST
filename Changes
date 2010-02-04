@@ -1,4 +1,4 @@
-0.82
+Thu  4 Feb 2010 22:31:57 GMT - Release 0.82
 
   Integrated Catalyst::Request::REST::ForBrowsers as
   Catalyst::TraitFor::Request::ForBrowsers. (Dave Rolsky)

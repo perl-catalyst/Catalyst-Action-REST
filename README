@@ -56,7 +56,7 @@ SEE ALSO
 
     This class automatically adds the Catalyst::TraitFor::Request::REST role
     to your request class. If you're writing a webapp which provides RESTful
-    responses and still needs to accomodate web browsers, you may prefer to
+    responses and still needs to accommodate web browsers, you may prefer to
     use Catalyst::TraitFor::Request::REST::ForBrowsers instead.
 
     Catalyst::Action::Serialize, Catalyst::Action::Deserialize
@@ -81,21 +81,23 @@ AUTHOR
     (<http://www.marchex.com>)
 
 CONTRIBUTORS
-    Arthur Axel "fREW" Schmidt <frioux@gmail.com>
-
-    Christopher Laco
-
-    Luke Saunders
+    Tomas Doran (t0m) <bobtfish@bobtfish.net>
 
     John Goulah
 
-    Daisuke Maki <daisuke@endeworks.jp>
+    Christopher Laco
 
-    J. Shirley <jshirley@gmail.com>
+    Daisuke Maki <daisuke@endeworks.jp>
 
     Hans Dieter Pearcey
 
-    Tomas Doran (t0m) <bobtfish@bobtfish.net>
+    Dave Rolsky <autarch@urth.org>
+
+    Luke Saunders
+
+    Arthur Axel "fREW" Schmidt <frioux@gmail.com>
+
+    J. Shirley <jshirley@gmail.com>
 
 COPYRIGHT
     Copyright the above named AUTHOR and CONTRIBUTORS
