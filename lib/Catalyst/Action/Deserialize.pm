@@ -16,7 +16,7 @@ sub execute {
     my $self = shift;
     my ( $controller, $c ) = @_;
 
-    my @demethods = qw(POST PUT OPTIONS);
+    my @demethods = qw(POST PUT OPTIONS DELETE);
     my $method    = $c->request->method;
     if ( grep /^$method$/, @demethods ) {
         my ( $sclass, $sarg, $content_type ) =
