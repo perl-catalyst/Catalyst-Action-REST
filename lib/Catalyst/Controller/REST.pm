@@ -150,6 +150,11 @@ deprecated and you will receive warnings in your log.
 
 If a callback=? parameter is passed, this returns javascript in the form of: $callback($serializedJSON);
 
+Note - this is disabled by default as it can be a security risk if you are unaware.
+
+The usual MIME types for this serialization format are: 'text/javascript', 'application/x-javascript',
+'application/javascript'.
+
 =item * C<text/x-data-dumper> => C<Data::Serializer>
 
 Uses the L<Data::Serializer> module to generate L<Data::Dumper> output.
