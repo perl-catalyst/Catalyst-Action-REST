@@ -2,7 +2,7 @@ package Catalyst::Controller::REST;
 use Moose;
 use namespace::autoclean;
 
-our $VERSION = '0.82';
+our $VERSION = '0.83';
 $VERSION = eval $VERSION;
 
 =head1 NAME
@@ -277,9 +277,6 @@ __PACKAGE__->config(
         'text/x-yaml'        => 'YAML',
         'application/json'   => 'JSON',
         'text/x-json'        => 'JSON',
-        'application/x-javascript'  => 'JSONP',
-        'application/javascript'    => 'JSONP',
-        'text/javascript'    => 'JSONP',
         'text/x-data-dumper' => [ 'Data::Serializer', 'Data::Dumper' ],
         'text/x-data-denter' => [ 'Data::Serializer', 'Data::Denter' ],
         'text/x-data-taxi'   => [ 'Data::Serializer', 'Data::Taxi'   ],
@@ -514,9 +511,6 @@ This class provides a default configuration for Serialization.  It is currently:
          'text/x-yaml'        => 'YAML',
          'application/json'   => 'JSON',
          'text/x-json'        => 'JSON',
-         'application/x-javascript' => 'JSONP',
-         'application/javascript'   => 'JSONP',
-         'text/javascript'    => 'JSONP',
          'text/x-data-dumper' => [ 'Data::Serializer', 'Data::Dumper' ],
          'text/x-data-denter' => [ 'Data::Serializer', 'Data::Denter' ],
          'text/x-data-taxi'   => [ 'Data::Serializer', 'Data::Taxi'   ],

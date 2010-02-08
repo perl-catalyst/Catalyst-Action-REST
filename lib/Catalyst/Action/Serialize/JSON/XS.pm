@@ -6,7 +6,7 @@ use namespace::autoclean;
 extends 'Catalyst::Action::Serialize::JSON';
 use JSON::XS ();
 
-our $VERSION = '0.82';
+our $VERSION = '0.83';
 $VERSION = eval $VERSION;
 
 sub _build_encoder {
