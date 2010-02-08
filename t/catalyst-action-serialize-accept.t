@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 16;
+use Test::More;
 use Data::Serializer;
 use FindBin;
 
@@ -88,4 +88,14 @@ SKIP: {
     is( $res->header('Content-type'), 'text/x-data-dumper', '... with expected content-type')
 }
 
-1;
+# Make sure that the default content type you specify really gets used.
+{
+    my $req = $t->get(url => '/override/test');
+    $req->remove_header('Content-Type');
+    my $res = request($req);
+    ok( $res->is_success, 'GET the serialized request succeeded' );
+    is( $res->content, "--- \nlou: is my cat\n", "Request returned proper data");
+}
+
+done_testing;
+
