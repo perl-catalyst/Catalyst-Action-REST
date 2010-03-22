@@ -1,3 +1,12 @@
+Mon  8 Feb 2010 22:17:12 GMT - Release 0.83
+  Make it possible to deserialize a request with a DELETE method. This probably
+  breaks 'strict' REST guidelines, but is useful for being able to delete multiple
+  resources from a single call by providing a batch delete method.
+
+  Remove JSONP from the list of default serializers (RT#54336)
+
+  Fix MANIFEST (RT#54408)
+
 Thu  4 Feb 2010 22:31:57 GMT - Release 0.82
 
   Integrated Catalyst::Request::REST::ForBrowsers as

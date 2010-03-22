@@ -27,6 +27,9 @@ __PACKAGE__->config(
         'text/view'   => [ 'View', 'Simple' ],
         'text/explodingview' => [ 'View', 'Awful' ],
         'text/broken' => 'Broken',
+        'text/javascript', => 'JSONP',
+        'application/x-javascript' => 'JSONP',
+        'application/javascript' => 'JSONP',
     },
 );
 

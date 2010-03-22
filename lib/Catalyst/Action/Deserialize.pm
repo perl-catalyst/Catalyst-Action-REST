@@ -7,7 +7,7 @@ extends 'Catalyst::Action::SerializeBase';
 use Module::Pluggable::Object;
 use MRO::Compat;
 
-our $VERSION = '0.82';
+our $VERSION = '0.83';
 $VERSION = eval $VERSION;
 
 has plugins => ( is => 'rw' );
@@ -16,7 +16,7 @@ sub execute {
     my $self = shift;
     my ( $controller, $c ) = @_;
 
-    my @demethods = qw(POST PUT OPTIONS);
+    my @demethods = qw(POST PUT OPTIONS DELETE);
     my $method    = $c->request->method;
     if ( grep /^$method$/, @demethods ) {
         my ( $sclass, $sarg, $content_type ) =

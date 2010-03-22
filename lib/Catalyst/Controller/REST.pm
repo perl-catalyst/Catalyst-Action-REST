@@ -2,7 +2,7 @@ package Catalyst::Controller::REST;
 use Moose;
 use namespace::autoclean;
 
-our $VERSION = '0.82';
+our $VERSION = '0.83';
 $VERSION = eval $VERSION;
 
 =head1 NAME
@@ -150,6 +150,11 @@ deprecated and you will receive warnings in your log.
 
 If a callback=? parameter is passed, this returns javascript in the form of: $callback($serializedJSON);
 
+Note - this is disabled by default as it can be a security risk if you are unaware.
+
+The usual MIME types for this serialization format are: 'text/javascript', 'application/x-javascript',
+'application/javascript'.
+
 =item * C<text/x-data-dumper> => C<Data::Serializer>
 
 Uses the L<Data::Serializer> module to generate L<Data::Dumper> output.
@@ -272,9 +277,6 @@ __PACKAGE__->config(
         'text/x-yaml'        => 'YAML',
         'application/json'   => 'JSON',
         'text/x-json'        => 'JSON',
-        'application/x-javascript'  => 'JSONP',
-        'application/javascript'    => 'JSONP',
-        'text/javascript'    => 'JSONP',
         'text/x-data-dumper' => [ 'Data::Serializer', 'Data::Dumper' ],
         'text/x-data-denter' => [ 'Data::Serializer', 'Data::Denter' ],
         'text/x-data-taxi'   => [ 'Data::Serializer', 'Data::Taxi'   ],
@@ -509,9 +511,6 @@ This class provides a default configuration for Serialization.  It is currently:
          'text/x-yaml'        => 'YAML',
          'application/json'   => 'JSON',
          'text/x-json'        => 'JSON',
-         'application/x-javascript' => 'JSONP',
-         'application/javascript'   => 'JSONP',
-         'text/javascript'    => 'JSONP',
          'text/x-data-dumper' => [ 'Data::Serializer', 'Data::Dumper' ],
          'text/x-data-denter' => [ 'Data::Serializer', 'Data::Denter' ],
          'text/x-data-taxi'   => [ 'Data::Serializer', 'Data::Taxi'   ],
