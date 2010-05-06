@@ -182,8 +182,8 @@ for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
   $ENV{CATALYST_DEBUG} = 0;
   my $test = 'Test::Catalyst::Action::REST';
   use_ok $test;
-  ok($test->request_class->meta->does_role('Catalyst::TraitFor::Request::REST'),
-    'request class does REST role');
+  is($test->request_class, 'Catalyst::Request::REST',
+    'Request::REST took over for Request');
 
   my $meta = Moose::Meta::Class->create_anon_class(
       superclasses => ['Catalyst::Request'],
@@ -196,8 +196,7 @@ for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
   ok !$@, 'Can setup again';
   isnt $test->request_class, $meta->name, 'Different request class';
   ok $test->request_class->can('__random_method'), 'Is right class';
-  ok($test->request_class->meta->does_role('Catalyst::TraitFor::Request::REST'),
-    'request class still does REST role');
+  ok $test->request_class->can('data'), 'Also smells like REST subclass';
 
   {
     package My::Request;

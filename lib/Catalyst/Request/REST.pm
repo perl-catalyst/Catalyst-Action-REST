@@ -24,13 +24,18 @@ sub _insert_self_into {
   return if $req_class->isa($class);
   my $req_class_meta = Moose->init_meta( for_class => $req_class );
   return if $req_class_meta->does_role('Catalyst::TraitFor::Request::REST');
-  my $meta = Moose::Meta::Class->create_anon_class(
-      superclasses => [$req_class],
-      roles => ['Catalyst::TraitFor::Request::REST'],
-      cache => 1
-  );
-  $meta->add_method(meta => sub { $meta });
-  $app->request_class($meta->name);
+  if ($req_class eq 'Catalyst::Request') {
+    $app->request_class($class);
+  }
+  else {
+      my $meta = Moose::Meta::Class->create_anon_class(
+          superclasses => [$req_class],
+          roles => ['Catalyst::TraitFor::Request::REST'],
+          cache => 1
+      );
+      $meta->add_method(meta => sub { $meta });
+      $app->request_class($meta->name);
+  }
 }
 
 __PACKAGE__->meta->make_immutable;
