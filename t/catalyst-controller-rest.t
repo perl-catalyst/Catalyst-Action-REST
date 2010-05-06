@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 20;
+use Test::More;
 use YAML::Syck;
 use FindBin;
 
@@ -51,4 +51,9 @@ is_deeply Load( $res->content ),
 
 ok $res = request( $t->get( url => '/rest/test_status_multiple_choices' ) );
 is $res->code, 300, "... multiple choices";
+is_deeply Load($res->content),
+    { choices => [qw(/rest/choice1 /rest/choice2)] },
+    "... 300 multiple choices has response body";
+
+done_testing;
 
