@@ -20,6 +20,15 @@ sub test_status_created : Local {
     );
 }
 
+sub test_status_multiple_choices : Local {
+    my ( $self, $c ) = @_;
+    $self->status_multiple_choices(
+        $c,
+        location => '/rest/choice1',
+        entity   => { choices => [qw(/rest/choice1 /rest/choice2)] }
+    );
+}
+
 sub test_status_accepted : Local {
     my ( $self, $c ) = @_;
     $self->status_accepted( $c, entity => { status => "queued", } );

@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 18;
+use Test::More tests => 20;
 use YAML::Syck;
 use FindBin;
 
@@ -48,3 +48,7 @@ is $res->code, 410, '... status gone';
 is_deeply Load( $res->content ),
     { error => "Document have been deleted by foo" },
     "...  status gone message";
+
+ok $res = request( $t->get( url => '/rest/test_status_multiple_choices' ) );
+is $res->code, 300, "... multiple choices";
+
