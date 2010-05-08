@@ -1,3 +1,5 @@
+  Fix docs in Catalyst::TraitFor::Request::REST::ForBrowsers. (RT#54983)
+
 Thu  6 May 2010 09:27:56 - Release 0.84
   Revert always using a trait rather than Catalyst::Request::REST to improve
   debug messages.
