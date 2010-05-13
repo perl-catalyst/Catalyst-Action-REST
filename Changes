@@ -1,6 +1,13 @@
+Thu 13 May 2010 10:09:19 CEST - Release 0.85
+
+  Make Catalyst::Action::Serialize::View return directly rather than serializing
+  a response for 3XX status codes. This stops back-compat breakage from the
+  previous change (in 0.84), whilst also allowing actual data serializers
+  to still handle 3XX.
+
   Fix docs in Catalyst::TraitFor::Request::REST::ForBrowsers. (RT#54983)
 
-Thu  6 May 2010 09:27:56 - Release 0.84
+Thu  6 May 2010 09:27:56 BST - Release 0.84
   Revert always using a trait rather than Catalyst::Request::REST to improve
   debug messages.
 
