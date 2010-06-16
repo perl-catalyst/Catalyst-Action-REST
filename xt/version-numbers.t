@@ -1,23 +1,30 @@
 use strict;
 use warnings;
 
+use FindBin qw/$Bin/;
+use File::Spec;
 use File::Find::Rule;
 use Module::Info;
 
-use Test::More qw( no_plan );
+use Test::More;
 
 my %versions;
-for my $pm_file ( File::Find::Rule->file->name( qr/\.pm$/ )->in('lib' ) ) {
+for my $pm_file ( File::Find::Rule->file->name( qr/\.pm$/ )->in(File::Spec->catdir($Bin, '..', 'lib') ) ) {
     my $mod = Module::Info->new_from_file($pm_file);
 
-    ( my $stripped_file = $pm_file ) =~ s{^lib/}{};
+    ( my $stripped_file = $pm_file ) =~ s{.*/lib/}{};
 
     $versions{$stripped_file} = $mod->version;
 }
 
-my $moose_ver = $versions{'Catalyst/Action/REST.pm'};
+my $ver = delete $versions{'Catalyst/Action/REST.pm'};
+ok $ver;
+ok scalar(keys %versions);
 
-for my $module ( grep { $_ ne 'Catalyst/Action/REST.pm' } sort keys %versions ) {
-    is( $versions{$module}, $moose_ver,
+for my $module ( sort keys %versions ) {
+    is( $versions{$module}, $ver,
         "version for $module is the same as in Catalyst/Action/REST.pm" );
 }
+
+done_testing;
+
