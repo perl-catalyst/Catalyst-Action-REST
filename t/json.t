@@ -34,6 +34,9 @@ for ('text/x-json', 'application/json') {
     my $exp = "is good for monkey 佐藤 純";
     utf8::encode($exp);
     is_deeply($mres_post->content, $exp, "POST data matches");
+
+    my $options_get = request($t->options(url => '/actions/test'));
+    ok( $options_get->is_success, 'OPTIONS request works' ) or ::Dwarn $options_get;
 }
 
 1;
