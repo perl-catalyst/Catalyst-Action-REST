@@ -92,12 +92,13 @@ sub dispatch {
 
     # Common case, for foo_GET etc
     if ( $code = $controller->action_for($rest_method) ) {
-        $c->execute( $self->class, $self, @{ $c->req->args } );
-        return $c->forward( $code,  $c->req->args );
-     } elsif ($code = $controller->can($rest_method)) {
+        $c->execute( $self->class, $self, @{ $c->req->args } ); # Execute normal 'foo' action.
+        return $c->forward( $code,  $c->req->args ); # Forward to foo_GET if it's an action
+     }
+     elsif ($code = $controller->can($rest_method)) {
         # Exceute normal action
         $c->execute( $self->class, $self, @{ $c->req->args } );
-        $name = $rest_method;
+        $name = $rest_method; # Stash name and code to run 'foo_GET' like an action below.
     }
 
     # Generic handling for foo_OPTIONS
