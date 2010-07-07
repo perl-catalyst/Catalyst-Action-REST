@@ -23,7 +23,7 @@ sub test_POST : Action {
     $c->res->body('POST');
 }
 
-sub test_PUT :ActionClass('+Test::Action::Class') {
+sub test_PUT :ActionClass('+Test::Action::Class::Sub') {
     my ( $self, $c ) = @_;
     $c->res->body('PUT');
 }

@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 21;
+use Test::More 0.88;
 use FindBin;
 
 use lib ( "$FindBin::Bin/lib", "$FindBin::Bin/../lib" );
@@ -42,3 +42,21 @@ foreach my $method (qw(GET DELETE POST PUT OPTIONS)) {
     );
 }
 
+my $res = request(
+    $t->put(
+        url  => '/actions/test',
+        data => '',
+    )
+);
+is(
+    $res->header('Using-Action'),
+    'STATION',
+    "went through action for dispatching to PUT"
+);
+is(
+    $res->header('Using-Sub-Action'),
+    'MOO',
+    "went through sub action for dispatching to PUT"
+);
+
+done_testing;
