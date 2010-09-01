@@ -7,7 +7,7 @@ extends 'Catalyst::Action::SerializeBase';
 use Module::Pluggable::Object;
 use MRO::Compat;
 
-our $VERSION = '0.85';
+our $VERSION = '0.86';
 $VERSION = eval $VERSION;
 
 has plugins => ( is => 'rw' );
