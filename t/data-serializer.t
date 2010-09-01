@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 29;
+use Test::More tests => 31;
 use FindBin;
 
 use lib ( "$FindBin::Bin/lib", "$FindBin::Bin/../lib" );
@@ -57,6 +57,24 @@ foreach my $content_type (keys(%ctypes)) {
             "POST $content_type data matches"
         );
     }
+}
+
+{
+        my $t = Test::Rest->new( 'content_type' => 'text/x-data-dumper' );
+
+        my $post_data = "{ 'sushi' => die('hack attempt') }";
+        my $mres_post = request(
+            $t->post(
+                url  => '/monkey_put',
+                data => $post_data,
+            )
+        );
+        ok( ! $mres_post->is_success, "POST Data::Dumper fails due to invalid input" );
+        like(
+            $mres_post->content,
+            qr%Content-Type text/x-data-dumper had a problem with your request.*'die' trapped by operation mask%s,
+            "POST Data::Dumper data error matches"
+        );
 }
 
 1;

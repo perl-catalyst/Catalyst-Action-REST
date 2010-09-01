@@ -5,6 +5,9 @@ use namespace::autoclean;
 
 extends 'Catalyst::Action';
 use Data::Serializer;
+use Safe;
+my $compartment = Safe->new;
+$compartment->permit_only( qw(padany null lineseq const pushmark list anonhash anonlist refgen leaveeval undef) );
 
 our $VERSION = '0.85';
 $VERSION = eval $VERSION;
@@ -34,11 +37,18 @@ sub execute {
             }
             close(BODY);
         }
-        my $dso = Data::Serializer->new( serializer => $serializer );
         my $rdata;
-        eval {
-            $rdata = $dso->raw_deserialize($rbody);
-        };
+        if ( $serializer eq "Data::Dumper" ) {
+            # Taken from Data::Serialize::Data::Dumper::deserialize, but run within a Safe compartment
+            my $code = $rbody =~ /^\{/ ? "+".$rbody : $rbody;
+            $rdata = $compartment->reval( $code );
+        }
+        else {
+            my $dso = Data::Serializer->new( serializer => $serializer );
+            eval {
+                $rdata = $dso->raw_deserialize($rbody);
+            };
+        }
         if ($@) {
             return $@;
         }

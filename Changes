@@ -1,3 +1,6 @@
+
+  Make Data::Dumper unserializer safer by using a Safe compartment (Ton Voon)
+
 Thu 13 May 2010 10:09:19 CEST - Release 0.85
 
   Make Catalyst::Action::Serialize::View return directly rather than serializing
