@@ -4,7 +4,7 @@ use Moose;
 use namespace::autoclean;
 
 extends 'Catalyst::Action';
-use JSON qw( decode_json );
+use JSON;
 
 our $VERSION = '0.85';
 $VERSION = eval $VERSION;
@@ -23,7 +23,13 @@ sub execute {
     }
 
     if ( $rbody ) {
-        my $rdata = eval { decode_json( $rbody ) };
+        my $json = JSON->new->utf8;
+        if (my $options = $controller->{json_options}) {
+            foreach my $opt (keys %$options) {
+                $json->$opt( $options->{$opt} );
+            }
+        }
+        my $rdata = eval { $json->decode( $rbody ) };
         if ($@) {
             return $@;
         }

@@ -1,3 +1,5 @@
+  Add rest_serializer_json_options config key useable to set options
+  like relaxed => 1 to be passed to the JSON serializer (Ton Voon)
 
   Make Data::Dumper unserializer safer by using a Safe compartment (Ton Voon)
 

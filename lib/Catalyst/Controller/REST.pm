@@ -146,6 +146,12 @@ Uses L<JSON> to generate JSON output.  It is strongly advised to also have
 L<JSON::XS> installed.  The C<text/x-json> content type is supported but is
 deprecated and you will receive warnings in your log.
 
+You can also add a hash in your controller config to pass options to the json object.
+For instance, to relax permissions when deserializing input, add:
+  __PACKAGE__->config(
+    json_options => { relaxed => 1 }
+  )
+
 =item * C<text/javascript> => C<JSONP>
 
 If a callback=? parameter is passed, this returns javascript in the form of: $callback($serializedJSON);

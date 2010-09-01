@@ -10,7 +10,7 @@ use utf8;
 eval 'use JSON 2.12';
 plan skip_all => 'Install JSON 2.12 or later to run this test' if ($@);
 
-plan tests => 9;
+plan tests => 11;
 
 use_ok 'Catalyst::Test', 'Test::Serialize';
 
@@ -34,6 +34,16 @@ for ('text/x-json', 'application/json') {
     my $exp = "is good for monkey 佐藤 純";
     utf8::encode($exp);
     is_deeply($mres_post->content, $exp, "POST data matches");
+}
+
+{
+    my $t = Test::Rest->new('content_type' => 'application/json');
+    my $json_data = '{ "sushi":"is good for monkey", }';
+    my $mres_post = request($t->post(url => '/monkey_put', data => $json_data));
+    ok( ! $mres_post->is_success, "Got expected failed status due to invalid JSON" );
+
+    my $relaxed_post = request( $t->post(url => "/monkey_json_put", data => $json_data));
+    ok( $relaxed_post->is_success, "Got success due to setting relaxed JSON input" );
 }
 
 1;
