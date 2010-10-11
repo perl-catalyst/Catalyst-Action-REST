@@ -32,7 +32,7 @@ author_tests 'xt/';
 
 feature 'JSON (application/json) support',
     -default   => 0,
-    'JSON'     => '2.12';
+    'JSON'     => '2.12',
     'JSON::XS' => '2.2222';
 
 author_requires 'JSON'     => '2.12';
