@@ -9,7 +9,7 @@ perl_version '5.8.1';
 name 'Catalyst-Action-REST';
 all_from 'lib/Catalyst/Action/REST.pm';
 
-requires 'Moose';
+requires 'Moose' => '1.03';
 requires 'namespace::autoclean';
 requires('Catalyst::Runtime'         => '5.80');
 requires('Params::Validate'          => '0.76');
