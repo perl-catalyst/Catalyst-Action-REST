@@ -1,3 +1,8 @@
+Wed  3 Nov 2010 19:46:00 GMT - Release 0.87
+
+  Fix Request class role when used with new Moose and other request
+  class roles.
+
 Wed  1 Sept 2010 23:14:00 BST - Release 0.86
 
   Add rest_serializer_json_options config key useable to set options
