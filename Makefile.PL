@@ -38,7 +38,7 @@ feature 'JSON (application/json) support',
 author_requires 'JSON'     => '2.12';
 author_requires 'JSON::XS' => '2.2222';
 
-feature 'Data::Taxi (text/x-data-taxi) support',
+feature 'Data::Taxi (text/x-data-taxi) support (deprecated)',
     -default => 0,
     'Data::Taxi' => undef;
 
