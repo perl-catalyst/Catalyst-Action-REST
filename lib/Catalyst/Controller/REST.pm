@@ -565,27 +565,32 @@ L<Catalyst::Action::Serialize>.
 The C<begin> method uses L<Catalyst::Action::Deserialize>.  The C<end>
 method uses L<Catalyst::Action::Serialize>.  If you want to override
 either behavior, simply implement your own C<begin> and C<end> actions
-and use MRO::Compat:
+and forward to another action with the Serialize and/or Deserialize
+action classes:
 
   package Foo::Controller::Monkey;
   use Moose;
   use namespace::autoclean;
-  
+
   BEGIN { extends 'Catalyst::Controller::REST' }
 
-  sub begin :Private {
+  sub begin : Private {
     my ($self, $c) = @_;
     ... do things before Deserializing ...
-    $self->maybe::next::method($c);
+    $c->forward('deserialize');
     ... do things after Deserializing ...
   }
+
+  sub deserialize : ActionClass('Deserialize') {}
 
   sub end :Private {
     my ($self, $c) = @_;
     ... do things before Serializing ...
-    $self->maybe::next::method($c);
+    $c->forward('serialize');
     ... do things after Serializing ...
   }
+
+  sub serialize : ActionClass('Serialize') {}
 
 =back
 

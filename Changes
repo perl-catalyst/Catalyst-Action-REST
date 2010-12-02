@@ -1,3 +1,6 @@
+  Fix documentation for overriding Serialize and Deserialize actions
+  in Catalyst::Controller::REST.
+
 Wed  3 Nov 2010 19:46:00 GMT - Release 0.87
 
   Fix Request class role when used with new Moose and other request
