@@ -23,7 +23,7 @@ sub execute {
     $self->maybe::next::method(@_);
 
     return 1 if $c->req->method eq 'HEAD';
-    return 1 if length( $c->response->body );
+    return 1 if defined $c->response->body && length( $c->response->body );
     return 1 if scalar @{ $c->error };
     return 1 if $c->response->status =~ /^(?:204)$/;
 

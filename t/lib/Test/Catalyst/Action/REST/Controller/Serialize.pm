@@ -32,4 +32,8 @@ sub test_second :Local :ActionClass('Serialize') {
     };
 }
 
+sub empty :Local :ActionClass('Serialize') {
+  return undef;
+}
+
 1;

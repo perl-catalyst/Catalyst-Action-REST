@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 9;
+use Test::More tests => 11;
 use Data::Serializer;
 use FindBin;
 
@@ -34,5 +34,9 @@ Test::Catalyst::Action::REST->controller('Serialize')->{serialize} = {};
 $res2 = request($t->get(url => '/serialize/test_second'));
 ok( $res2->is_success, 'request succeeded (deprecated config)' );
 is( $res2->content, "{'lou' => 'is my cat'}", "request returned proper data");
+
+my $emptyres = request($t->get(url => '/serialize/empty'));
+is $emptyres->content, '';
+ok !$emptyres->header('Content-Length');
 
 1;
