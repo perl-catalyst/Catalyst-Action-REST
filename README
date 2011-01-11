@@ -55,9 +55,10 @@ SEE ALSO
     a sensible set of defaults for a controller doing REST.
 
     This class automatically adds the Catalyst::TraitFor::Request::REST role
-    to your request class. If you're writing a webapp which provides RESTful
-    responses and still needs to accommodate web browsers, you may prefer to
-    use Catalyst::TraitFor::Request::REST::ForBrowsers instead.
+    to your request class. If you're writing a web application which
+    provides RESTful responses and still needs to accommodate web browsers,
+    you may prefer to use Catalyst::TraitFor::Request::REST::ForBrowsers
+    instead.
 
     Catalyst::Action::Serialize, Catalyst::Action::Deserialize
 
