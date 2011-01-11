@@ -23,6 +23,8 @@ local $ENV{LC_ALL} = 'C';
 all_pod_files_spelling_ok();
 
 __DATA__
+Wiki
+json
 APIs
 ActionClass
 Daisuke
@@ -38,6 +40,7 @@ Maki
 Maki
 Marchex
 Pearcey
+Rolsky
 RESTful
 RESTful
 SERIALIZERS
