@@ -9,7 +9,7 @@ use Safe;
 my $compartment = Safe->new;
 $compartment->permit_only( qw(padany null lineseq const pushmark list anonhash anonlist refgen leaveeval undef) );
 
-our $VERSION = '0.87';
+our $VERSION = '0.88';
 $VERSION = eval $VERSION;
 
 sub execute {
