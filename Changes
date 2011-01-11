@@ -1,6 +1,13 @@
   Fix documentation for overriding Serialize and Deserialize actions
   in Catalyst::Controller::REST.
 
+  Avoid warning with empty response bodies and new Catalyst version
+  (>= 5.80030)
+
+  Returning a body of '' is now possible - Catalyst::Action::Serialize
+  acts like Catalyst::Action::RenderView (>= 0.16) by using the has_body
+  predicate in Catalyst::Response (>= 5.80030)
+
 Wed  3 Nov 2010 19:46:00 GMT - Release 0.87
 
   Fix Request class role when used with new Moose and other request

@@ -17,6 +17,7 @@ __PACKAGE__->config(
     },
 );
 __PACKAGE__->setup;
-__PACKAGE__->log( Test::Catalyst::Log->new );
+__PACKAGE__->log( Test::Catalyst::Log->new )
+    unless __PACKAGE__->debug;
 
 1;

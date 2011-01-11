@@ -161,7 +161,7 @@ You likely want to look at L<Catalyst::Controller::REST>, which implements a
 sensible set of defaults for a controller doing REST.
 
 This class automatically adds the L<Catalyst::TraitFor::Request::REST> role to
-your request class.  If you're writing a webapp which provides RESTful
+your request class.  If you're writing a web application which provides RESTful
 responses and still needs to accommodate web browsers, you may prefer to use
 L<Catalyst::TraitFor::Request::REST::ForBrowsers> instead.
 

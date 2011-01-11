@@ -32,4 +32,26 @@ sub test_second :Local :ActionClass('Serialize') {
     };
 }
 
+# For testing saying 'here is an explicitly empty body, do not serialize'
+sub empty : Chained('/') PathPart('serialize') CaptureArgs(0) {
+    my ($self, $c) = @_;
+    $c->stash( rest => { foo => 'bar' } );
+}
+
+# Normal case
+sub empty_serialized :Chained('empty') Args(0) ActionClass('Serialize') {
+}
+
+# Undef body
+sub empty_not_serialized_undef :Chained('empty') Args(0) ActionClass('Serialize') {
+    my ($self, $c) = @_;
+    $c->res->body(undef);
+}
+
+# Blank body
+sub empty_not_serialized_blank :Chained('empty') Args(0) ActionClass('Serialize') {
+    my ($self, $c) = @_;
+    $c->res->body('');
+}
+
 1;
