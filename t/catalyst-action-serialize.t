@@ -1,5 +1,6 @@
 use strict;
 use warnings;
+
 use Test::More 0.88;
 use Data::Serializer;
 use FindBin;
@@ -35,6 +36,7 @@ $res2 = request($t->get(url => '/serialize/test_second'));
 ok( $res2->is_success, 'request succeeded (deprecated config)' );
 is( $res2->content, "{'lou' => 'is my cat'}", "request returned proper data");
 
+
 $res = request($t->get(url => '/serialize/empty_serialized'));
 is $res->content, q[{'foo' => 'bar'}], 'normal case ok';
 ok $res->header('Content-Length'), 'set content-length when we serialize';
@@ -48,4 +50,3 @@ is $res->content, '', "body explicitly set to '' results in '' content";
 ok !$res->header('Content-Length'), "body explicitly set to '' - no automatic content-length";
 
 done_testing;
-
