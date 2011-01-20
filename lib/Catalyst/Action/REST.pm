@@ -96,7 +96,7 @@ sub dispatch {
         return $c->forward( $code,  $c->req->args ); # Forward to foo_GET if it's an action
      }
      elsif ($code = $controller->can($rest_method)) {
-        # Exceute normal action
+        # Execute normal action
         $c->execute( $self->class, $self, @{ $c->req->args } );
         $name = $rest_method; # Stash name and code to run 'foo_GET' like an action below.
     }
