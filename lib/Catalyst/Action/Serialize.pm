@@ -64,6 +64,8 @@ sub execute {
 
 __PACKAGE__->meta->make_immutable;
 
+1;
+
 =head1 NAME
 
 Catalyst::Action::Serialize - Serialize Data in a Response
