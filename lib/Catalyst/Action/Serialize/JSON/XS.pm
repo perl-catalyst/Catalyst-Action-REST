@@ -14,4 +14,6 @@ sub _build_encoder {
    return JSON::XS->new->convert_blessed;
 }
 
+__PACKAGE__->meta->make_immutable;
+
 1;

@@ -39,4 +39,6 @@ sub serialize {
     $self->encoder->encode( $data );
 }
 
+__PACKAGE__->meta->make_immutable;
+
 1;

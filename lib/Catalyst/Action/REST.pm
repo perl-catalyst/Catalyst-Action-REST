@@ -13,11 +13,11 @@ BEGIN { require 5.008001; }
 our $VERSION = '0.88';
 $VERSION = eval $VERSION;
 
-sub new {
-  my $class  = shift;
-  my $config = shift;
-  Catalyst::Request::REST->_insert_self_into( $config->{class} );
-  return $class->next::method($config, @_);
+sub BUILDARGS {
+    my $class  = shift;
+    my $config = shift;
+    Catalyst::Request::REST->_insert_self_into( $config->{class} );
+    return $class->SUPER::BUILDARGS($config, @_);
 }
 
 =head1 NAME
@@ -150,6 +150,8 @@ sub _return_not_implemented {
           . " not implemented for "
           . $c->uri_for( $method_name ) );
 }
+
+__PACKAGE__->meta->make_immutable;
 
 1;
 
