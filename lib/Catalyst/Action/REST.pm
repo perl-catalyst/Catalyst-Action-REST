@@ -102,17 +102,18 @@ sub dispatch {
     }
 
     # Generic handling for foo_OPTIONS
-    if (!$code && $c->request->method eq "OPTIONS") {
-        $name = $rest_method;
-        $code = sub { $self->_return_options($self->name, @_) };
-    }
-
-    # Otherwise, not implemented.
     if (!$code) {
-        $name = $self->name . "_not_implemented";
-        $code = $controller->can($name) # User method
-            # Generic not implemented
-            || sub { $self->_return_not_implemented($self->name, @_) };
+        if ( $c->request->method eq "OPTIONS") {
+            $name = $rest_method;
+            $code = sub { $self->_return_options($self->name, @_) };
+        }
+        else {
+            # Otherwise, not implemented.
+            $name = $self->name . "_not_implemented";
+            $code = $controller->can($name) # User method
+                # Generic not implemented
+                || sub { $self->_return_not_implemented($self->name, @_) };
+        }
     }
 
     # localise stuff so we can dispatch the action 'as normal, but get
