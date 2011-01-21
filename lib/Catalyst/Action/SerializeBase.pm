@@ -157,6 +157,8 @@ sub _serialize_bad_request {
 
 __PACKAGE__->meta->make_immutable;
 
+1;
+
 =head1 NAME
 
 Catalyst::Action::SerializeBase - Base class for Catalyst::Action::Serialize and Catlayst::Action::Deserialize.
