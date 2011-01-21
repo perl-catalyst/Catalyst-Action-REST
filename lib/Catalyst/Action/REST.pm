@@ -85,8 +85,17 @@ sub dispatch {
     my $self = shift;
     my $c    = shift;
 
-    my $controller = $c->component( $self->class );
     my $rest_method = $self->name . "_" . uc( $c->request->method );
+
+    return $self->_dispatch_rest_method( $c, $rest_method );
+}
+
+sub _dispatch_rest_method {
+    my $self        = shift;
+    my $c           = shift;
+    my $rest_method = shift;
+
+    my $controller = $c->component( $self->class );
 
     my ($code, $name);
 
