@@ -4,7 +4,7 @@ use warnings;
 use FindBin qw/$Bin/;
 use lib "$Bin/lib";
 
-use Test::More tests => 5;
+use Test::More;
 
 use Test::Catalyst::Action::REST;
 
@@ -18,3 +18,4 @@ isa_ok($action, 'Catalyst::Action::REST');
 ok(!$action->isa('Catalyst'));
 ok(!$action->isa('Catalyst::Controller'));
 
+done_testing;

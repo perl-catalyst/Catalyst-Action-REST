@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 3; 
+use Test::More;
 use FindBin;
 
 use lib ("$FindBin::Bin/lib", "$FindBin::Bin/../lib", "$FindBin::Bin/broken");
@@ -22,3 +22,5 @@ EOH
 is( $res->content, $data, "Request returned proper data");
 
 1;
+
+done_testing;

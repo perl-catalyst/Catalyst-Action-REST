@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 31;
+use Test::More;
 use FindBin;
 
 use lib ( "$FindBin::Bin/lib", "$FindBin::Bin/../lib" );
@@ -78,3 +78,5 @@ foreach my $content_type (keys(%ctypes)) {
 }
 
 1;
+
+done_testing;

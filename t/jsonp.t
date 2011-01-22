@@ -10,7 +10,6 @@ use utf8;
 eval 'use JSON 2.12';
 plan skip_all => 'Install JSON 2.12 or later to run this test' if ($@);
 
-plan tests => 7;
 
 use_ok 'Catalyst::Test', 'Test::Serialize', 'Catalyst::Action::Serialize::JSON';
 
@@ -28,3 +27,5 @@ for ('text/javascript','application/x-javascript','application/javascript') {
 }
 
 1;
+
+done_testing;

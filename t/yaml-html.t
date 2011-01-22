@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 4;
+use Test::More;
 use YAML::Syck;
 use FindBin;
 
@@ -30,3 +30,5 @@ SKIP: {
 
 }
 1;
+
+done_testing;

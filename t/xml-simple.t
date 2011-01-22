@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 5;
+use Test::More;
 use FindBin;
 
 use lib ("$FindBin::Bin/lib", "$FindBin::Bin/../lib");
@@ -33,3 +33,5 @@ SKIP: {
 };
 
 1;
+
+done_testing;

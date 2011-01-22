@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 6;
+use Test::More;
 use FindBin;
 
 use lib ( "$FindBin::Bin/lib", "$FindBin::Bin/../lib" );
@@ -25,3 +25,5 @@ ok (! $res->is_success, 'View errors result in failure');
 like( $res->content, qr/don't know how/, 'The error looks okay');
 
 1;
+
+done_testing;

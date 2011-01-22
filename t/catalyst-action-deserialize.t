@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 5;
+use Test::More;
 use YAML::Syck;
 use FindBin;
 
@@ -26,3 +26,5 @@ my $ures = request($ut->put( url => $url, data => Dump({ kitty => "LouLou" })));
 is ($bres->code, 415, 'GET on unknown Content-Type returns 415');
 
 1;
+
+done_testing;
