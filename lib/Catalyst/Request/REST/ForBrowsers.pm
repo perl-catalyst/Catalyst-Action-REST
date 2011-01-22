@@ -9,6 +9,8 @@ $VERSION = eval $VERSION;
 extends 'Catalyst::Request::REST';
 with 'Catalyst::TraitFor::Request::REST::ForBrowsers';
 
+sub _related_role { 'Catalyst::TraitFor::Request::REST::ForBrowsers' }
+
 __PACKAGE__->meta->make_immutable;
 
 1;

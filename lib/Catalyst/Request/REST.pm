@@ -23,7 +23,7 @@ sub _insert_self_into {
   my $req_class = $app->request_class;
   return if $req_class->isa($class);
   my $req_class_meta = Moose->init_meta( for_class => $req_class );
-  my $role = $self->_related_role;
+  my $role = $class->_related_role;
   return if $req_class_meta->does_role($role);
   if ($req_class eq 'Catalyst::Request') {
     $app->request_class($class);

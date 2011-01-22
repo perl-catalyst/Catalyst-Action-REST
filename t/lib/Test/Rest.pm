@@ -26,8 +26,15 @@ sub new {
         my $sub = lc($method);
         *$sub = sub {
             my $self = shift;
-            my %p    = validate( @_, { url => { type => SCALAR }, }, );
+            my %p = validate(
+                @_,
+                {
+                    url     => { type => SCALAR },
+                    headers => { type => HASHREF, default => {} },
+                },
+            );
             my $req  = HTTP::Request->new( "$method" => $p{'url'} );
+            $req->header( $_ => $p{headers}{$_} ) for keys %{ $p{headers} };
             $req->content_type( $self->{'content_type'} );
             return $req;
         };
@@ -44,9 +51,11 @@ sub new {
                 {
                     url  => { type => SCALAR },
                     data => 1,
+                    headers => { type => HASHREF, default => {} },
                 },
             );
             my $req = HTTP::Request->new( "$method" => $p{'url'} );
+            $req->header( $_ => $p{headers}{$_} ) for keys %{ $p{headers} };
             $req->content_type( $self->{'content_type'} );
             $req->content_length(
                 do { use bytes; length( $p{'data'} ) }
