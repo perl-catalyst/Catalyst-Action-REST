@@ -182,8 +182,8 @@ for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
   $ENV{CATALYST_DEBUG} = 0;
   my $test = 'Test::Catalyst::Action::REST';
   use_ok $test;
-  is($test->request_class, 'Catalyst::Request::REST',
-    'Request::REST took over for Request');
+  ok($test->request_class->does('Catalyst::TraitFor::Request::REST'),
+    'Request does Catalyst::TraitFor::Request::REST');
 
   my $meta = Moose::Meta::Class->create_anon_class(
       superclasses => ['Catalyst::Request'],
