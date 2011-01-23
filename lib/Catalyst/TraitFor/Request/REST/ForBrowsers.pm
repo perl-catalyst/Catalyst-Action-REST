@@ -175,7 +175,8 @@ If the client provides an Accept header and accepts either "text/html" or
 
 =item *
 
-If it provides an Accept header of any sort, it is I<not> a browser.
+If it provides an Accept header of any sort that doesn't match one of the
+above criteria, it is I<not> a browser.
 
 =item *
 
