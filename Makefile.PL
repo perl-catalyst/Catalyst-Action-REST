@@ -74,5 +74,7 @@ if ($Module::Install::AUTHOR) {
 
 repository 'git://git.shadowcat.co.uk/catagits/Catalyst-Action-REST.git';
 
+add_metadata( x_authority => 'cpan:BOBTFISH' );
+
 WriteAll;
 
