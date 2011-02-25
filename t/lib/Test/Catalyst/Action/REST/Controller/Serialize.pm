@@ -42,12 +42,6 @@ sub empty : Chained('/') PathPart('serialize') CaptureArgs(0) {
 sub empty_serialized :Chained('empty') Args(0) ActionClass('Serialize') {
 }
 
-# Undef body
-sub empty_not_serialized_undef :Chained('empty') Args(0) ActionClass('Serialize') {
-    my ($self, $c) = @_;
-    $c->res->body(undef);
-}
-
 # Blank body
 sub empty_not_serialized_blank :Chained('empty') Args(0) ActionClass('Serialize') {
     my ($self, $c) = @_;

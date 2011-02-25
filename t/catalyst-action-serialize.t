@@ -41,10 +41,6 @@ $res = request($t->get(url => '/serialize/empty_serialized'));
 is $res->content, q[{'foo' => 'bar'}], 'normal case ok';
 ok $res->header('Content-Length'), 'set content-length when we serialize';
 
-$res = request($t->get(url => '/serialize/empty_not_serialized_undef'));
-is $res->content, '', "body explicitly set to undef results in '' content";
-ok !$res->header('Content-Length'), "body explicitly set to undef - no automatic content-length";
-
 $res = request($t->get(url => '/serialize/empty_not_serialized_blank'));
 is $res->content, '', "body explicitly set to '' results in '' content";
 ok !$res->header('Content-Length'), "body explicitly set to '' - no automatic content-length";
