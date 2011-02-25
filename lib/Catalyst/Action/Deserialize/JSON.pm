@@ -6,7 +6,7 @@ use namespace::autoclean;
 extends 'Catalyst::Action';
 use JSON;
 
-our $VERSION = '0.89';
+our $VERSION = '0.90';
 $VERSION = eval $VERSION;
 
 sub execute {

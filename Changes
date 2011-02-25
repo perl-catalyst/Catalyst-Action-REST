@@ -1,3 +1,7 @@
+Fri  25 Feb 2011 13:56:00 GMT - Release 0.90
+  Remove test which is no longer applicable and fails in the latest Catalyst
+  release.
+
 Mon  24 Jan 2011 21:57:42 GMT - Release 0.89
   All classes are now made immutable. (Dave Rolsky)
 
