@@ -224,7 +224,7 @@ J. Shirley E<lt>jshirley@gmail.comE<gt>
 
 =head1 COPYRIGHT
 
-Copyright the above named AUTHOR and CONTRIBUTORS
+Copyright (c) 2006-2011 the above named AUTHOR and CONTRIBUTORS
 
 =head1 LICENSE
 
