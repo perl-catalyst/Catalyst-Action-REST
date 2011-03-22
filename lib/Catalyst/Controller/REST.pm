@@ -401,7 +401,7 @@ sub status_no_content {
     my $c    = shift;
     $c->response->status(204);
     $self->_set_entity( $c, undef );
-    return 1.;
+    return 1;
 }
 
 =item status_multiple_choices
