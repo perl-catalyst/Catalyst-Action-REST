@@ -69,7 +69,12 @@ sub _load_content_plugins {
         push @accepted_types, @$stashed;
     }
     # then content types requested by caller
-    push @accepted_types, @{ $c->request->accepted_content_types };
+    push @accepted_types, 
+        $search_path =~ m{Deserialize} 
+            ?  @{ $c->request->accepted_content_types }
+            :  @{ $c->request->accepted_response_content_types }
+            ; 
+
     # then the default
     push @accepted_types, $config->{'default'} if $config->{'default'};
     # pick the best match that we have a serializer mapping for

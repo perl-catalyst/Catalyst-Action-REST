@@ -24,14 +24,46 @@ has preferred_content_type => (
     init_arg => undef,
 );
 
+has accepted_response_content_types => (
+    is       => 'ro',
+    isa      => 'ArrayRef',
+    lazy     => 1,
+    builder  => '_build_accepted_response_content_types',
+    init_arg => undef,
+);
+
+has preferred_response_content_type => (
+    is       => 'ro',
+    isa      => 'Str',
+    lazy     => 1,
+    builder  => '_build_preferred_response_content_type',
+    init_arg => undef,
+);
+
+sub _accepted_types_sort {
+    my ($self, %types) = @_;
+    [ sort { $types{$b} <=> $types{$a} } keys %types ];
+}
+
 sub _build_accepted_content_types {
     my $self = shift;
-
-    my %types;
-
+    my %types = $self->_accepted_response_content_types_inner;
     # First, we use the content type in the HTTP Request.  It wins all.
     $types{ $self->content_type } = 3
         if $self->content_type;
+    $self->_accepted_types_sort(%types);
+}
+
+sub _build_accepted_response_content_types {
+    my $self = shift;
+    my %types = $self->_accepted_response_content_types_inner;
+    $self->_accepted_types_sort(%types);
+}
+
+sub _accepted_response_content_types_inner {
+    my $self = shift;
+
+    my %types;
 
     if ($self->method eq "GET" && $self->param('content-type')) {
         $types{ $self->param('content-type') } = 2;
@@ -66,10 +98,12 @@ sub _build_accepted_content_types {
         }
     }
 
-    [ sort { $types{$b} <=> $types{$a} } keys %types ];
+    %types;
 }
 
 sub _build_preferred_content_type { $_[0]->accepted_content_types->[0] }
+
+sub _build_preferred_response_content_type { $_[0]->accepted_response_content_types->[0] }
 
 sub accepts {
     my $self = shift;
