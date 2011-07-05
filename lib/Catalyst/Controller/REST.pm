@@ -38,7 +38,7 @@ Catalyst::Controller::REST - A RESTful controller
     sub thing_PUT {
         my ( $self, $c ) = @_;
 
-        $radiohead = $req->data->{radiohead};
+        $radiohead = $c->req->data->{radiohead};
         
         $self->status_created(
             $c,
