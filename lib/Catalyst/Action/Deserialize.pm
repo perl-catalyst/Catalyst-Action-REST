@@ -6,6 +6,7 @@ use namespace::autoclean;
 extends 'Catalyst::Action::SerializeBase';
 use Module::Pluggable::Object;
 use MRO::Compat;
+use Moose::Util::TypeConstraints;
 
 our $VERSION = '0.90';
 $VERSION = eval $VERSION;
@@ -13,11 +14,18 @@ $VERSION = eval $VERSION;
 has plugins => ( is => 'rw' );
 
 has deserialize_http_methods => (
-    traits  => ['Array'],
-    isa     => 'ArrayRef[Str]',
+    traits  => ['Hash'],
+    isa     => do {
+        my $tc = subtype as 'HashRef[Str]';
+        coerce $tc, from 'ArrayRef[Str]',
+            via { +{ map { ($_ => 1) } @$_ } };
+        $tc;
+    },
+    coerce  => 1,
     builder => '_build_deserialize_http_methods',
     handles => {
-        deserialize_http_methods => 'elements',
+        deserialize_http_methods         => 'keys',
+        _deserialize_handles_http_method => 'exists',
     },
 );
 
@@ -27,8 +35,7 @@ sub execute {
     my $self = shift;
     my ( $controller, $c ) = @_;
 
-    my $method    = $c->request->method;
-    if ( grep /^$method$/, $self->deserialize_http_methods ) {
+    if ( $self->_deserialize_handles_http_method($c->request->method) ) {
         my ( $sclass, $sarg, $content_type ) =
           $self->_load_content_plugins( 'Catalyst::Action::Deserialize',
             $controller, $c );
