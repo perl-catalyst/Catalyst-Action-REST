@@ -13,9 +13,16 @@ my $t = Test::Rest->new('content_type' => 'text/x-yaml');
 use_ok 'Catalyst::Test', 'Test::Catalyst::Action::REST';
 my $url = '/deserialize/test';
 
-my $res = request($t->put( url => $url, data => Dump({ kitty => "LouLou" })));
+my $req = $t->put( url => $url, data => Dump({ kitty => "LouLou" }));
+my $res = request($req);
 ok( $res->is_success, 'PUT Deserialize request succeeded' );
 is( $res->content, "LouLou", "Request returned deserialized data");
+
+$req->method('GET');
+isnt( request($req)->content, 'LouLou', 'GET request with body does not work by default' );
+
+$req->url('/deserialize/test_action_args');
+is( request($req)->content, 'LouLou', 'GET request via action_args');
 
 my $nt = Test::Rest->new('content_type' => 'text/broken');
 my $bres = request($nt->put( url => $url, data => Dump({ kitty => "LouLou" })));
