@@ -1,3 +1,7 @@
+Thu  04 Aug 2011 14:37:21 CEST - Release 0.91
+  For the deserialization action class, make the HTTP methods it operates on
+  configurable on a per-action level (plu, rafl).
+
 Fri  25 Feb 2011 13:56:00 GMT - Release 0.90
   Remove test which is no longer applicable and fails in the latest Catalyst
   release.
