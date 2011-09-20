@@ -35,7 +35,7 @@ sub execute {
     my $self = shift;
     my ( $controller, $c ) = @_;
 
-    if ( $self->_deserialize_handles_http_method($c->request->method) ) {
+    if ( !defined($c->req->data) && $self->_deserialize_handles_http_method($c->request->method) ) {
         my ( $sclass, $sarg, $content_type ) =
           $self->_load_content_plugins( 'Catalyst::Action::Deserialize',
             $controller, $c );
