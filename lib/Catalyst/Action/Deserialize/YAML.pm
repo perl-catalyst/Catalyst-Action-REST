@@ -2,6 +2,7 @@ package Catalyst::Action::Deserialize::YAML;
 
 use Moose;
 use namespace::autoclean;
+use Scalar::Util qw(openhandle);
 
 extends 'Catalyst::Action';
 use YAML::Syck;
@@ -15,10 +16,21 @@ sub execute {
 
     my $body = $c->request->body;
     if ($body) {
+
+        my $rbody = '';
+
+        if(openhandle $body) {
+            seek($body, 0, 0); # in case something has already read from it
+            while ( defined( my $line = <$body> ) ) {
+                $rbody .= $line;
+            }
+        } else {
+            $rbody = $body;
+        }
+
         my $rdata;
         eval {
-            my $body = $c->request->body;
-            $rdata = LoadFile( "$body" );
+            $rdata = Load( $rbody );
         };
         if ($@) {
             return $@;

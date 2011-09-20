@@ -2,6 +2,7 @@ package Catalyst::Action::Deserialize::XML::Simple;
 
 use Moose;
 use namespace::autoclean;
+use Scalar::Util qw(openhandle);
 
 extends 'Catalyst::Action';
 
@@ -26,7 +27,10 @@ sub execute {
         my $xs = XML::Simple->new('ForceArray' => 0,);
         my $rdata;
         eval {
-            $rdata = $xs->XMLin( "$body" );
+            if(openhandle $body){ # make sure we rewind the file handle
+                seek($body, 0, 0); # in case something has already read from it
+            }
+            $rdata = $xs->XMLin( $body );
         };
         if ($@) {
             return $@;

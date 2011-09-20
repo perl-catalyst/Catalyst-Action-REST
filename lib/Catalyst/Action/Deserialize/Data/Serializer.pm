@@ -6,6 +6,7 @@ use namespace::autoclean;
 extends 'Catalyst::Action';
 use Data::Serializer;
 use Safe;
+use Scalar::Util qw(openhandle);
 my $compartment = Safe->new;
 $compartment->permit_only( qw(padany null lineseq const pushmark list anonhash anonlist refgen leaveeval undef) );
 
@@ -29,14 +30,17 @@ sub execute {
     }
     my $body = $c->request->body;
     if ($body) {
-        my $rbody;
-        if ( -f $c->request->body ) {
-            open( BODY, "<", $c->request->body );
-            while ( my $line = <BODY> ) {
+        my $rbody = '';
+
+        if(openhandle $body) {
+            seek($body, 0, 0); # in case something has already read from it
+            while ( defined( my $line = <$body> ) ) {
                 $rbody .= $line;
             }
-            close(BODY);
+        } else {
+            $rbody = $body;
         }
+
         my $rdata;
         if ( $serializer eq "Data::Dumper" ) {
             # Taken from Data::Serialize::Data::Dumper::deserialize, but run within a Safe compartment

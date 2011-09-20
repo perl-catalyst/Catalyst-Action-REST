@@ -2,6 +2,7 @@ package Catalyst::Action::Deserialize::JSON;
 
 use Moose;
 use namespace::autoclean;
+use Scalar::Util qw(openhandle);
 
 extends 'Catalyst::Action';
 use JSON;
@@ -13,12 +14,17 @@ sub execute {
     my $self = shift;
     my ( $controller, $c, $test ) = @_;
 
-    my $body = $c->request->body;
     my $rbody;
 
-    if ($body) {
-        while (my $line = <$body>) {
-            $rbody .= $line;
+    # could be a string or a FH
+    if ( my $body = $c->request->body ) {
+        if(openhandle $body) {
+            seek($body, 0, 0); # in case something has already read from it
+            while ( defined( my $line = <$body> ) ) {
+                $rbody .= $line;
+            }
+        } else {
+            $rbody = $body;
         }
     }
 
