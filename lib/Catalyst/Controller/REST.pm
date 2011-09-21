@@ -594,6 +594,10 @@ action classes:
 
   sub serialize : ActionClass('Serialize') {}
 
+If you need to deserialize multipart requests (i.e. REST data in
+one part and file uploads in others) you can do so by using the
+L<Catalyst::Action::DeserializeMultiPart> action class.
+
 =back
 
 =head1 A MILD WARNING

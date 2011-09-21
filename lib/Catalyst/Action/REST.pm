@@ -214,6 +214,8 @@ Daisuke Maki E<lt>daisuke@endeworks.jpE<gt>
 
 Hans Dieter Pearcey
 
+Brian Phillips E<lt>bphillips@cpan.orgE</gt>
+
 Dave Rolsky E<lt>autarch@urth.orgE<gt>
 
 Luke Saunders
