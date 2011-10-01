@@ -1,3 +1,8 @@
+Sat  01 Oct 2011 11:04:00 BST - Release 0.92
+  Add a Catalyst::Action::DeserializeMultiPart, allowing one part of a multipart
+  request to be deserialized as the REST data (allowing other parts to be used for
+  file uploads, for example) (bphillips)
+
 Thu  04 Aug 2011 14:37:21 CEST - Release 0.91
   For the deserialization action class, make the HTTP methods it operates on
   configurable on a per-action level (plu, rafl).
