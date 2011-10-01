@@ -77,7 +77,13 @@ the individual parts, L<HTTP::Body> must be told which content types
 to map to L<HTTP::Body::MultiPart>.  This module makes the assumption
 that you would like to have all C<multipart/mixed> requests parsed by
 L<HTTP::Body::MultiPart> module.  This is done by a package variable
-inside L<HTTP::Body>: C<$HTTP::Body::Types> (a HASH ref).  Feel free to
+inside L<HTTP::Body>: C<$HTTP::Body::Types> (a HASH ref).
+
+B<WARNING:> As this module modifys the behaviour of HTTP::Body globally,
+adding it to an application can have unintended consequences as multipart
+bodies will be treated differently to before.
+
+Feel free to
 add other content-types to this hash if needed or if you would prefer
 that C<multipart/mixed> NOT be added to this hash, simply delete it
 after loading this module.
