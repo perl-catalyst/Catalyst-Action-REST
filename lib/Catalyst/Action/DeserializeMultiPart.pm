@@ -32,7 +32,7 @@ __PACKAGE__->meta->make_immutable;
 
 =head1 NAME
 
-Catalyst::Action::DeserializeMultiPart - Deserialize Data in a Multi-Part Request
+Catalyst::Action::DeserializeMultiPart - Deserialize Data in a Multipart Request
 
 =head1 SYNOPSIS
 
@@ -46,7 +46,7 @@ Catalyst::Action::DeserializeMultiPart - Deserialize Data in a Multi-Part Reques
 
 =head1 DESCRIPTION
 
-This action will deserialize multi-part HTTP POST, PUT, OPTIONS and DELETE
+This action will deserialize multipart HTTP POST, PUT, OPTIONS and DELETE
 requests.  It is a simple extension of L<Catalyst::Action::Deserialize>
 with the exception that rather than using the entire request body (which
 may contain multiple sections), it will look for a single part in the request
@@ -79,9 +79,9 @@ that you would like to have all C<multipart/mixed> requests parsed by
 L<HTTP::Body::MultiPart> module.  This is done by a package variable
 inside L<HTTP::Body>: C<$HTTP::Body::Types> (a HASH ref).
 
-B<WARNING:> As this module modifys the behaviour of HTTP::Body globally,
+B<WARNING:> As this module modifies the behaviour of HTTP::Body globally,
 adding it to an application can have unintended consequences as multipart
-bodies will be treated differently to before.
+bodies will be parsed differently from before.
 
 Feel free to
 add other content-types to this hash if needed or if you would prefer

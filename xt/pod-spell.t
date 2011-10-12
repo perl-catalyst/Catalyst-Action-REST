@@ -39,6 +39,7 @@ Laco
 Maki
 Maki
 Marchex
+Multipart
 Pearcey
 Rolsky
 RESTful
@@ -50,6 +51,7 @@ XHR
 XMLHttpRequest
 YAML
 conf
+deserialization
 deserialize
 deserialized
 deserializing
@@ -59,6 +61,7 @@ http
 javascript
 jrockway
 mst
+multipart
 namespace
 plugins
 request's
