@@ -30,6 +30,12 @@ __PACKAGE__->config(
         'text/javascript', => 'JSONP',
         'application/x-javascript' => 'JSONP',
         'application/javascript' => 'JSONP',
+        'text/my-csv' => [
+            'Callback', {
+                deserialize => sub { return {split /,/, shift } },
+                serialize   => sub { my $d = shift; join ',', %$d }
+            }
+        ],
     },
 );
 
