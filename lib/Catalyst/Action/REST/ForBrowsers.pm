@@ -3,7 +3,7 @@ package Catalyst::Action::REST::ForBrowsers;
 use Moose;
 use namespace::autoclean;
 
-our $VERSION = '0.91';
+our $VERSION = '0.93';
 $VERSION = eval $VERSION;
 
 extends 'Catalyst::Action::REST';

@@ -1,3 +1,7 @@
+Wed  12 Oct 2011 11:37:00 CDT - Release 0.93
+  Add a "Callback" serializer/deserializer to allow for more customization in how
+  the REST data is parsed/generated (bphillips)
+
 Sat  01 Oct 2011 11:04:00 BST - Release 0.92
   Add a Catalyst::Action::DeserializeMultiPart, allowing one part of a multipart
   request to be deserialized as the REST data (allowing other parts to be used for
