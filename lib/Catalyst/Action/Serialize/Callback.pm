@@ -4,7 +4,6 @@ use Moose;
 use namespace::autoclean;
 
 extends 'Catalyst::Action';
-use YAML::Syck;
 
 our $VERSION = '0.93';
 $VERSION = eval $VERSION;
