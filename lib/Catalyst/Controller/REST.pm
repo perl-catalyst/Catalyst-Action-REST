@@ -2,9 +2,6 @@ package Catalyst::Controller::REST;
 use Moose;
 use namespace::autoclean;
 
-our $VERSION = '0.93';
-$VERSION = eval $VERSION;
-
 =head1 NAME
 
 Catalyst::Controller::REST - A RESTful controller
@@ -453,6 +450,46 @@ sub status_multiple_choices {
     $c->response->header( 'Location' => $location ) if exists $p{'location'};
     $self->_set_entity( $c, $p{'entity'} );
     return 1;
+}
+
+=item status_moved
+
+Returns a "301 MOVED" response.  Takes an "entity" to serialize,
+and a "location" where the created object can be found.
+
+Example:
+
+ $self->status_moved(
+   $c,
+   location => '/somewhere/else',
+   entity => {
+       radiohead => "Is a good band!",
+   }
+ );
+
+=cut
+
+sub status_moved {
+   my $self = shift;
+   my $c    = shift;
+   my %p    = Params::Validate::validate(
+       @_,
+       {
+           location => { type     => SCALAR | OBJECT },
+           entity   => { optional => 1 },
+       },
+   );
+
+   my $location;
+   if ( ref( $p{'location'} ) ) {
+       $location = $p{'location'}->as_string;
+   } else {
+       $location = $p{'location'};
+   }
+   $c->response->status(301);
+   $c->response->header( 'Location' => $location );
+   $self->_set_entity( $c, $p{'entity'} );
+   return 1;
 }
 
 =item status_bad_request

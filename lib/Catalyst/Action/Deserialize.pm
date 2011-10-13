@@ -8,9 +8,6 @@ use Module::Pluggable::Object;
 use MRO::Compat;
 use Moose::Util::TypeConstraints;
 
-our $VERSION = '0.93';
-$VERSION = eval $VERSION;
-
 has plugins => ( is => 'rw' );
 
 has deserialize_http_methods => (

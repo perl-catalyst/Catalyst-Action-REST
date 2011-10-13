@@ -7,9 +7,6 @@ use Scalar::Util qw(openhandle);
 extends 'Catalyst::Action';
 use YAML::Syck;
 
-our $VERSION = '0.93';
-$VERSION = eval $VERSION;
-
 sub execute {
     my $self = shift;
     my ( $controller, $c, $test ) = @_;

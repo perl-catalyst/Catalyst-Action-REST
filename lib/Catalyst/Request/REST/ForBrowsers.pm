@@ -3,9 +3,6 @@ use Moose;
 
 use namespace::autoclean;
 
-our $VERSION = '0.93';
-$VERSION = eval $VERSION;
-
 extends 'Catalyst::Request::REST';
 with 'Catalyst::TraitFor::Request::REST::ForBrowsers';
 

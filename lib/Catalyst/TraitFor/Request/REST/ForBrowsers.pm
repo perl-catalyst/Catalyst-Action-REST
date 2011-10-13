@@ -4,9 +4,6 @@ use namespace::autoclean;
 
 with 'Catalyst::TraitFor::Request::REST';
 
-our $VERSION = '0.93';
-$VERSION = eval $VERSION;
-
 has _determined_real_method => (
     is  => 'rw',
     isa => 'Bool',
