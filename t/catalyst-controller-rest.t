@@ -37,6 +37,12 @@ is_deeply Load( $res->content ),
     { error => "Cannot do what you have asked!" },
     "...  status bad request message";
 
+ok $res = request( $t->get( url => '/rest/test_status_forbidden' ) );
+is $res->code, 403, '... status forbidden';
+is_deeply Load( $res->content ),
+    { error => "access denied" },
+    "...  status forbidden";
+
 ok $res = request( $t->get( url => '/rest/test_status_not_found' ) );
 is $res->code, 404, '... status not found';
 is_deeply Load( $res->content ),

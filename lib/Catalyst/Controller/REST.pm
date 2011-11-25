@@ -481,6 +481,32 @@ sub status_bad_request {
     return 1;
 }
 
+=item status_forbidden
+
+Returns a "403 FORBIDDEN" response.  Takes a "message" argument
+as a scalar, which will become the value of "error" in the serialized
+response.
+
+Example:
+
+  $self->status_forbidden(
+    $c,
+    message => "access denied",
+  );
+
+=cut
+
+sub status_forbidden {
+    my $self = shift;
+    my $c    = shift;
+    my %p    = Params::Validate::validate( @_, { message => { type => SCALAR }, }, );
+
+    $c->response->status(403);
+    $c->log->debug( "Status Forbidden: " . $p{'message'} ) if $c->debug;
+    $self->_set_entity( $c, { error => $p{'message'} } );
+    return 1;
+}
+
 =item status_not_found
 
 Returns a "404 NOT FOUND" response.  Takes a "message" argument

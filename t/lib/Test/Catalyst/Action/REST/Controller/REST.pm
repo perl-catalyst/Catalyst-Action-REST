@@ -45,6 +45,12 @@ sub test_status_bad_request : Local {
         message => "Cannot do what you have asked!", );
 }
 
+sub test_status_forbidden : Local {
+    my ( $self, $c ) = @_;
+    $self->status_forbidden ( $c,
+        message => "access denied", );
+}
+
 sub test_status_not_found : Local {
     my ( $self, $c ) = @_;
     $self->status_not_found( $c,
