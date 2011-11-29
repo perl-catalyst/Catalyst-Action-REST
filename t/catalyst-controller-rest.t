@@ -31,6 +31,12 @@ ok $res = request( $t->get( url => '/rest/test_status_no_content' ) );
 is $res->code, 204, "... status no content";
 is $res->content, '', '... no content';
 
+ok $res = request( $t->get( url => '/rest/test_status_found' ) );
+is $res->code, 302, '... status found';
+is_deeply Load( $res->content ),
+    { status => 'found' },
+    "...  status found message";
+
 ok $res = request( $t->get( url => '/rest/test_status_bad_request' ) );
 is $res->code, 400, '... status bad request';
 is_deeply Load( $res->content ),

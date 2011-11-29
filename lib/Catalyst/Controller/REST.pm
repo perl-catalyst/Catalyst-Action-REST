@@ -455,6 +455,36 @@ sub status_multiple_choices {
     return 1;
 }
 
+=item status_found
+
+Returns a "302 FOUND" response. Takes an "entity" to serialize.
+Also takes optional "location" for preferred choice.
+
+=cut
+
+sub status_found {
+    my $self = shift;
+    my $c    = shift;
+    my %p    = Params::Validate::validate(
+        @_,
+        {
+            entity => 1,
+            location => { type     => SCALAR | OBJECT, optional => 1 },
+        },
+    );
+
+    my $location;
+    if ( ref( $p{'location'} ) ) {
+        $location = $p{'location'}->as_string;
+    } else {
+        $location = $p{'location'};
+    }
+    $c->response->status(302);
+    $c->response->header( 'Location' => $location ) if exists $p{'location'};
+    $self->_set_entity( $c, $p{'entity'} );
+    return 1;
+}
+
 =item status_bad_request
 
 Returns a "400 BAD REQUEST" response.  Takes a "message" argument

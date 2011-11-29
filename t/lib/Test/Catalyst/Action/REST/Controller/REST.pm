@@ -29,6 +29,15 @@ sub test_status_multiple_choices : Local {
     );
 }
 
+sub test_status_found : Local {
+    my ( $self, $c ) = @_;
+    $self->status_found(
+        $c,
+        location => '/rest',
+        entity   => { status => 'found' },
+    );
+}
+
 sub test_status_accepted : Local {
     my ( $self, $c ) = @_;
     $self->status_accepted( $c, entity => { status => "queued", } );
