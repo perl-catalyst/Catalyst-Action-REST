@@ -1,3 +1,6 @@
+  Add 403 Forbidden and 302 Not Found status methods to
+  Catalyst::Controller::REST (Caleb Cushing)
+
   Add a "Callback" serializer/deserializer to allow for more customization in
   how the REST data is parsed/generated (bphillips)
 
