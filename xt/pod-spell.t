@@ -68,3 +68,6 @@ request's
 serializer
 thusly
 wildcard
+subclasses
+Axel
+URI
