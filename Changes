@@ -1,5 +1,5 @@
 Wed  04 Jan 2012 19:34:00 GMT - Release 0.95
-  Fix regex for JSONP parameter name to be able to include the . chatacter
+  Fix regex for JSONP parameter name to be able to include the . character
   in Catalyst::Action::Serialize::JSONP. RT#73741
 
   Add optional location parameter to status_acceped handler. RT#73691 (ghenry)
