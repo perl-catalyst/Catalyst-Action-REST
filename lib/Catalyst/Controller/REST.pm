@@ -14,7 +14,7 @@ Catalyst::Controller::REST - A RESTful controller
     package Foo::Controller::Bar;
     use Moose;
     use namespace::autoclean;
-    
+
     BEGIN { extends 'Catalyst::Controller::REST' }
 
     sub thing : Local : ActionClass('REST') { }
@@ -39,15 +39,15 @@ Catalyst::Controller::REST - A RESTful controller
         my ( $self, $c ) = @_;
 
         $radiohead = $c->req->data->{radiohead};
-        
+
         $self->status_created(
             $c,
-            location => $c->req->uri->as_string,
+            location => $c->req->uri,
             entity => {
                 radiohead => $radiohead,
             }
         );
-    }     
+    }
 
 =head1 DESCRIPTION
 
@@ -81,7 +81,7 @@ which are described below.
 
 "The HTTP POST, PUT, and OPTIONS methods will all automatically
 L<deserialize|Catalyst::Action::Deserialize> the contents of
-C<< $c->request->body >> into the C<< $c->request->data >> hashref", based on 
+C<< $c->request->body >> into the C<< $c->request->data >> hashref", based on
 the request's C<Content-type> header. A list of understood serialization
 formats is L<below|/AVAILABLE SERIALIZERS>.
 
@@ -225,7 +225,7 @@ Your views should have a C<process> method like this:
       $c->response->body( $output );
       return 1;  # important
   }
-  
+
   sub serialize {
       my ( $self, $data ) = @_;
 
@@ -255,7 +255,7 @@ to act on, both callbacks are passed the controller object and the context
 
 =back
 
-By default, L<Catalyst::Controller::REST> will return a 
+By default, L<Catalyst::Controller::REST> will return a
 C<415 Unsupported Media Type> response if an attempt to use an unsupported
 content-type is made.  You can ensure that something is always returned by
 setting the C<default> config option:
@@ -268,12 +268,12 @@ C<text/x-yaml>.
 =head1 CUSTOM SERIALIZERS
 
 Implementing new Serialization formats is easy!  Contributions
-are most welcome!  If you would like to implement a custom serializer, 
+are most welcome!  If you would like to implement a custom serializer,
 you should create two new modules in the L<Catalyst::Action::Serialize>
 and L<Catalyst::Action::Deserialize> namespace.  Then assign your new
 class to the content-type's you want, and you're done.
 
-See L<Catalyst::Action::Serialize> and L<Catalyst::Action::Deserialize> 
+See L<Catalyst::Action::Serialize> and L<Catalyst::Action::Deserialize>
 for more information.
 
 =head1 STATUS HELPERS
@@ -352,7 +352,7 @@ Example:
 
   $self->status_created(
     $c,
-    location => $c->req->uri->as_string,
+    location => $c->req->uri,
     entity => {
         radiohead => "Is a good band!",
     }
@@ -374,14 +374,8 @@ sub status_created {
         },
     );
 
-    my $location;
-    if ( ref( $p{'location'} ) ) {
-        $location = $p{'location'}->as_string;
-    } else {
-        $location = $p{'location'};
-    }
     $c->response->status(201);
-    $c->response->header( 'Location' => $location );
+    $c->response->header( 'Location' => $p{location} );
     $self->_set_entity( $c, $p{'entity'} );
     return 1;
 }
@@ -389,11 +383,13 @@ sub status_created {
 =item status_accepted
 
 Returns a "202 ACCEPTED" response.  Takes an "entity" to serialize.
+Also takes optional "location" for queue type scenarios.
 
 Example:
 
   $self->status_accepted(
     $c,
+    location => $c->req->uri,
     entity => {
         status => "queued",
     }
@@ -404,9 +400,16 @@ Example:
 sub status_accepted {
     my $self = shift;
     my $c    = shift;
-    my %p    = Params::Validate::validate( @_, { entity => 1, }, );
+    my %p    = Params::Validate::validate(
+        @_,
+        {
+            location => { type => SCALAR | OBJECT, optional => 1 },
+            entity   => 1,
+        },
+    );
 
     $c->response->status(202);
+    $c->response->header( 'Location' => $p{location} ) if exists $p{location};
     $self->_set_entity( $c, $p{'entity'} );
     return 1;
 }
@@ -443,14 +446,8 @@ sub status_multiple_choices {
         },
     );
 
-    my $location;
-    if ( ref( $p{'location'} ) ) {
-        $location = $p{'location'}->as_string;
-    } else {
-        $location = $p{'location'};
-    }
     $c->response->status(300);
-    $c->response->header( 'Location' => $location ) if exists $p{'location'};
+    $c->response->header( 'Location' => $p{location} ) if exists $p{'location'};
     $self->_set_entity( $c, $p{'entity'} );
     return 1;
 }
@@ -458,7 +455,7 @@ sub status_multiple_choices {
 =item status_found
 
 Returns a "302 FOUND" response. Takes an "entity" to serialize.
-Also takes optional "location" for preferred choice.
+Also takes optional "location".
 
 =cut
 
@@ -473,14 +470,8 @@ sub status_found {
         },
     );
 
-    my $location;
-    if ( ref( $p{'location'} ) ) {
-        $location = $p{'location'}->as_string;
-    } else {
-        $location = $p{'location'};
-    }
     $c->response->status(302);
-    $c->response->header( 'Location' => $location ) if exists $p{'location'};
+    $c->response->header( 'Location' => $p{location} ) if exists $p{'location'};
     $self->_set_entity( $c, $p{'entity'} );
     return 1;
 }

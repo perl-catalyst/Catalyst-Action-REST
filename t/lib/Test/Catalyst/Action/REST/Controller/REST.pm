@@ -40,7 +40,11 @@ sub test_status_found : Local {
 
 sub test_status_accepted : Local {
     my ( $self, $c ) = @_;
-    $self->status_accepted( $c, entity => { status => "queued", } );
+    $self->status_accepted(
+        $c,
+        location => '/rest',
+        entity => { status => "queued", }
+    );
 }
 
 sub test_status_no_content : Local {

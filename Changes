@@ -1,3 +1,5 @@
+  Add optional location parameter to status_acceped handler. RT#73691 (ghenry)
+
 Fri  09 Dec 2011 08:35:00 GMT - Release 0.94
   Add 403 Forbidden and 302 Not Found status methods to
   Catalyst::Controller::REST (Caleb Cushing)

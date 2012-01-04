@@ -23,9 +23,11 @@ is_deeply(
 
 ok my $res = request( $t->get( url => '/rest/test_status_created' ) );
 is $res->code, 201, "... status created";
+is $res->header('Location'), '/rest', "...location of what was created";
 
 ok $res = request( $t->get( url => '/rest/test_status_accepted' ) );
 is $res->code, 202, "... status accepted";
+is $res->header('Location'), '/rest', "...location of what was accepted";
 
 ok $res = request( $t->get( url => '/rest/test_status_no_content' ) );
 is $res->code, 204, "... status no content";
@@ -36,6 +38,7 @@ is $res->code, 302, '... status found';
 is_deeply Load( $res->content ),
     { status => 'found' },
     "...  status found message";
+is $res->header('Location'), '/rest', "...location of what was found";
 
 ok $res = request( $t->get( url => '/rest/test_status_bad_request' ) );
 is $res->code, 400, '... status bad request';
@@ -66,6 +69,7 @@ is $res->code, 300, "... multiple choices";
 is_deeply Load($res->content),
     { choices => [qw(/rest/choice1 /rest/choice2)] },
     "... 300 multiple choices has response body";
+is $res->header('Location'), '/rest/choice1', "...main location of what was found";
 
 done_testing;
 
