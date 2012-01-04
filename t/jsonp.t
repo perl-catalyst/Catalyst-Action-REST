@@ -19,10 +19,10 @@ for ('text/javascript','application/x-javascript','application/javascript') {
     my $t = Test::Rest->new('content_type' => $_);
     my $monkey_template = { monkey => 'likes chicken!' };
 
-    my $mres = request($t->get(url => '/monkey_get?callback=omnivore'));
+    my $mres = request($t->get(url => '/monkey_get?callback=My_Animal.omnivore'));
     ok( $mres->is_success, 'GET the monkey succeeded' );
 
-    my ($json_param) = $mres->content =~ /^omnivore\((.*)?\);$/;
+    my ($json_param) = $mres->content =~ /^My_Animal.omnivore\((.*)?\);$/;
     is_deeply($json->decode($json_param), $monkey_template, "GET returned the right data");
 }
 
