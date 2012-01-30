@@ -226,6 +226,10 @@ J. Shirley E<lt>jshirley@gmail.comE<gt>
 
 Gavin Henry E<lt>ghenry@surevoip.co.ukE<gt>
 
+Gerv http://www.gerv.net/
+
+Colin Newell <colin@opusvl.com>
+
 =head1 COPYRIGHT
 
 Copyright (c) 2006-2012 the above named AUTHOR and CONTRIBUTORS

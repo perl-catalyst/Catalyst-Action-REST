@@ -55,4 +55,10 @@ sub monkey_get : Local : ActionClass('Serialize') {
     $c->stash->{'rest'} = { monkey => 'likes chicken!', };
 }
 
+sub xss_get : Local : ActionClass('Serialize') {
+    my ( $self, $c ) = @_;
+    $c->stash->{'rest'} = { monkey => 'likes chicken > sushi!', };
+}
+
+
 1;

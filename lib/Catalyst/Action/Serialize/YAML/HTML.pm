@@ -23,7 +23,7 @@ sub execute {
     my $output = "<html>";
     $output .= "<title>" . $app . "</title>";
     $output .= "<body><pre>";
-    my $text = Dump($c->stash->{$stash_key});
+    my $text = HTML::Entities::encode(Dump($c->stash->{$stash_key}));
     # Straight from URI::Find
     my $finder = URI::Find->new(
                               sub {

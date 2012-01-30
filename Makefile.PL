@@ -14,6 +14,7 @@ requires 'namespace::autoclean';
 requires('Catalyst::Runtime'         => '5.80030');
 requires('Params::Validate'          => '0.76');
 requires('YAML::Syck'                => '0.67');
+requires('HTML::Parser'              => undef);
 requires('Module::Pluggable::Object' => undef);
 requires('LWP::UserAgent'            => '2.033');
 requires('Data::Serializer'          => '0.36');

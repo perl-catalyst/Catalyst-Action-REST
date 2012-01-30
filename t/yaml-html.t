@@ -28,6 +28,14 @@ SKIP: {
       request( $t->post( url => '/monkey_put', data => Dump($post_data) ) );
     ok( $mres_post->is_error, "POST to the monkey failed; no deserializer." );
 
+    # xss test - RT 63537
+    my $xss_template =
+"<html><title>Test::Serialize</title><body><pre>--- \nmonkey: likes chicken &gt; sushi!\n</pre></body></html>";
+    my $xres = request( $t->get( url => '/xss_get' ) );
+    ok( $xres->is_success, 'GET the xss succeeded' );
+    is( $xres->content, $xss_template, "GET returned the right data" );
+
+
 }
 1;
 

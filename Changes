@@ -1,3 +1,5 @@
+  Added fix for RT 63537 (from Gerv) and tests to check it.
+
 Wed  04 Jan 2012 19:34:00 GMT - Release 0.95
   Fix regex for JSONP parameter name to be able to include the . chatacter
   in Catalyst::Action::Serialize::JSONP. RT#73741
