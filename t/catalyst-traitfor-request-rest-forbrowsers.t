@@ -8,6 +8,7 @@ use Catalyst::Request::REST::ForBrowsers;
 use Catalyst::TraitFor::Request::REST::ForBrowsers;
 use Moose::Meta::Class;
 use HTTP::Headers;
+use Catalyst::Log;
 
 my $anon_class = Moose::Meta::Class->create_anon_class(
     superclasses => ['Catalyst::Request'],
@@ -20,7 +21,9 @@ my $anon_class = Moose::Meta::Class->create_anon_class(
 for my $class ( $anon_class, 'Catalyst::Request::REST::ForBrowsers' ) {
     {
         for my $method (qw( GET POST PUT DELETE )) {
-            my $req = $class->new();
+            my $req = $class->new(
+                _log => Catalyst::Log->new,
+            );
             $req->method($method);
             $req->{_context} = 'MockContext';
             $req->parameters( {} );
