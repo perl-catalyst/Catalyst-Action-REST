@@ -6,7 +6,7 @@ use namespace::autoclean;
 extends 'Catalyst::Action';
 use JSON ();
 
-our $VERSION = '0.97';
+our $VERSION = '0.98';
 $VERSION = eval $VERSION;
 
 has encoder => (

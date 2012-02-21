@@ -10,7 +10,7 @@ use Scalar::Util qw(openhandle);
 my $compartment = Safe->new;
 $compartment->permit_only( qw(padany null lineseq const pushmark list anonhash anonlist refgen leaveeval undef) );
 
-our $VERSION = '0.97';
+our $VERSION = '0.98';
 $VERSION = eval $VERSION;
 
 sub execute {

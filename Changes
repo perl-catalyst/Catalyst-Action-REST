@@ -1,3 +1,6 @@
+Tue  21 Feb 2012 11:40:00 GMT - Release 0.98
+  More fixes as per last release.
+
 Tue  21 Feb 2012 09:58:00 GMT - Release 0.97
   Fix test with latest Catalyst version which passes _log into
   requests.

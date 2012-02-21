@@ -37,7 +37,9 @@ for my $class ( $anon_class, 'Catalyst::Request::REST::ForBrowsers' ) {
 
     {
         for my $method (qw( PUT DELETE )) {
-            my $req = $class->new();
+            my $req = $class->new(
+                _log => Catalyst::Log->new,
+            );
             $req->method('POST');
             $req->{_context} = 'MockContext';
             $req->parameters( { 'x-tunneled-method' => $method } );
@@ -51,7 +53,9 @@ for my $class ( $anon_class, 'Catalyst::Request::REST::ForBrowsers' ) {
 
     {
         for my $method (qw( PUT DELETE )) {
-            my $req = $class->new();
+            my $req = $class->new(
+                _log => Catalyst::Log->new,
+            );
             $req->method('POST');
             $req->{_context} = 'MockContext';
             $req->header( 'x-http-method-override' => $method );
@@ -65,7 +69,9 @@ for my $class ( $anon_class, 'Catalyst::Request::REST::ForBrowsers' ) {
 
     {
         for my $method (qw( PUT DELETE )) {
-            my $req = $class->new();
+            my $req = $class->new(
+                _log => Catalyst::Log->new,
+            );
             $req->method('GET');
             $req->{_context} = 'MockContext';
             $req->parameters( { 'x-tunneled-method' => $method } );
@@ -78,7 +84,9 @@ for my $class ( $anon_class, 'Catalyst::Request::REST::ForBrowsers' ) {
     }
 
     {
-        my $req = $class->new();
+        my $req = $class->new(
+            _log => Catalyst::Log->new,
+        );
         $req->{_context} = 'MockContext';
         $req->method('GET');
         $req->parameters( {} );
@@ -92,7 +100,9 @@ for my $class ( $anon_class, 'Catalyst::Request::REST::ForBrowsers' ) {
 
     {
         for my $with (qw( HTTP.Request XMLHttpRequest )) {
-            my $req = $class->new();
+            my $req = $class->new(
+                _log => Catalyst::Log->new,
+            );
             $req->{_context} = 'MockContext';
             $req->headers(
                 HTTP::Headers->new( 'X-Requested-With' => $with ) );
@@ -105,7 +115,9 @@ for my $class ( $anon_class, 'Catalyst::Request::REST::ForBrowsers' ) {
     }
 
     {
-        my $req = $class->new();
+        my $req = $class->new(
+            _log => Catalyst::Log->new,
+        );
         $req->{_context} = 'MockContext';
         $req->method('GET');
         $req->parameters( { 'content-type' => 'text/json' } );
@@ -118,7 +130,9 @@ for my $class ( $anon_class, 'Catalyst::Request::REST::ForBrowsers' ) {
     }
 
     {
-        my $req = $class->new();
+        my $req = $class->new(
+            _log => Catalyst::Log->new,
+        );
         $req->{_context} = 'MockContext';
         $req->method('GET');
         $req->parameters( { 'content-type' => 'text/html' } );
@@ -131,7 +145,9 @@ for my $class ( $anon_class, 'Catalyst::Request::REST::ForBrowsers' ) {
     }
 
     {
-        my $req = $class->new();
+        my $req = $class->new(
+            _log => Catalyst::Log->new,
+        );
         $req->{_context} = 'MockContext';
         $req->method('GET');
         $req->parameters( {} );
@@ -145,7 +161,9 @@ for my $class ( $anon_class, 'Catalyst::Request::REST::ForBrowsers' ) {
     }
 
     {
-        my $req = $class->new();
+        my $req = $class->new(
+            _log => Catalyst::Log->new,
+        );
         $req->{_context} = 'MockContext';
         $req->method('GET');
         $req->parameters( {} );
@@ -162,7 +180,9 @@ for my $class ( $anon_class, 'Catalyst::Request::REST::ForBrowsers' ) {
     }
 
     {
-        my $req = $class->new();
+        my $req = $class->new(
+            _log => Catalyst::Log->new,
+        );
         $req->{_context} = 'MockContext';
         $req->method('GET');
         $req->parameters( {} );
@@ -179,7 +199,9 @@ for my $class ( $anon_class, 'Catalyst::Request::REST::ForBrowsers' ) {
     }
 
     {
-        my $req = $class->new();
+        my $req = $class->new(
+            _log => Catalyst::Log->new,
+        );
         $req->{_context} = 'MockContext';
         $req->method('GET');
         $req->parameters( {} );
