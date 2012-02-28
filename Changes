@@ -1,3 +1,7 @@
+Tue  28 Feb 2012 09:09:00 GMT - Release 0.99
+  Repack with new Module::Install to stop depending on an unnecessary
+  ExtUtils::MakeMaker version.
+
 Tue  21 Feb 2012 11:40:00 GMT - Release 0.98
   More fixes as per last release.
 
