@@ -65,7 +65,6 @@ feature 'XML::Simple (text/xml) support',
     'XML::Simple' => undef;
 author_requires 'XML::Simple';
 
-auto_include;
 auto_install;
 
 if ($Module::Install::AUTHOR) {
