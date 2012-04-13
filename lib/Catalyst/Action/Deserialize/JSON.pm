@@ -7,7 +7,7 @@ use Scalar::Util qw(openhandle);
 extends 'Catalyst::Action';
 use JSON;
 
-our $VERSION = '0.99';
+our $VERSION = '1.00';
 $VERSION = eval $VERSION;
 
 sub execute {

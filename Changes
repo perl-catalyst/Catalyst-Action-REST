@@ -1,3 +1,4 @@
+Fri  13 Apr 2012 09:31:00 BST - Release 1.00
   Repack without auto_include to stop Module::Install inlining
   Test::More without Test::Builder. RT#76524
 

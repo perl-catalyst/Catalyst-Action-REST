@@ -6,7 +6,7 @@ use namespace::autoclean;
 extends 'Catalyst::Action::Deserialize';
 use HTTP::Body;
 
-our $VERSION = '0.99';
+our $VERSION = '1.00';
 $VERSION = eval $VERSION;
 
 our $NO_HTTP_BODY_TYPES_INITIALIZATION;

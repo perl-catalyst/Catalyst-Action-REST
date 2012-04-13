@@ -3,7 +3,7 @@ use Moose::Role;
 use HTTP::Headers::Util qw(split_header_words);
 use namespace::autoclean;
 
-our $VERSION = '0.99';
+our $VERSION = '1.00';
 $VERSION = eval $VERSION;
 
 has [qw/ data accept_only /] => ( is => 'rw' );
