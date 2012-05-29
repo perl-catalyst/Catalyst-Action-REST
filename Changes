@@ -1,3 +1,4 @@
+Tue  29 May 2012 20:19:00 BST - Release 1.01
  Add Catalyst::Action::Deserialize::JSON::XS
 
  Fix JSON::XS useage to depend on JSON.pm v2.0, and rely on the

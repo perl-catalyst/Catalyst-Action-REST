@@ -10,7 +10,7 @@ use Catalyst::Controller::REST;
 
 BEGIN { require 5.008001; }
 
-our $VERSION = '1.00';
+our $VERSION = '1.01';
 $VERSION = eval $VERSION;
 
 sub BUILDARGS {
