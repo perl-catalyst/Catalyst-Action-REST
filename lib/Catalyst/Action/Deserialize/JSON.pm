@@ -3,9 +3,6 @@ package Catalyst::Action::Deserialize::JSON;
 use Moose;
 use namespace::autoclean;
 use Scalar::Util qw(openhandle);
-BEGIN {
-    $ENV{'PERL_JSON_BACKEND'} = 2; # Always use compiled JSON::XS
-}
 
 extends 'Catalyst::Action';
 use JSON;
