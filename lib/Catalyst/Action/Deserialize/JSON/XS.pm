@@ -1,9 +1,9 @@
-package Catalyst::Action::Serialize::JSON::XS;
+package Catalyst::Action::Deserialize::JSON::XS;
 
 use Moose;
 use namespace::autoclean;
 
-extends 'Catalyst::Action::Serialize::JSON';
+extends 'Catalyst::Action::Deserialize::JSON';
 use JSON::XS ();
 
 our $VERSION = '1.00';
