@@ -1,3 +1,9 @@
+ Add Catalyst::Action::Deserialize::JSON::XS
+
+ Fix JSON::XS useage to depend on JSON.pm v2.0, and rely on the
+ fact that can be backed by XS code, by explicitly setting
+ $ENV{'PERL_JSON_BACKEND'} = 2
+
 Fri  13 Apr 2012 09:31:00 BST - Release 1.00
   Repack without auto_include to stop Module::Install inlining
   Test::More without Test::Builder. RT#76524
