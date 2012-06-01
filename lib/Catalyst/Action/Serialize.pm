@@ -54,9 +54,9 @@ sub execute {
         }
     };
     if ($@) {
-        return $self->_serialize_bad_request( $c, $content_type, $@ );
+        return $self->serialize_bad_request( $c, $content_type, $@ );
     } elsif (!$rc) {
-        return $self->_unsupported_media_type( $c, $content_type );
+        return $self->unsupported_media_type( $c, $content_type );
     }
 
     return 1;
@@ -139,6 +139,13 @@ perhaps for debugging.
 Daisuke Maki pointed out that early versions of this Action did not play
 well with others, or generally behave in a way that was very consistent
 with the rest of Catalyst.
+
+=head1 CUSTOM ERRORS
+
+For building custom error responses when serialization fails, you can create
+an ActionRole (and use L<Catalyst::Controller::ActionRole> to apply it to the
+C<end> action) which overrides C<unsupported_media_type> and/or C<_serialize_bad_request>
+methods.
 
 =head1 SEE ALSO
 

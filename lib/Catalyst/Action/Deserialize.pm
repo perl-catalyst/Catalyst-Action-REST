@@ -47,9 +47,9 @@ sub execute {
             $rc = $sclass->execute( $controller, $c );
         }
         if ( $rc eq "0" ) {
-            return $self->_unsupported_media_type( $c, $content_type );
+            return $self->unsupported_media_type( $c, $content_type );
         } elsif ( $rc ne "1" ) {
-            return $self->_serialize_bad_request( $c, $content_type, $rc );
+            return $self->serialize_bad_request( $c, $content_type, $rc );
         }
     }
 
@@ -119,6 +119,13 @@ Will work just fine.
 
 When you use this module, the request class will be changed to
 L<Catalyst::Request::REST>.
+
+=head1 CUSTOM ERRORS
+
+For building custom error responses when de-serialization fails, you can create
+an ActionRole (and use L<Catalyst::Controller::ActionRole> to apply it to the
+C<begin> action) which overrides C<unsupported_media_type> and/or C<_serialize_bad_request>
+methods.
 
 =head1 SEE ALSO
 

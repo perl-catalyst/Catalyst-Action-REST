@@ -75,7 +75,7 @@ sub _load_content_plugins {
     # pick the best match that we have a serializer mapping for
     my ($content_type) = grep { $map->{$_} } @accepted_types;
 
-    return $self->_unsupported_media_type($c, $content_type)
+    return $self->unsupported_media_type($c, $content_type)
         if not $content_type;
 
     # carp about old text/x-json
@@ -101,10 +101,10 @@ sub _load_content_plugins {
         $sclass .= $mc;
         #}
         if ( !grep( /^$sclass$/, @{ $self->_serialize_plugins } ) ) {
-            return $self->_unsupported_media_type($c, $content_type);
+            return $self->unsupported_media_type($c, $content_type);
         }
     } else {
-        return $self->_unsupported_media_type($c, $content_type);
+        return $self->unsupported_media_type($c, $content_type);
     }
     unless ( exists( $self->_loaded_plugins->{$sclass} ) ) {
         my $load_class = $sclass;
@@ -114,7 +114,7 @@ sub _load_content_plugins {
         if ($@) {
             $c->log->error(
                 "Error loading $sclass for " . $content_type . ": $!" );
-            return $self->_unsupported_media_type($c, $content_type);
+            return $self->unsupported_media_type($c, $content_type);
         } else {
             $self->_loaded_plugins->{$sclass} = 1;
         }
@@ -132,7 +132,7 @@ sub _load_content_plugins {
     return $sclass, $sarg, $content_type;
 }
 
-sub _unsupported_media_type {
+sub unsupported_media_type {
     my ( $self, $c, $content_type ) = @_;
     $c->res->content_type('text/plain');
     $c->res->status(415);
@@ -146,7 +146,7 @@ sub _unsupported_media_type {
     return undef;
 }
 
-sub _serialize_bad_request {
+sub serialize_bad_request {
     my ( $self, $c, $content_type, $error ) = @_;
     $c->res->content_type('text/plain');
     $c->res->status(400);
