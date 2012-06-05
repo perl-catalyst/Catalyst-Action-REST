@@ -1,6 +1,11 @@
  Fix forwarded REST methods, e.g. foo_GET to be more
  correctly displayed as a forward in the stats info.
 
+ Make public response building methods for errors
+ _unsupported_media_type and _serialize_bad_request which
+ can be extended from an action-role to return custom
+ error response.
+
 Tue  29 May 2012 20:19:00 BST - Release 1.01
  Add Catalyst::Action::Deserialize::JSON::XS
 
