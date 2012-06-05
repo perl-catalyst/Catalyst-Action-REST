@@ -1,3 +1,4 @@
+Tue  5 Jun 2012 22:23:00 BST - Release 1.02
  Fix forwarded REST methods, e.g. foo_GET to be more
  correctly displayed as a forward in the stats info.
 
