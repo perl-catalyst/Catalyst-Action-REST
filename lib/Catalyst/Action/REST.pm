@@ -99,14 +99,14 @@ sub _dispatch_rest_method {
 
     my ($code, $name);
 
+    # Execute normal 'foo' action.
+    $c->execute( $self->class, $self, @{ $c->req->args } );
+
     # Common case, for foo_GET etc
     if ( $code = $controller->action_for($rest_method) ) {
-        $c->execute( $self->class, $self, @{ $c->req->args } ); # Execute normal 'foo' action.
         return $c->forward( $code,  $c->req->args ); # Forward to foo_GET if it's an action
     }
     elsif ($code = $controller->can($rest_method)) {
-        # Execute normal action
-        $c->execute( $self->class, $self, @{ $c->req->args } );
         $name = $rest_method; # Stash name and code to run 'foo_GET' like an action below.
     }
 
@@ -127,8 +127,11 @@ sub _dispatch_rest_method {
 
     # localise stuff so we can dispatch the action 'as normal, but get
     # different stats shown, and different code run.
+    # Also get the full path for the action, and make it look like a forward
     local $self->{code} = $code;
-    local $self->{reverse} = $name;
+    my @name = split m{/}, $self->reverse;
+    $name[-1] = $name;
+    local $self->{reverse} = "-> " . join('/', @name);
 
     $c->execute( $self->class, $self, @{ $c->req->args } );
 }

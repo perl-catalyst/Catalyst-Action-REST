@@ -1,3 +1,6 @@
+ Fix forwarded REST methods, e.g. foo_GET to be more
+ correctly displayed as a forward in the stats info.
+
 Tue  29 May 2012 20:19:00 BST - Release 1.01
  Add Catalyst::Action::Deserialize::JSON::XS
 
