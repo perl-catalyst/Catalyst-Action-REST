@@ -146,6 +146,7 @@ sub _return_options {
     $c->response->content_type('text/plain');
     $c->response->status(200);
     $c->response->header( 'Allow' => \@allowed );
+    $c->response->body(q{});
 }
 
 sub _return_not_implemented {
