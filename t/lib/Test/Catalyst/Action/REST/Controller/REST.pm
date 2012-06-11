@@ -76,4 +76,11 @@ sub test_status_gone : Local {
         message => "Document have been deleted by foo", );
 }
 
+sub opts : Local ActionClass('REST') {}
+
+sub opts_GET {
+    my ( $self, $c ) = @_;
+    $self->status_ok( $c, entity => { opts => 'worked' } );
+}
+
 1;
