@@ -146,7 +146,7 @@ sub _dispatch_rest_method {
     $c->execute( $self->class, $self, @{ $req->args } );
 }
 
-sub _get_allowed_methods {
+sub get_allowed_methods {
     my ( $self, $controller, $c, $name ) = @_;
     my $class = ref($controller) ? ref($controller) : $controller;
     my $methods = Class::Inspector->methods($class);
@@ -155,7 +155,7 @@ sub _get_allowed_methods {
 
 sub _return_options {
     my ( $self, $method_name, $controller, $c) = @_;
-    my @allowed = $self->_get_allowed_methods($controller, $c, $method_name);
+    my @allowed = $self->get_allowed_methods($controller, $c, $method_name);
     $c->response->content_type('text/plain');
     $c->response->status(200);
     $c->response->header( 'Allow' => \@allowed );
@@ -165,7 +165,7 @@ sub _return_options {
 sub _return_not_implemented {
     my ( $self, $method_name, $controller, $c ) = @_;
 
-    my @allowed = $self->_get_allowed_methods($controller, $c, $method_name);
+    my @allowed = $self->get_allowed_methods($controller, $c, $method_name);
     $c->response->content_type('text/plain');
     $c->response->status(405);
     $c->response->header( 'Allow' => \@allowed );
