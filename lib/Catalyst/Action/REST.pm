@@ -94,35 +94,39 @@ sub _dispatch_rest_method {
     my $self        = shift;
     my $c           = shift;
     my $rest_method = shift;
+    my $req         = $c->request;
 
     my $controller = $c->component( $self->class );
 
     my ($code, $name);
 
     # Execute normal 'foo' action.
-    $c->execute( $self->class, $self, @{ $c->req->args } );
+    $c->execute( $self->class, $self, @{ $req->args } );
 
     # Common case, for foo_GET etc
     if ( $code = $controller->action_for($rest_method) ) {
-        return $c->forward( $code,  $c->req->args ); # Forward to foo_GET if it's an action
+        return $c->forward( $code,  $req->args ); # Forward to foo_GET if it's an action
     }
     elsif ($code = $controller->can($rest_method)) {
         $name = $rest_method; # Stash name and code to run 'foo_GET' like an action below.
     }
 
-    # Generic handling for foo_OPTIONS
+    # Generic handling for foo_*
     if (!$code) {
-        if ( $c->request->method eq "OPTIONS") {
-            $name = $rest_method;
-            $code = sub { $self->_return_options($self->name, @_) };
-        }
-        else {
-            # Otherwise, not implemented.
-            $name = $self->name . "_not_implemented";
-            $code = $controller->can($name) # User method
-                # Generic not implemented
-                || sub { $self->_return_not_implemented($self->name, @_) };
-        }
+        my $code_action = {
+            OPTIONS => sub {
+                $name = $rest_method;
+                $code = sub { $self->_return_options($self->name, @_) };
+            },
+            default => sub {
+                # Otherwise, not implemented.
+                $name = $self->name . "_not_implemented";
+                $code = $controller->can($name) # User method
+                    # Generic not implemented
+                    || sub { $self->_return_not_implemented($self->name, @_) };
+            },
+        };
+        ($code_action->{$req->method} || $code_action->{'default'})->();
     }
 
     # localise stuff so we can dispatch the action 'as normal, but get
@@ -133,7 +137,7 @@ sub _dispatch_rest_method {
     $name[-1] = $name;
     local $self->{reverse} = "-> " . join('/', @name);
 
-    $c->execute( $self->class, $self, @{ $c->req->args } );
+    $c->execute( $self->class, $self, @{ $req->args } );
 }
 
 sub _get_allowed_methods {
