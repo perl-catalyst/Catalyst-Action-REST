@@ -118,6 +118,10 @@ sub _dispatch_rest_method {
                 $name = $rest_method;
                 $code = sub { $self->_return_options($self->name, @_) };
             },
+            HEAD => sub {
+              $rest_method =~ s{_HEAD$}{_GET}i;
+              $self->_dispatch_rest_method($c, $rest_method);
+            },
             default => sub {
                 # Otherwise, not implemented.
                 $name = $self->name . "_not_implemented";
@@ -126,7 +130,9 @@ sub _dispatch_rest_method {
                     || sub { $self->_return_not_implemented($self->name, @_) };
             },
         };
-        ($code_action->{$req->method} || $code_action->{'default'})->();
+        my $respond = ($code_action->{$req->method}
+                       || $code_action->{'default'})->();
+        return $respond unless $name;
     }
 
     # localise stuff so we can dispatch the action 'as normal, but get
