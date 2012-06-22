@@ -20,7 +20,7 @@ sub new {
 }
 
 {
-    my @non_data_methods = qw(GET DELETE OPTIONS);
+    my @non_data_methods = qw(HEAD GET DELETE OPTIONS);
     foreach my $method (@non_data_methods) {
         no strict 'refs';
         my $sub = lc($method);
