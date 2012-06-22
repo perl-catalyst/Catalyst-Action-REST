@@ -45,6 +45,11 @@ foreach my $endpoint (qw/ test other_test /) {
     }
 }
 
+my $head_res = request(  $t->head(url => '/actions/test') );
+ok($head_res->is_success, 'HEAD request succeeded')
+    or diag($head_res->code);
+ok(!$head_res->content, 'HEAD request had proper response');
+
 my $res = request(
     $t->put(
         url  => '/actions/test',
