@@ -1,3 +1,10 @@
+ Expose _get_allowed_methods to the API (wreis)
+
+ Fix default OPTIONS handler: As the ->body is defined, then serialization
+ won't happen and we don't get wrong responses. (wreis)
+
+ Add default HEAD handler: auto dispatches to _GET method if it exists (wreis)
+
 Tue  5 Jun 2012 22:23:00 BST - Release 1.02
  Fix forwarded REST methods, e.g. foo_GET to be more
  correctly displayed as a forward in the stats info.
