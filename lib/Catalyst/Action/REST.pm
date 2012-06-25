@@ -61,7 +61,8 @@ by implementing a custom 405 handler like so:
 
 If you do not provide an _OPTIONS subroutine, we will automatically respond
 with a 200 OK.  The "Allow" header will be populated with the list of
-implemented request methods.
+implemented request methods. If you do not provide an _HEAD either, we will
+auto dispatch to the _GET one in case it exists.
 
 It is likely that you really want to look at L<Catalyst::Controller::REST>,
 which brings this class together with automatic Serialization of requests
