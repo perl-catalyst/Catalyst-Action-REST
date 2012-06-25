@@ -245,6 +245,8 @@ Gerv http://www.gerv.net/
 
 Colin Newell <colin@opusvl.com>
 
+Wallace Reis E<lt>wreis@cpan.orgE<gt>
+
 =head1 COPYRIGHT
 
 Copyright (c) 2006-2012 the above named AUTHOR and CONTRIBUTORS
