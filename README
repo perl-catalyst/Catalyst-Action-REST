@@ -36,7 +36,8 @@ DESCRIPTION
 
     If you do not provide an _OPTIONS subroutine, we will automatically
     respond with a 200 OK. The "Allow" header will be populated with the
-    list of implemented request methods.
+    list of implemented request methods. If you do not provide an _HEAD
+    either, we will auto dispatch to the _GET one in case it exists.
 
     It is likely that you really want to look at Catalyst::Controller::REST,
     which brings this class together with automatic Serialization of
@@ -107,6 +108,8 @@ CONTRIBUTORS
     Gerv http://www.gerv.net/
 
     Colin Newell <colin@opusvl.com>
+
+    Wallace Reis <wreis@cpan.org>
 
 COPYRIGHT
     Copyright (c) 2006-2012 the above named AUTHOR and CONTRIBUTORS
