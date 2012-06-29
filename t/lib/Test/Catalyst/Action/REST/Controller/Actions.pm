@@ -70,6 +70,13 @@ sub other_test_OPTIONS {
     $c->res->body('OPTIONS');
 }
 
+sub yet_other_test : Local : ActionClass('+Catalyst::Action::REST') {}
+
+sub yet_other_test_POST {
+  my ( $self, $c ) = @_;
+  $c->res->body('POST');
+}
+
 sub end : Private {} # Don't need serialization..
 
 1;

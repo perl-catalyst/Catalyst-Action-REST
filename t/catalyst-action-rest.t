@@ -38,6 +38,10 @@ ok($head_res->is_success, 'HEAD request succeeded')
     or diag($head_res->code);
 ok(!$head_res->content, 'HEAD request had proper response');
 
+$head_res = request( $t->head(url => '/actions/yet_other_test') );
+ok($head_res->code == 405, 'HEAD request succeeded')
+    or diag($head_res->code);
+
 my $fail_res = request( $t->delete( url => '/notreally' ) );
 is( $fail_res->code, 405, "Request to bad method gets 405 Not Implemented" );
 is( $fail_res->header('allow'), "GET", "405 allow header properly set." );

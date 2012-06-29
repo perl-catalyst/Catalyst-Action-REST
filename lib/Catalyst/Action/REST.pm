@@ -131,7 +131,9 @@ sub _dispatch_rest_method {
                     || sub { $self->_return_not_implemented($self->name, @_) };
             },
         };
-        my $respond = ($code_action->{$req->method}
+        my ( $http_method, $action_name ) = ( $rest_method, $self->name );
+        $http_method =~ s{\Q$action_name\E\_}{};
+        my $respond = ($code_action->{$http_method}
                        || $code_action->{'default'})->();
         return $respond unless $name;
     }
