@@ -23,6 +23,7 @@ local $ENV{LC_ALL} = 'C';
 all_pod_files_spelling_ok();
 
 __DATA__
+Reis
 ActionRole
 de
 Gerv
