@@ -44,17 +44,17 @@ ok($head_res->code == 405, 'HEAD request succeeded')
 
 my $fail_res = request( $t->delete( url => '/notreally' ) );
 is( $fail_res->code, 405, "Request to bad method gets 405 Not Implemented" );
-is( $fail_res->header('allow'), "GET", "405 allow header properly set." );
+is( $fail_res->header('allow'), "GET, HEAD", "405 allow header properly set." );
 
 my $options_res = request( $t->options( url => '/notreally' ) );
 is( $options_res->code, 200, "OPTIONS request handler succeeded" );
 is( $options_res->header('allow'),
-    "GET", "OPTIONS request allow header properly set." );
+    "GET, HEAD", "OPTIONS request allow header properly set." );
 
 my $opts_res = request( $t->options( url => '/rest/opts' ) );
 is( $opts_res->code, 200, "OPTIONS request handler succeeded" );
 is( $opts_res->header('allow'),
-    "GET", "OPTIONS request allow header properly set." );
+    "GET, HEAD", "OPTIONS request allow header properly set." );
 is($opts_res->content, q{}, 'should have no body');
 
 $opts_res = request(
@@ -65,7 +65,7 @@ $opts_res = request(
 );
 is( $opts_res->code, 200, "OPTIONS request handler succeeded" );
 is( $opts_res->header('allow'),
-    "GET", "OPTIONS request allow header properly set." );
+    "GET, HEAD", "OPTIONS request allow header properly set." );
 is($opts_res->content, q{}, 'should have no body');
 
 my $modified_res = request( $t->get( url => '/not_modified' ) );

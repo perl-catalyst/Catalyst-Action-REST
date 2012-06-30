@@ -152,8 +152,12 @@ sub _dispatch_rest_method {
 sub get_allowed_methods {
     my ( $self, $controller, $c, $name ) = @_;
     my $class = ref($controller) ? ref($controller) : $controller;
-    my $methods = Class::Inspector->methods($class);
-    return map { /^$name\_(.+)$/ } @$methods;
+    my $methods = {
+      map { /^$name\_(.+)$/ ? ( $1 => 1 ) : () }
+        @{ Class::Inspector->methods($class) }
+    };
+    $methods->{'HEAD'} = 1 if $methods->{'GET'};
+    return keys %$methods;
 };
 
 sub _return_options {
