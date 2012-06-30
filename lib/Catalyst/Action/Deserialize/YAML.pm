@@ -7,7 +7,7 @@ use Scalar::Util qw(openhandle);
 extends 'Catalyst::Action';
 use YAML::Syck;
 
-our $VERSION = '1.03';
+our $VERSION = '1.04';
 $VERSION = eval $VERSION;
 
 sub execute {

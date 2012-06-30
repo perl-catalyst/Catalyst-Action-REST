@@ -1,6 +1,7 @@
+Sat  30 Jun 2012 10:25:00 BST - Release 1.04
  Bugfix to _dispatch_rest_method
 
-Wed  27 Jun 28 2012 00:40:00 BST - Release 1.03
+Wed  28 Jun 2012 00:40:00 BST - Release 1.03
  Expose _get_allowed_methods to the API (wreis)
 
  Fix default OPTIONS handler: As the ->body is defined, then serialization
