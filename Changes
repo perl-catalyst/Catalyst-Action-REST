@@ -1,3 +1,7 @@
+ Bugfix get_allowed_methods list:
+  * include HEAD
+  * remove "not_implemented"
+
 Sat  30 Jun 2012 10:25:00 BST - Release 1.04
  Bugfix to _dispatch_rest_method
 
