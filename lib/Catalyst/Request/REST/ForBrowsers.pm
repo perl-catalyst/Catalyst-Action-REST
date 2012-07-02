@@ -3,7 +3,7 @@ use Moose;
 
 use namespace::autoclean;
 
-our $VERSION = '1.04';
+our $VERSION = '1.05';
 $VERSION = eval $VERSION;
 
 extends 'Catalyst::Request::REST';
