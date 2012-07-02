@@ -83,4 +83,11 @@ sub opts_GET {
     $self->status_ok( $c, entity => { opts => 'worked' } );
 }
 
+sub opts_not_implemented {
+    my ( $self, $c ) = @_;
+    $c->res->status(405);
+    $c->res->header('Allow' => [qw(GET HEAD)]);
+    $c->res->body('Not implemented');
+}
+
 1;

@@ -157,6 +157,7 @@ sub get_allowed_methods {
         @{ Class::Inspector->methods($class) }
     };
     $methods->{'HEAD'} = 1 if $methods->{'GET'};
+    delete $methods->{'not_implemented'};
     return keys %$methods;
 };
 
