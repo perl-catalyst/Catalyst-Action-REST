@@ -158,7 +158,7 @@ sub get_allowed_methods {
     };
     $methods->{'HEAD'} = 1 if $methods->{'GET'};
     delete $methods->{'not_implemented'};
-    return keys %$methods;
+    return sort keys %$methods;
 };
 
 sub _return_options {
