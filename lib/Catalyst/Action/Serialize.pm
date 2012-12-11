@@ -7,7 +7,7 @@ extends 'Catalyst::Action::SerializeBase';
 use Module::Pluggable::Object;
 use MRO::Compat;
 
-our $VERSION = '1.05';
+our $VERSION = '1.06';
 $VERSION = eval $VERSION;
 
 has _encoders => (
