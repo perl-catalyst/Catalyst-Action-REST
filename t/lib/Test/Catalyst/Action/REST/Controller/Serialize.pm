@@ -48,4 +48,10 @@ sub empty_not_serialized_blank :Chained('empty') Args(0) ActionClass('Serialize'
     $c->res->body('');
 }
 
+# Explicitly set a view
+sub explicit_view :Chained('empty') Args(0) ActionClass('Serialize') {
+    my ($self, $c) = @_;
+    $c->stash->{current_view} = '';
+}
+
 1;

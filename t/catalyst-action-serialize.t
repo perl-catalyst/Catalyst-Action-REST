@@ -45,4 +45,8 @@ $res = request($t->get(url => '/serialize/empty_not_serialized_blank'));
 is $res->content, '', "body explicitly set to '' results in '' content";
 ok !$res->header('Content-Length'), "body explicitly set to '' - no automatic content-length";
 
+$res = request($t->get(url => '/serialize/explicit_view'));
+is $res->content, '', "view explicitly set to '' results in '' content";
+ok !$res->header('Content-Length'), "view explicitly set to '' - no automatic content-length";
+
 done_testing;
