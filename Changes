@@ -1,3 +1,10 @@
+ Don't serialize if a view is explicitly set.
+
+   If the controller sets the view in $c->stash->{current_view} or
+   $c->stash->{current_view_instance}, then it is explicitly requesting a
+   certain kind of serialization and C::A::Serialize shouldn't override
+   that.
+
  Remove Storable and FreezeThaw from the list
  of serialization methods offered by default, and
  from the docs - they're totally unsafe :/
