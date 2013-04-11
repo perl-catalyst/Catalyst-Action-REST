@@ -6,7 +6,7 @@ use namespace::autoclean;
 extends 'Catalyst::Action';
 use YAML::Syck;
 
-our $VERSION = '1.06';
+our $VERSION = '1.07';
 $VERSION = eval $VERSION;
 
 sub execute {
