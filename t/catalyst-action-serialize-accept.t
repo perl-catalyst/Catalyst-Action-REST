@@ -73,21 +73,6 @@ SKIP: {
     is( $res->header('Content-type'), 'text/x-yaml', '... with expected content-type')
 }
 
-# Make sure that when using content_type_stash_key, a valid value in the stash gets priority.
-# This also tests that application-level config is properly passed to
-# individual controllers; see t/lib/Test/Catalyst/Action/REST.pm
-{
-    my $req = $t->get(url =>
-        '/serialize/test_second?serialize_content_type=text/x-data-dumper'
-    );
-    $req->remove_header('Content-Type');
-    $req->header('Accept', '*/*');
-    my $res = request($req);
-    ok( $res->is_success, 'GET the serialized request succeeded' );
-    is( $res->content, "{'lou' => 'is my cat'}", "Request returned proper data");
-    is( $res->header('Content-type'), 'text/x-data-dumper', '... with expected content-type')
-}
-
 # Make sure that the default content type you specify really gets used.
 {
     my $req = $t->get(url => '/override/test');

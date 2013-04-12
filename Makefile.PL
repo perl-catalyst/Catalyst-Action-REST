@@ -17,7 +17,6 @@ requires('YAML::Syck'                => '0.67');
 requires('HTML::Parser'              => undef);
 requires('Module::Pluggable::Object' => undef);
 requires('LWP::UserAgent'            => '2.033');
-requires('Data::Serializer'          => '0.36');
 requires('Class::Inspector'          => '1.13');
 requires('URI::Find'                 => undef);
 requires('MRO::Compat'               => '0.10');

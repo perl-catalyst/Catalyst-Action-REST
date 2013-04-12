@@ -1,3 +1,22 @@
+ Factor Data::Serializable into it's own dist to stop breakages.
+
+   If you use any of:
+
+   * Data::Dumper
+   * Data::Denter
+   * Data::Taxi
+   * Config::General
+   * PHP::Serialization
+
+   You'll need to install Catalyst-Action-Serialize-Data-Serializer and add the
+   appropriate lines to your controller config.  Said lines may be:
+
+         'text/x-data-dumper' => [ 'Data::Serializer', 'Data::Dumper' ],
+         'text/x-data-denter' => [ 'Data::Serializer', 'Data::Denter' ],
+         'text/x-data-taxi'   => [ 'Data::Serializer', 'Data::Taxi'   ],
+         'text/x-config-general'    => [ 'Data::Serializer', 'Config::General' ],
+         'text/x-php-serialization' => [ 'Data::Serializer', 'PHP::Serialization' ],
+
 Thu 11 Apr 2012 20:20:00 BST - Release 1.07
  Don't serialize if a view is explicitly set.
 

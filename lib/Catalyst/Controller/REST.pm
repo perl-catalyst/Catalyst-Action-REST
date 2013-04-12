@@ -296,11 +296,6 @@ __PACKAGE__->config(
         'text/x-yaml'        => 'YAML',
         'application/json'   => 'JSON',
         'text/x-json'        => 'JSON',
-        'text/x-data-dumper' => [ 'Data::Serializer', 'Data::Dumper' ],
-        'text/x-data-denter' => [ 'Data::Serializer', 'Data::Denter' ],
-        'text/x-data-taxi'   => [ 'Data::Serializer', 'Data::Taxi'   ],
-        'text/x-config-general'    => [ 'Data::Serializer', 'Config::General' ],
-        'text/x-php-serialization' => [ 'Data::Serializer', 'PHP::Serialization' ],
     },
 );
 
