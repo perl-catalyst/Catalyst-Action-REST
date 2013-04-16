@@ -8,7 +8,7 @@ use Module::Pluggable::Object;
 use MRO::Compat;
 use Moose::Util::TypeConstraints;
 
-our $VERSION = '1.07';
+our $VERSION = '1.08';
 $VERSION = eval $VERSION;
 
 has plugins => ( is => 'rw' );
