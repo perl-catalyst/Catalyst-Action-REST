@@ -9,7 +9,7 @@ BEGIN {
 extends 'Catalyst::Action::Serialize::JSON';
 use JSON::XS ();
 
-our $VERSION = '1.08';
+our $VERSION = '1.09';
 $VERSION = eval $VERSION;
 
 __PACKAGE__->meta->make_immutable;
