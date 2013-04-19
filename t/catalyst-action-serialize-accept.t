@@ -1,7 +1,6 @@
 use strict;
 use warnings;
 use Test::More;
-use Data::Serializer;
 use FindBin;
 
 use lib ("$FindBin::Bin/lib", "$FindBin::Bin/../lib", "$FindBin::Bin/broken");

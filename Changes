@@ -1,3 +1,5 @@
+ Don't load Data::Serializer unnecessarily in tests
+
 Tue 16 Apr 2013 08:33:00 BST - Release 1.08
  Factor Data::Serializable into it's own dist to stop breakages.
 
