@@ -8,7 +8,7 @@ use Module::Pluggable::Object;
 use Catalyst::Request::REST;
 use Catalyst::Utils ();
 
-our $VERSION = '1.09';
+our $VERSION = '1.10';
 $VERSION = eval $VERSION;
 
 after BUILDARGS => sub {
