@@ -32,7 +32,7 @@ install:
    - echo y | perlbrew install-cpanm
 
    # XML cpan deps
-   - apt-get -yinstall libexpat-dev
+   - apt-get -y install libexpat-dev
 
    # see if we can't speed things up a bit
    - rm -rf ~/.cpanm
