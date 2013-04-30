@@ -51,7 +51,8 @@ install:
 
    # author deps -- wish there was a better way
    #- cpanm --metacpan --skip-satisfied CatalystX::LeakChecker Catalyst::Devel Catalyst::Engine::PSGI Starman MooseX::Daemonize
-   #- cpanm --metacpan --skip-satisfied Test::Without::Module Test::NoTabs Test::Pod Test::Pod::Coverage Test::Spelling Pod::Coverage::TrustPod
+   - cpanm --metacpan --skip-satisfied Module::Info File::Find::Rule Test::Pod Test::Pod::Coverage Test::Spelling Pod::Coverage::TrustPod
+   - cpanm --metacpan --skip-satisfied JSON JSON::XS Data::Taxi Config::General PHP::Serialization FreezeThaw XML::Simple
    - cpanm --metacpan --skip-satisfied --installdeps .  || cat /home/travis/.cpanm/build.log
 
    # we want these for our tests, but not for any others
