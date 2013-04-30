@@ -13,10 +13,10 @@ matrix:
    allow_failures:
       - perl: "5.17.10"
 
-notifications:
-  irc:
-    channels:
-      - "irc.perl.org#catalyst-dev"
+#notifications:
+  #irc:
+    #channels:
+      #- "irc.perl.org#catalyst-dev"
 
 before_install:
     - test "$BREWVER" = "" || perlbrew install -j4 $BREWVER
