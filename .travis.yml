@@ -32,7 +32,7 @@ install:
    - echo y | perlbrew install-cpanm
 
    # XML cpan deps
-   - apt-get -y install libexpat-dev
+   - apt-get -yinstall libexpat-dev
 
    # see if we can't speed things up a bit
    - rm -rf ~/.cpanm
@@ -54,9 +54,9 @@ install:
 
    # author deps -- wish there was a better way
    #- cpanm --metacpan --skip-satisfied CatalystX::LeakChecker Catalyst::Devel Catalyst::Engine::PSGI Starman MooseX::Daemonize
-   - cpanm --metacpan --skip-satisfied Module::Info File::Find::Rule Test::Pod Test::Pod::Coverage Test::Spelling Pod::Coverage::TrustPod
-   - cpanm --metacpan --skip-satisfied JSON JSON::XS Data::Taxi Config::General PHP::Serialization FreezeThaw XML::Simple
-   - cpanm --metacpan --skip-satisfied --installdeps .  || cat /home/travis/.cpanm/build.log
+   - cpanm --metacpan --skip-satisfied Module::Info File::Find::Rule Test::Pod Test::Pod::Coverage Test::Spelling Pod::Coverage::TrustPod || cat /home/travis/.cpanm/build.log
+   - cpanm --metacpan --skip-satisfied JSON JSON::XS Data::Taxi Config::General PHP::Serialization FreezeThaw XML::Simple || cat /home/travis/.cpanm/build.log
+   - cpanm --metacpan --skip-satisfied --installdeps . || cat /home/travis/.cpanm/build.log
 
    # we want these for our tests, but not for any others
    - export AUTHOR_TESTING=1
