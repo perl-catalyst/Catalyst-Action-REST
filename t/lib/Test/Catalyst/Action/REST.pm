@@ -16,6 +16,8 @@ __PACKAGE__->config(
         content_type_stash_key => 'serialize_content_type',
     },
 );
+__PACKAGE__->request_class($ENV{CAR_TEST_REQUEST_CLASS})
+    if $ENV{CAR_TEST_REQUEST_CLASS};
 __PACKAGE__->setup;
 __PACKAGE__->log( Test::Catalyst::Log->new )
     unless __PACKAGE__->debug;

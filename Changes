@@ -1,3 +1,5 @@
+ Fix infinite recursion in tests under Catalyst 5.90040
+
 Mon 22 Apr 2013 14:36:53 BST - Release 1.10
  Use YAML rather than JSON in basic tests
 
