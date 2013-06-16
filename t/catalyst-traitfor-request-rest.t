@@ -12,13 +12,15 @@ use Catalyst::Log;
 
 my $anon_class = Moose::Meta::Class->create_anon_class(
     superclasses => ['Catalyst::Request'],
-    roles        => ['Catalyst::TraitFor::Request::REST::ForBrowsers'],
+    roles        => ['Catalyst::TraitFor::Request::REST'],
     cache        => 1,
 )->name;
 
+# We run the tests twice to make sure Catalyst::Request::REST is
+# 100% back-compatible.
 for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
     {
-        my $request = Catalyst::Request::REST->new(
+        my $request = $class->new(
             _log => Catalyst::Log->new
         );
         $request->{_context} = 'MockContext';
@@ -37,7 +39,7 @@ for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
     }
 
     {
-        my $request = Catalyst::Request::REST->new( _log => Catalyst::Log->new );
+        my $request = $class->new( _log => Catalyst::Log->new );
         $request->{_context} = 'MockContext';
         $request->headers( HTTP::Headers->new );
         $request->parameters( { 'content-type' => 'text/fudge' } );
@@ -55,7 +57,7 @@ for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
     }
 
     {
-        my $request = Catalyst::Request::REST->new( _log => Catalyst::Log->new );
+        my $request = $class->new( _log => Catalyst::Log->new );
         $request->{_context} = 'MockContext';
         $request->headers( HTTP::Headers->new );
         $request->parameters( { 'content-type' => 'text/fudge' } );
@@ -66,7 +68,7 @@ for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
     }
 
     {
-        my $request = Catalyst::Request::REST->new( _log => Catalyst::Log->new );
+        my $request = $class->new( _log => Catalyst::Log->new );
         $request->{_context} = 'MockContext';
         $request->headers( HTTP::Headers->new );
         $request->parameters( {} );
@@ -94,7 +96,7 @@ for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
     }
 
     {
-        my $request = Catalyst::Request::REST->new( _log => Catalyst::Log->new );
+        my $request = $class->new( _log => Catalyst::Log->new );
         $request->{_context} = 'MockContext';
         $request->headers( HTTP::Headers->new );
         $request->parameters( {} );
@@ -119,7 +121,7 @@ for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
     }
 
     {
-        my $request = Catalyst::Request::REST->new( _log => Catalyst::Log->new );
+        my $request = $class->new( _log => Catalyst::Log->new );
         $request->{_context} = 'MockContext';
         $request->headers( HTTP::Headers->new );
         $request->parameters( {} );
@@ -144,7 +146,7 @@ for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
     }
 
     {
-        my $request = Catalyst::Request::REST->new( _log => Catalyst::Log->new );
+        my $request = $class->new( _log => Catalyst::Log->new );
         $request->{_context} = 'MockContext';
         $request->headers( HTTP::Headers->new );
         $request->parameters( {} );
@@ -162,7 +164,7 @@ for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
     }
 
     {
-        my $request = Catalyst::Request::REST->new( _log => Catalyst::Log->new );
+        my $request = $class->new( _log => Catalyst::Log->new );
         $request->{_context} = 'MockContext';
         $request->headers( HTTP::Headers->new );
         $request->parameters( {} );
