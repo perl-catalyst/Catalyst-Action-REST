@@ -1,3 +1,4 @@
+Sun 16 Jun 2013 15:23:03 BST - Release 1.11
  Fix infinite recursion in tests under Catalyst 5.90040
 
 Mon 22 Apr 2013 14:36:53 BST - Release 1.10
