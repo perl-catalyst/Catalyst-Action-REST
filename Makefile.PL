@@ -13,8 +13,6 @@ requires 'Moose' => '1.03';
 requires 'namespace::autoclean';
 requires('Catalyst::Runtime'         => '5.80030');
 requires('Params::Validate'          => '0.76');
-requires('YAML::Syck'                => '0.67');
-requires('HTML::Parser'              => undef);
 requires('Module::Pluggable::Object' => undef);
 requires('LWP::UserAgent'            => '2.033');
 requires('Class::Inspector'          => '1.13');
@@ -37,6 +35,16 @@ feature 'JSON (application/json) support',
 
 author_requires 'JSON'     => '2.12';
 author_requires 'JSON::XS' => '2.2222';
+
+feature 'YAML:Syck (for YAML)',
+    -default => 0,
+    'YAML::Syck' => '0.67';
+author_requires 'YAML::Syck';
+
+feature 'HTML::Parser (for HTML input)',
+    -default => 0,
+    'HTML::Parser' => undef;
+author_requires 'HTML::Parser';
 
 feature 'Data::Taxi (text/x-data-taxi) support (deprecated)',
     -default => 0,

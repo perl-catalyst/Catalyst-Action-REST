@@ -291,9 +291,7 @@ __PACKAGE__->mk_accessors(qw(serialize));
 __PACKAGE__->config(
     'stash_key' => 'rest',
     'map'       => {
-        'text/html'          => 'YAML::HTML',
         'text/xml'           => 'XML::Simple',
-        'text/x-yaml'        => 'YAML',
         'application/json'   => 'JSON',
         'text/x-json'        => 'JSON',
     },

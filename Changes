@@ -1,3 +1,34 @@
+Tue 03 Sep 2013 13:00:00 EST - Release 1.12
+
+ WARNING BACK COMPAT BREAKAGE FOLLOWS
+
+ Removed The YAML and HTML parser from the distro.  You 
+ should install these if you actually use them.  They are listed as
+ optional dependencies going forward.
+
+ This is possibly a breaking change, but necessary for security and
+ considered acceptable since those formats have not generally
+ become preferred for web services.
+
+ In addition, the default de/serialization mappings for HTML and YAML
+ have been removed.  You can add that back by adding the following to
+ you Configuration for the subclass of Catalyst::Controller::REST -
+
+    package Foo::Controller::Bar;
+
+    use Moose;
+    use namespace::autoclean;
+
+    BEGIN { extends 'Catalyst::Controller::REST' }
+    __PACKAGE__->config(
+      'map' => {
+        'text/html'          => 'YAML::HTML',
+        'text/x-yaml'        => 'YAML',
+      },
+    );
+
+ You should do this if you are using these de/serialization formats.
+
 Sun 16 Jun 2013 15:23:03 BST - Release 1.11
  Fix infinite recursion in tests under Catalyst 5.90040
 
