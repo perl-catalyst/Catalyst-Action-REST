@@ -7,7 +7,7 @@ use namespace::autoclean;
 extends 'Catalyst::Request';
 with 'Catalyst::TraitFor::Request::REST';
 
-our $VERSION = '1.11';
+our $VERSION = '1.12';
 $VERSION = eval $VERSION;
 
 # Please don't take this as a recommended way to do things.

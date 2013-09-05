@@ -5,6 +5,12 @@ use namespace::autoclean;
 
 BEGIN { extends 'Catalyst::Controller::REST' }
 
+__PACKAGE__->config(
+  'map' => {
+    'text/html'          => 'YAML::HTML',
+    'text/x-yaml'        => 'YAML',
+});
+
 sub test : Local {
     my ( $self, $c ) = @_;
     $self->status_ok( $c,
