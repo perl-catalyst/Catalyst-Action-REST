@@ -459,6 +459,24 @@ sub status_found {
     return 1;
 }
 
+=item status_not_modified
+
+Returns a "304 NOT MODIFIED" response.
+
+=cut
+
+sub status_NOT_MODIFIED {
+    my $self = shift;
+    my $c    = shift;
+
+    my %p    = Params::Validate::validate( @_, { message => { type => SCALAR }, }, );
+
+    $c->response->status(304);
+    $c->log->debug( "Status Not Modified: " . $p{'message'} ) if $c->debug;
+    $self->_set_entity( $c, { error => $p{'message'} } );
+    return 1;
+ }
+
 =item status_bad_request
 
 Returns a "400 BAD REQUEST" response.  Takes a "message" argument
