@@ -465,7 +465,7 @@ Returns a "304 NOT MODIFIED" response.
 
 =cut
 
-sub status_NOT_MODIFIED {
+sub status_not_modified {
     my $self = shift;
     my $c    = shift;
 
