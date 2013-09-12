@@ -44,6 +44,14 @@ sub test_status_found : Local {
     );
 }
 
+sub test_status_not_modified : Local {
+    my ( $self, $c ) = @_;
+    $self->status_not_modified(
+        $c,
+        message => "Not modified",
+    );
+}
+
 sub test_status_accepted : Local {
     my ( $self, $c ) = @_;
     $self->status_accepted(

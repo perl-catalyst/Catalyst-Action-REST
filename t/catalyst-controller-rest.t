@@ -40,6 +40,10 @@ is_deeply Load( $res->content ),
     "...  status found message";
 is $res->header('Location'), '/rest', "...location of what was found";
 
+ok $res = request( $t->get( url => '/rest/test_status_not_modified' ) );
+is $res->code, 304, '... status not modified';
+is $res->content, '', '... no content';
+
 ok $res = request( $t->get( url => '/rest/test_status_bad_request' ) );
 is $res->code, 400, '... status bad request';
 is_deeply Load( $res->content ),

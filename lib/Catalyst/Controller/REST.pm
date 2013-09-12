@@ -469,11 +469,9 @@ sub status_not_modified {
     my $self = shift;
     my $c    = shift;
 
-    my %p    = Params::Validate::validate( @_, { message => { type => SCALAR }, }, );
-
     $c->response->status(304);
-    $c->log->debug( "Status Not Modified: " . $p{'message'} ) if $c->debug;
-    $self->_set_entity( $c, { error => $p{'message'} } );
+    $c->log->debug( "Status Not Modified" ) if $c->debug;
+    $self->_set_entity( $c, {  } );
     return 1;
  }
 
