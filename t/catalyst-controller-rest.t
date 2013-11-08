@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 use Test::More;
+use Test::Requires qw(YAML::Syck);
 use YAML::Syck;
 use FindBin;
 

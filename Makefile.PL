@@ -21,6 +21,7 @@ requires('MRO::Compat'               => '0.10');
 
 requires 'namespace::autoclean';
 test_requires 'Test::More' => '0.88';
+test_requires 'Test::Requires';
 
 author_requires 'Test::Pod' => 1.14;
 author_requires 'Module::Info';

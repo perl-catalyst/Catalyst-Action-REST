@@ -2,6 +2,7 @@ use strict;
 use warnings;
 
 use Test::More 0.88;
+use Test::Requires qw(YAML::Syck);
 use FindBin;
 
 use lib ("$FindBin::Bin/lib", "$FindBin::Bin/../lib", "$FindBin::Bin/broken");
