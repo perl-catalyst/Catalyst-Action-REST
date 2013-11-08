@@ -1,4 +1,6 @@
 
+Fri 08 Nov 2013 09:40:00 EST - Release 1.13
+
  * Fix tests to skip if YAML::Syck is not installed (Arthur Axel fREW Schmidt)
 
 Tue 03 Sep 2013 13:00:00 EST - Release 1.12
