@@ -8,8 +8,7 @@ use Module::Pluggable::Object;
 use Catalyst::Request::REST;
 use Catalyst::Utils ();
 
-our $VERSION = '1.13';
-$VERSION = eval $VERSION;
+# VERSION
 
 after BUILDARGS => sub {
     my $class  = shift;
