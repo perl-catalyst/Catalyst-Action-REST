@@ -4,7 +4,7 @@ use Moose;
 use namespace::autoclean;
 
 extends 'Catalyst::Action';
-use JSON ();
+use JSON::MaybeXS qw(JSON);
 
 # VERSION
 

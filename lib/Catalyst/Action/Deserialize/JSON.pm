@@ -5,7 +5,7 @@ use namespace::autoclean;
 use Scalar::Util qw(openhandle);
 
 extends 'Catalyst::Action';
-use JSON;
+use JSON::MaybeXS qw(JSON);
 
 # VERSION
 

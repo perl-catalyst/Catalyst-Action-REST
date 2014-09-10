@@ -2,14 +2,11 @@ use strict;
 use warnings;
 use Test::More;
 use FindBin;
+use Test::Requires qw(JSON::MaybeXS);
 
 use lib ("$FindBin::Bin/lib", "$FindBin::Bin/../lib");
 use Test::Rest;
 use utf8;
-
-eval 'use JSON 2.12';
-plan skip_all => 'Install JSON 2.12 or later to run this test' if ($@);
-
 
 use_ok 'Catalyst::Test', 'Test::Serialize';
 
