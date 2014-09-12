@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+1.16      2014-09-12 13:21:43-05:00 America/Chicago
  * Switch from JSON to JSON::MaybeXS to get a better choice of JSON parsers.
 
 1.15      2014-05-07 09:02:44-05:00 CST6CDT
