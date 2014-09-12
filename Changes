@@ -2,6 +2,11 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+1.15      2014-05-07 09:02:44-05:00 CST6CDT
+
+ * Added new status_see_other method for returning a 303 redirect.
+ * Added new status_moved method for returning a 301 redirect. (Matthew Keller)
+
 1.14      2013-12-27 15:32:19 America/Chicago
 
  * Stop prompting for features at install time

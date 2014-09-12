@@ -41,6 +41,11 @@ is_deeply Load( $res->content ),
     "...  status found message";
 is $res->header('Location'), '/rest', "...location of what was found";
 
+ok $res = request( $t->get( url => '/rest/test_status_see_other' ) );
+is $res->code, 303, "... status see other";
+is $res->header('Location'), '/rest', "...location to redirect to";
+
+
 ok $res = request( $t->get( url => '/rest/test_status_bad_request' ) );
 is $res->code, 400, '... status bad request';
 is_deeply Load( $res->content ),

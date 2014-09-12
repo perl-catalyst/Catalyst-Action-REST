@@ -82,6 +82,15 @@ sub test_status_gone : Local {
         message => "Document have been deleted by foo", );
 }
 
+sub test_status_see_other : Local {
+    my ( $self, $c ) = @_;
+    $self->status_see_other(
+        $c,
+        location => '/rest',
+        entity   => { somethin => 'happenin' }
+    );
+}
+
 sub opts : Local ActionClass('REST') {}
 
 sub opts_GET {

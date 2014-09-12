@@ -561,6 +561,79 @@ sub status_gone {
     return 1;
 }
 
+=item status_see_other
+
+Returns a "303 See Other" response.  Takes an optional "entity" to serialize,
+and a "location" where the client should redirect to.
+
+Example:
+
+  $self->status_see_other(
+    $c,
+    location => $some_other_url,
+    entity => {
+        radiohead => "Is a good band!",
+    }
+  );
+
+=cut
+
+sub status_see_other {
+    my $self = shift;
+    my $c    = shift;
+    my %p    = Params::Validate::validate(
+        @_,
+        {
+            location => { type     => SCALAR | OBJECT },
+            entity   => { optional => 1 },
+        },
+    );
+
+    $c->response->status(303);
+    $c->response->header( 'Location' => $p{location} );
+    $self->_set_entity( $c, $p{'entity'} );
+    return 1;
+}
+
+=item status_moved
+
+Returns a "301 MOVED" response.  Takes an "entity" to serialize, and a
+"location" where the created object can be found.
+
+Example:
+
+ $self->status_moved(
+   $c,
+   location => '/somewhere/else',
+   entity => {
+     radiohead => "Is a good band!",
+   },
+ );
+
+=cut
+
+sub status_moved {
+   my $self = shift;
+   my $c    = shift;
+   my %p    = Params::Validate::validate(
+      @_,
+      {
+         location => { type     => SCALAR | OBJECT },
+         entity   => { optional => 1 },
+      },
+   );
+
+   my $location = ref $p{location}
+      ? $p{location}->as_string
+      : $p{location}
+   ;
+
+   $c->response->status(301);
+   $c->response->header( Location => $location );
+   $self->_set_entity($c, $p{entity});
+   return 1;
+}
+
 sub _set_entity {
     my $self   = shift;
     my $c      = shift;
