@@ -5,8 +5,6 @@ use namespace::autoclean;
 
 extends 'Catalyst::Action';
 
-# VERSION
-
 sub execute {
     return 1;
 }

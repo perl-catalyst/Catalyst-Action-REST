@@ -7,8 +7,6 @@ extends 'Catalyst::Action::SerializeBase';
 use Module::Pluggable::Object;
 use MRO::Compat;
 
-# VERSION
-
 has _encoders => (
    is => 'ro',
    isa => 'HashRef',

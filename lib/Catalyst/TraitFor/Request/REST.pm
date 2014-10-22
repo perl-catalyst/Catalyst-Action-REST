@@ -1,9 +1,8 @@
 package Catalyst::TraitFor::Request::REST;
+
 use Moose::Role;
 use HTTP::Headers::Util qw(split_header_words);
 use namespace::autoclean;
-
-# VERSION
 
 has [qw/ data accept_only /] => ( is => 'rw' );
 

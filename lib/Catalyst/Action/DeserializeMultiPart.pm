@@ -6,8 +6,6 @@ use namespace::autoclean;
 extends 'Catalyst::Action::Deserialize';
 use HTTP::Body;
 
-# VERSION
-
 our $NO_HTTP_BODY_TYPES_INITIALIZATION;
 $HTTP::Body::TYPES->{'multipart/mixed'} = 'HTTP::Body::MultiPart' unless $NO_HTTP_BODY_TYPES_INITIALIZATION;
 

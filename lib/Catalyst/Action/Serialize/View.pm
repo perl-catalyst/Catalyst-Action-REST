@@ -1,10 +1,9 @@
 package Catalyst::Action::Serialize::View;
+
 use Moose;
 use namespace::autoclean;
 
 extends 'Catalyst::Action';
-
-# VERSION
 
 sub execute {
     my $self = shift;

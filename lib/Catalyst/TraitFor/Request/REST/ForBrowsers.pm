@@ -1,10 +1,9 @@
 package Catalyst::TraitFor::Request::REST::ForBrowsers;
+
 use Moose::Role;
 use namespace::autoclean;
 
 with 'Catalyst::TraitFor::Request::REST';
-
-# VERSION
 
 has _determined_real_method => (
     is  => 'rw',

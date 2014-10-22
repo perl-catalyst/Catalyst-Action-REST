@@ -8,8 +8,6 @@ use Module::Pluggable::Object;
 use MRO::Compat;
 use Moose::Util::TypeConstraints;
 
-# VERSION
-
 has plugins => ( is => 'rw' );
 
 has deserialize_http_methods => (

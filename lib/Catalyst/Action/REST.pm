@@ -10,8 +10,6 @@ use Catalyst::Controller::REST;
 
 BEGIN { require 5.008001; }
 
-# VERSION
-
 sub BUILDARGS {
     my $class  = shift;
     my $config = shift;

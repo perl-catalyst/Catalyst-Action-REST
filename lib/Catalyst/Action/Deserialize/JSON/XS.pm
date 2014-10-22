@@ -9,8 +9,6 @@ BEGIN {
 extends 'Catalyst::Action::Deserialize::JSON';
 use JSON::XS ();
 
-# VERSION
-
 __PACKAGE__->meta->make_immutable;
 
 1;

@@ -7,8 +7,6 @@ use Scalar::Util qw(openhandle);
 extends 'Catalyst::Action';
 use JSON::MaybeXS qw(JSON);
 
-# VERSION
-
 sub execute {
     my $self = shift;
     my ( $controller, $c, $test ) = @_;

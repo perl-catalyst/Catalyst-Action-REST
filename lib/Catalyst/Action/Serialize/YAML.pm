@@ -6,8 +6,6 @@ use namespace::autoclean;
 extends 'Catalyst::Action';
 use YAML::Syck;
 
-# VERSION
-
 sub execute {
     my $self = shift;
     my ( $controller, $c ) = @_;

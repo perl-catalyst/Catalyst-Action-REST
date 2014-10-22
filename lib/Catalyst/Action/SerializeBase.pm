@@ -8,8 +8,6 @@ use Module::Pluggable::Object;
 use Catalyst::Request::REST;
 use Catalyst::Utils ();
 
-# VERSION
-
 after BUILDARGS => sub {
     my $class  = shift;
     my $config = shift;

@@ -6,8 +6,6 @@ use namespace::autoclean;
 extends 'Catalyst::Action';
 use JSON::MaybeXS qw(JSON);
 
-# VERSION
-
 has encoder => (
    is => 'ro',
    lazy_build => 1,

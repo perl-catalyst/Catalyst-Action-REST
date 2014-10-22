@@ -3,8 +3,6 @@ package Catalyst::Action::REST::ForBrowsers;
 use Moose;
 use namespace::autoclean;
 
-# VERSION
-
 extends 'Catalyst::Action::REST';
 use Catalyst::Request::REST::ForBrowsers;
 

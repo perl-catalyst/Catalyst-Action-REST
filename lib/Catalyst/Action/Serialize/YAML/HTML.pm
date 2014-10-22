@@ -7,8 +7,6 @@ extends 'Catalyst::Action';
 use YAML::Syck;
 use URI::Find;
 
-# VERSION
-
 sub execute {
     my $self = shift;
     my ( $controller, $c ) = @_;

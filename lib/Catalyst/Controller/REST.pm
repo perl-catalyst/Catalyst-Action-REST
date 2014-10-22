@@ -1,8 +1,7 @@
 package Catalyst::Controller::REST;
+
 use Moose;
 use namespace::autoclean;
-
-# VERSION
 
 =head1 NAME
 

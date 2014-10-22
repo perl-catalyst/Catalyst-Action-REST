@@ -1,9 +1,8 @@
 package Catalyst::Request::REST::ForBrowsers;
+
 use Moose;
 
 use namespace::autoclean;
-
-# VERSION
 
 extends 'Catalyst::Request::REST';
 with 'Catalyst::TraitFor::Request::REST::ForBrowsers';
