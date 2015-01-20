@@ -251,9 +251,11 @@ Colin Newell <colin@opusvl.com>
 
 Wallace Reis E<lt>wreis@cpan.orgE<gt>
 
+André Walker (andrewalker) <andre@cpan.org>
+
 =head1 COPYRIGHT
 
-Copyright (c) 2006-2012 the above named AUTHOR and CONTRIBUTORS
+Copyright (c) 2006-2015 the above named AUTHOR and CONTRIBUTORS
 
 =head1 LICENSE
 
