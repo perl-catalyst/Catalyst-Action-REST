@@ -1,5 +1,6 @@
 package Catalyst::Action::REST;
 
+use utf8;
 use Moose;
 use namespace::autoclean;
 
@@ -16,6 +17,8 @@ sub BUILDARGS {
     Catalyst::Request::REST->_insert_self_into( $config->{class} );
     return $class->SUPER::BUILDARGS($config, @_);
 }
+
+=encoding utf-8
 
 =head1 NAME
 
