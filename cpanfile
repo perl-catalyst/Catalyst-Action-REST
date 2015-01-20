@@ -1,6 +1,6 @@
 requires 'Catalyst::Runtime' => '5.80030' ;
 requires 'Class::Inspector' => '1.13' ;
-requires 'LWP::UserAgent' => '2.033' ;
+requires 'LWP::UserAgent' => '5.00' ;
 requires 'MRO::Compat' => '0.10' ;
 requires 'Module::Pluggable::Object' => undef ;
 requires 'Moose' => '1.03';
