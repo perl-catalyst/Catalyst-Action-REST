@@ -31,7 +31,7 @@ my $output_YAML = Catalyst::Action::Serialize::YAML->serialize({lou => 'is my ca
              );
         ok( $res->is_success, 'GET the serialized request succeeded' );
         is( $res->content, $output_YAML, "Request returned proper data");
-        is( $res->header('Content-type'), 'text/x-yaml', '... with expected content-type')
+        is( $res->content_type, 'text/x-yaml', '... with expected content-type')
 
     };
 }
@@ -47,7 +47,7 @@ SKIP: {
     ok( $res->is_success, 'GET the serialized request succeeded' );
     my $ret = $json->decode($res->content);
     is( $ret->{lou}, 'is my cat', "Request returned proper data");
-    is( $res->header('Content-type'), 'application/json', 'Accept header used if content-type mapping not found')
+    is( $res->content_type, 'application/json', 'Accept header used if content-type mapping not found')
 };
 
 # Make sure we don't get a bogus content-type when using the default
@@ -59,7 +59,7 @@ SKIP: {
     my $res = request($req);
     ok( $res->is_success, 'GET the serialized request succeeded' );
     is( $res->content, $output_YAML, "Request returned proper data");
-    is( $res->header('Content-type'), 'text/x-yaml', '... with expected content-type')
+    is( $res->content_type, 'text/x-yaml', '... with expected content-type')
 }
 
 # Make sure that when using content_type_stash_key, an invalid value in the stash gets ignored
@@ -70,7 +70,7 @@ SKIP: {
     my $res = request($req);
     ok( $res->is_success, 'GET the serialized request succeeded' );
     is( $res->content, $output_YAML, "Request returned proper data");
-    is( $res->header('Content-type'), 'text/x-yaml', '... with expected content-type')
+    is( $res->content_type, 'text/x-yaml', '... with expected content-type')
 }
 
 # Make sure that the default content type you specify really gets used.
