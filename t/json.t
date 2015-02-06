@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use Test::More;
 use FindBin;
-use Test::Requires qw(JSON::MaybeXS);
+use JSON::MaybeXS;
 
 use lib ("$FindBin::Bin/lib", "$FindBin::Bin/../lib");
 use Test::Rest;

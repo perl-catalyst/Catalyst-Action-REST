@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+ - Hard dep on JSON::MaybeXS (Fixes RT#101854, thanks Emmanuel Seyman for the
+   report and Karen Etheridge for help tracking down the cause!)
+
 1.18      2015-01-20 12:20:46-06:00 America/Chicago
  - Fix tests on travisci so that Catalyst proper can run on travisci
    (Thanks André Walker!)

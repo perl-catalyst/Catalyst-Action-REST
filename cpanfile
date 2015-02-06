@@ -7,6 +7,7 @@ requires 'Moose' => '1.03';
 requires 'Params::Validate' => '0.76' ;
 requires 'URI::Find' => undef ;
 requires 'namespace::autoclean';
+requires 'JSON::MaybeXS';
 
 on test => sub {
    requires 'Test::More' => '0.88';
@@ -17,7 +18,6 @@ suggests 'Config::General';
 suggests 'Data::Taxi';
 suggests 'FreezeThaw';
 suggests 'HTML::Parser';
-suggests 'JSON::MaybeXS';
 suggests 'Cpanel::JSON::XS';
 suggests 'PHP::Serialization';
 suggests 'XML::Simple';
