@@ -2,6 +2,8 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+ - Make LWP a test dep instead of a hard dep (Fixes GH#3, thanks Alexander
+   Hartmaier for the report!)
  - Hard dep on JSON::MaybeXS (Fixes RT#101854, thanks Emmanuel Seyman for the
    report and Karen Etheridge for help tracking down the cause!)
 
