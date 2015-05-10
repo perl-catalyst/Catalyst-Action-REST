@@ -152,7 +152,7 @@ with the rest of Catalyst.
 
 For building custom error responses when serialization fails, you can create
 an ActionRole (and use L<Catalyst::Controller::ActionRole> to apply it to the
-C<end> action) which overrides C<unsupported_media_type> and/or C<_serialize_bad_request>
+C<end> action) which overrides C<unsupported_media_type> and/or C<serialize_bad_request>
 methods.
 
 =head1 SEE ALSO
