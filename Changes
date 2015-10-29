@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+ - Documentation fixes.
+ - Don't clobber some response headers if they are already set.
+
 1.19      2015-02-06 09:40:02-06:00 America/Chicago
 
  - Make LWP a test dep instead of a hard dep (Fixes GH#3, thanks Alexander
