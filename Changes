@@ -2,6 +2,10 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+1.20      2015-10-29 15:00:00 EST
+ - Make Catalyst::Action::SerializeBase respect Vary headers if previously
+   set by your controller
+
 1.19      2015-02-06 09:40:02-06:00 America/Chicago
 
  - Make LWP a test dep instead of a hard dep (Fixes GH#3, thanks Alexander
