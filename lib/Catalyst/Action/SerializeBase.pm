@@ -118,10 +118,12 @@ sub _load_content_plugins {
     }
 
     if ($search_path eq "Catalyst::Action::Serialize") {
-        if ($content_type) {
-            $c->response->header( 'Vary' => 'Content-Type' );
-        } elsif ($c->request->accept_only) {
-            $c->response->header( 'Vary' => 'Accept' );
+        unless( $c->response->header( 'Vary' ) ) {
+            if ($content_type) {
+                $c->response->header( 'Vary' => 'Content-Type' );
+            } elsif ($c->request->accept_only) {
+                $c->response->header( 'Vary' => 'Accept' );
+            }
         }
         $c->response->content_type($content_type);
     }

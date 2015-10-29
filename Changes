@@ -2,8 +2,6 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
- - Fix docs citing incorrect method name: 'serialize_bad_request' (remove leading underscore)
-
 1.19      2015-02-06 09:40:02-06:00 America/Chicago
 
  - Make LWP a test dep instead of a hard dep (Fixes GH#3, thanks Alexander
