@@ -20,6 +20,12 @@ sub execute {
     my $self = shift;
     my ( $controller, $c ) = @_;
 
+    if (my $options = $controller->{json_options_encode}) {
+        foreach my $opt (keys %$options) {
+            $self->encoder->$opt( $options->{$opt} );
+        }
+    }
+
     my $stash_key = (
             $controller->{'serialize'} ?
                 $controller->{'serialize'}->{'stash_key'} :
