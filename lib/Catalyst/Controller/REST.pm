@@ -293,6 +293,7 @@ __PACKAGE__->config(
         'application/json'   => 'JSON',
         'text/x-json'        => 'JSON',
     },
+    'compliance_mode' => 0,
 );
 
 sub begin : ActionClass('Deserialize') { }
