@@ -103,10 +103,9 @@ sub _build_accepted_content_types {
 
     my %types;
 
-    # First, we use the content type in the HTTP Request.  It wins all.
-    # But only examine it if we're not in compliance mode or if we're
-    # in deserializing mode
-    $types{ $self->content_type } = 3
+    # Check for a content type in the HTTP Request, it has lower priority than
+    # the Accept header for serialization.
+    $types{ $self->content_type } = 0
         if $self->content_type && $self->content_type_allowed();
 
     # Seems backwards, but users are used to adding &content-type= to the uri to
@@ -118,7 +117,9 @@ sub _build_accepted_content_types {
     }
 
     # Third, we parse the Accept header, and see if the client
-    # takes a format we understand.
+    # takes a format we understand. This takes priority over Content-Type if
+    # provided.
+    # 
     # But only examine it if we're not in compliance mode or if we're
     # in serializing mode
     #

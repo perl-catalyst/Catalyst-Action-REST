@@ -46,10 +46,10 @@ for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
         $request->method('GET');
         $request->content_type('text/foobar');
 
-        is_deeply( $request->accepted_content_types, [ 'text/foobar', 'text/fudge' ],
+        is_deeply( $request->accepted_content_types, [ 'text/fudge', 'text/foobar' ],
                    'content-type set in request headers and type in parameters is found' );
-        is( $request->preferred_content_type, 'text/foobar',
-            'preferred content type is text/foobar' );
+        is( $request->preferred_content_type, 'text/fudge',
+            'preferred content type is text/fudge' );
         ok( ! $request->accept_only, 'accept_only is false' );
         ok( $request->accepts('text/foobar'), 'accepts text/foobar' );
         ok( $request->accepts('text/fudge'), 'accepts text/fudge' );
@@ -109,14 +109,15 @@ for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
         );
 
         is_deeply( $request->accepted_content_types,
-                   [ qw( application/json
+                   [ qw( 
                          text/xml application/xml application/xhtml+xml
                          image/png
                          text/html
                          text/plain
                          */*
+                         application/json
                        ) ],
-                   'accept header is parsed properly, and content-type header has precedence over accept' );
+                   'accept header is parsed properly, and accept header has precedence over content-type' );
         ok( ! $request->accept_only, 'accept_only is false' );
     }
 
@@ -134,14 +135,14 @@ for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
         );
 
         is_deeply( $request->accepted_content_types,
-                   [ qw( application/json
-                         text/xml application/xml application/xhtml+xml
+                   [ qw( text/xml application/xml application/xhtml+xml
                          image/png
                          text/html
                          text/plain
                          */*
+                         application/json
                        ) ],
-                   'accept header is parsed properly, and content-type header has precedence over accept' );
+                   'accept header is parsed properly, and accept header has precedence over content-type' );
         ok( ! $request->accept_only, 'accept_only is false' );
     }
 
@@ -157,8 +158,8 @@ for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
         );
 
         is_deeply( $request->accepted_content_types,
-                   [ qw( text/x-json
-                         text/plain
+                   [ qw( text/plain
+                         text/x-json
                        ) ],
                    'each type appears only once' );
     }
@@ -175,8 +176,8 @@ for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
         );
 
         is_deeply( $request->accepted_content_types,
-                   [ qw( application/json
-                         text/plain
+                   [ qw( text/plain
+                         application/json
                        ) ],
                    'each type appears only once' );
     }
