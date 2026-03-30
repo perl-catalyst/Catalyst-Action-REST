@@ -4,6 +4,8 @@ Revision history for {{$dist->name}}
   - fix expected YAML output in test to account for new YAML::Syck
 
 1.21      2017-12-05 10:05:25-05:00 America/New_York
+ - Added an optional mode for RFC 7231 compliance
+ - New option json_options_encode to set JSON options for output
 
 1.20      2015-10-29 15:28:27-05:00 America/Chicago
 
